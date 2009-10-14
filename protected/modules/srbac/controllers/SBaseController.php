@@ -1,9 +1,13 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
+/**
+ * SBaseController must be extended by all of the applications controllers
+ * if the auto srbac should be used.
+ * You can import it in your main config file as<br />
+ * 'import'=>array(<br />
+ * 'application.modules.srbac.controllers.SBaseController',<br />
+ * ),
+ */
 class SBaseController extends CController {
 
 /**
@@ -26,10 +30,7 @@ class SBaseController extends CController {
             return true;
         }
 
-        
         // Check for srbac access
-
-        
         if(!Yii::app()->user->checkAccess($access)) {
         // You may change this messages
             $error["code"] = "403";
@@ -48,7 +49,8 @@ class SBaseController extends CController {
     }
 
     /**
-     * an array holding the items that are always allowed
+     * The auth items that access is always  allowed. Configured in srbac module's
+     * configuration
      * @return <Array>
      */
     private function allowedAccess() {
