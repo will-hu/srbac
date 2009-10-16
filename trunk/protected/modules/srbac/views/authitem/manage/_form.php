@@ -72,7 +72,7 @@
     echo CHtml::ajaxSubmitButton(
     $update ? $this->module->tr->translate('srbac','Save') :
     $this->module->tr->translate('srbac','Create'),
-    $update ? array('authitem/update','id'=>$model->name) : array('authitem/create') ,
+    $update ? array('update','id'=>$model->name) : array('create') ,
     array(
     'type'=>'POST',
     'update'=>'#preview'
@@ -88,7 +88,7 @@
 <script language="javascript">
 <?php echo CHtml::ajax(array(
 'type'=>'POST',
-'url'=>array('authitem/manage'),
+'url'=>array('manage'),
 'update'=>'#list',
 )); ?>
 </script>

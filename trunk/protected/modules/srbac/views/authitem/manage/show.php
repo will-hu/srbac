@@ -2,7 +2,7 @@
 <script language="javascript">
   <?php echo CHtml::ajax(array(
   'type'=>'POST',
-  'url'=>array('authitem/manage'),
+  'url'=>array('manage'),
   'update'=>'#list',
   )); ?>
 </script>
@@ -31,7 +31,7 @@
     <?php if($delete) :?>
     <?php echo $this->module->tr->translate('srbac','Really delete')?> <?php echo $model->name; ?> ?
       <?php echo CHtml::ajaxButton($this->module->tr->translate('srbac','Yes'),
-      array('authitem/delete','id'=>$model->name),
+      array('delete','id'=>$model->name),
       array(
       'type'=>'POST',
       'update'=>'#preview'
