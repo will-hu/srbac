@@ -21,7 +21,7 @@
     <tr valign="top">
       <td><?php echo CHtml::activeDropDownList($this->module->getUserModel(),$this->module->userid,
         Chtml::listData($this->module->getUserModel()->findAll(), $this->module->userid, $this->module->username),
-        array('size'=>6,'class'=>'dropdown','ajax' => array(
+        array('size'=>$this->module->listBoxNumberOfLines,'class'=>'dropdown','ajax' => array(
         'type'=>'POST',
         'url'=>array('authitem/getRoles'),
         'update'=>'#roles',

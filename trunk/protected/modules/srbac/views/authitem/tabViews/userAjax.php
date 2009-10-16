@@ -8,7 +8,7 @@
       <?php echo CHtml::activeDropDownList($model,'name[revoke]',
       Chtml::listData(
       $data['userAssignedRoles'], 'name', 'name'),
-      array('size'=>6,'multiple'=>'multiple','class'=>'dropdown')) ?>
+      array('size'=>$this->module->listBoxNumberOfLines,'multiple'=>'multiple','class'=>'dropdown')) ?>
     </td>
     <td>
       <?php
@@ -40,7 +40,7 @@
       <?php echo CHtml::activeDropDownList($model,'name[assign]',
       Chtml::listData(
       $data['userNotAssignedRoles'], 'name', 'name'),
-      array('size'=>6,'multiple'=>'multiple','class'=>'dropdown')); ?>
+      array('size'=>$this->module->listBoxNumberOfLines,'multiple'=>'multiple','class'=>'dropdown')); ?>
     </td></tr>
 </table>
 <div class="message" id="loadMess">
