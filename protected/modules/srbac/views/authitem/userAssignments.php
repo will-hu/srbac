@@ -22,17 +22,17 @@
                       <td valign="top">
                       <?php foreach ($tasks as $j=>$opers) { ?>
                               <?php echo $opers."<br />";  ?>
-                              <? } ?>
+                              <?php } ?>
                       </td>
                     </tr>
                   </table>
                 </td>
               </tr>
             </table>
-              <? }?>
+              <?php }?>
           </td>
         </tr>
-        <? } ?>
+        <?php } ?>
       </table>
     </td>
   </tr>
