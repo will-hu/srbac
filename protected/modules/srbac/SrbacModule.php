@@ -24,6 +24,8 @@ class SrbacModule extends CWebModule {
   public $alwaysAllowed = array();
   /* @var $userActions Array Operations assigned to users by default*/
   public $userActions = array();
+  /* @var $listBoxNumberOfLines integer The number of lines in the assign tabview listboxes  */
+  public $listBoxNumberOfLines = 10;
   
 
 

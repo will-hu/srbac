@@ -19,7 +19,7 @@
     <tr valign="top">
       <td><?php echo CHtml::activeDropDownList(AuthItem::model(),'name',
         Chtml::listData(AuthItem::model()->findAll('type=2'), 'name', 'name'),
-        array('size'=>6,'class'=>'dropdown','ajax' => array(
+        array('size'=>$this->module->listBoxNumberOfLines,'class'=>'dropdown','ajax' => array(
         'type'=>'POST',
         'url'=>array('authitem/getTasks'),
         'update'=>'#tasks',
