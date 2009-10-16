@@ -16,7 +16,7 @@ class SBaseController extends CController {
  * @return <boolean> true if access is granted else false
  */
     protected function beforeAction($action) {
-        parent::beforeAction($action);
+        
         //srbac access
         $access =  ucfirst($this->id).ucfirst($this->action->id);
 
