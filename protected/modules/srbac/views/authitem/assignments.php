@@ -5,7 +5,7 @@
     Chtml::listData($this->module->getUserModel()->findAll(), $this->module->userid, $this->module->username),
     array('size'=>1,'class'=>'dropdown','ajax' => array(
     'type'=>'POST',
-    'url'=>array('authitem/showAssignments'),
+    'url'=>array('showAssignments'),
     'update'=>'#assignments',
     'beforeSend' => 'function(){
                       $("#assignments").addClass("srbacLoading");

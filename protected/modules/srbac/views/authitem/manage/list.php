@@ -116,7 +116,7 @@
            <?php echo CHtml::ajaxLink(
            CHtml::image($images['delete'],$this->module->tr->translate('srbac','Delete'), 
            array('border'=>0,'title'=>$this->module->tr->translate('srbac','Delete'))),
-           array('authitem/confirm','id'=>$model->name),
+           array('confirm','id'=>$model->name),
            array(
            'type'=>'POST',
            'update'=>'#preview',

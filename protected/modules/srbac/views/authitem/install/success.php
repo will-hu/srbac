@@ -4,6 +4,6 @@
  </div>
 <div>
     <?php echo CHtml::link($this->module->tr->translate('srbac','Srbac frontpage'),
-        array('authitem/frontpage')); ?>
+        array('frontpage')); ?>
  </div>
 
