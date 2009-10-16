@@ -22,7 +22,7 @@
           'complete' => 'function(){
                       $("#loadMessTask").removeClass("srbacLoading");
                   }',);
-      echo  CHtml::ajaxSubmitButton('<<',array('authitem/assign','assignOpers'=>1),$ajax,$data['assign']); ?>
+      echo  CHtml::ajaxSubmitButton('<<',array('assign','assignOpers'=>1),$ajax,$data['assign']); ?>
       <?php
       $ajax =
           array(
@@ -34,7 +34,7 @@
           'complete' => 'function(){
                       $("#loadMessTask").removeClass("srbacLoading");
                   }',);
-      echo  CHtml::ajaxSubmitButton('>>',array('authitem/assign','revokeOpers'=>1),$ajax,$data['revoke']); ?>
+      echo  CHtml::ajaxSubmitButton('>>',array('assign','revokeOpers'=>1),$ajax,$data['revoke']); ?>
     </td>
     <td>
       <?php echo CHtml::activeDropDownList($model,'name[assign]',

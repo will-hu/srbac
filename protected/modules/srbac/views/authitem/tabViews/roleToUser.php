@@ -23,7 +23,7 @@
         Chtml::listData($this->module->getUserModel()->findAll(), $this->module->userid, $this->module->username),
         array('size'=>$this->module->listBoxNumberOfLines,'class'=>'dropdown','ajax' => array(
         'type'=>'POST',
-        'url'=>array('authitem/getRoles'),
+        'url'=>array('getRoles'),
         'update'=>'#roles',
         'beforeSend' => 'function(){
                       $("#loadMess").addClass("srbacLoading");

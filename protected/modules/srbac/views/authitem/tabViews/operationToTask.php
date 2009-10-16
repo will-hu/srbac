@@ -21,7 +21,7 @@
         Chtml::listData(AuthItem::model()->findAll('type=1'), 'name', 'name'),
         array('size'=>$this->module->listBoxNumberOfLines,'class'=>'dropdown','ajax' => array(
         'type'=>'POST',
-        'url'=>array('authitem/getOpers'),
+        'url'=>array('getOpers'),
         'update'=>'#operations',
         'beforeSend' => 'function(){
                       $("#loadMessTask").addClass("srbacLoading");
