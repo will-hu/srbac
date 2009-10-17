@@ -373,8 +373,7 @@ class AuthitemController extends SBaseController {
       $sort->applyOrder($criteria);
 
       $models=AuthItem::model()->findAll($criteria);
-      $path = $this->module->getBasePath()."/views/authitem/manage/images/";
-      $images = Helper::getImages($path);
+      $images = Helper::getImages($this->module->imagesPath);
 
       Yii::app()->user->setFlash('updateName',
           $this->module->tr->translate('srbac','Updating list'));
@@ -432,8 +431,7 @@ class AuthitemController extends SBaseController {
     $pages->route = "manage";
     $pages->setCurrentPage(Yii::app()->user->getState("currentPage"));
     $models=AuthItem::model()->findAll($criteria);
-    $path = $this->module->getBasePath()."/views/authitem/manage/images/";
-    $images = Helper::getImages($path);
+    $images = Helper::getImages($this->module->imagesPath);
     $this->renderPartial('manage/list',array(
         'models'=>$models,
         'pages'=>$pages,
@@ -497,8 +495,7 @@ class AuthitemController extends SBaseController {
     $sort->applyOrder($criteria);
 
     $models=AuthItem::model()->findAll($criteria);
-    $path = $this->module->getBasePath()."/views/authitem/manage/images/";
-    $images = Helper::getImages($path);
+    $images = Helper::getImages($this->module->imagesPath);
     $full = Yii::app()->request->getParam("full");
     if(Yii::app()->request->isAjaxRequest && !$full) {
       $this->renderPartial('manage/list',array(
@@ -751,8 +748,7 @@ class AuthitemController extends SBaseController {
         $controlers[] = str_replace(".php","",$file);
       }
     }
-    $path = $this->module->getBasePath()."/views/authitem/manage/images/";
-    $images = Helper::getImages($path);
+    $images = Helper::getImages($this->module->imagesPath);
     $this->renderPartial("manage/wizard", array(
         'controllers'=>$controlers,
         'images'=>$images),false,true);
