@@ -44,11 +44,12 @@ class SrbacModule extends CWebModule {
     ));
     //Publish css
     $resources = dirname(__FILE__).DIRECTORY_SEPARATOR.'css';
+    $url = Yii::app()->assetManager->publish($resources);
     if($this->css == "") {
       $this->css =  "srbac.css";
     }
-    $url = Yii::app()->assetManager->publish($resources);
-    Yii::app()->clientScript->registerCssFile($url."/".$this->css);
+    Yii::app()->clientScript->registerCssFile($this->_getCssUrl($url));
+
     //Create the translation component
     $this->setComponents(
         array(
@@ -61,12 +62,24 @@ class SrbacModule extends CWebModule {
     );
 
     //Set the images path
-    if($this->imagesPath == ""){
+    if($this->imagesPath == "") {
       $this->imagesPath = $this->getBasePath()."/views/authitem/manage/images/";
     } else {
       $this->imagesPath = Yii::app()->getBasePath().DIRECTORY_SEPARATOR.$this->imagesPath;
     }
-    
+
+  }
+
+  private function _getCssUrl($url){
+    //check if the css is in the default css dir
+    $defUrl = "css/".$this->css;
+    if(file_exists($defUrl)) {
+      return $defUrl;
+    } else {
+     //css in srbac css dir
+     
+     return $url."/".$this->css;
+    }
   }
 
   public function isInstalled() {
