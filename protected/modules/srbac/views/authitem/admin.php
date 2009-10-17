@@ -5,7 +5,7 @@
 [<?php echo CHtml::link($this->module->tr->translate('srbac','New AuthItem'),array('create')); ?>]
 </div>
 
-<table class="dataGrid">
+<table class="srbacDataGrid">
   <tr>
     <th><?php echo $sort->link('name'); ?></th>
     <th><?php echo $sort->link('type'); ?></th>

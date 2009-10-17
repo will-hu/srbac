@@ -36,7 +36,7 @@
 <?php } ?>
 <div id="wizard">
   <br />
-  <table class="dataGrid" width="100%">
+  <table class="srbacDataGrid" width="100%">
     <tr>
       <th width="50%"><?php echo $this->module->tr->translate('srbac','Auth items')?></th>
       <th width="50%"><?php echo $this->module->tr->translate('srbac','Actions')?></th>

@@ -9,7 +9,7 @@
 <?php else : ?>
 <h2><?php echo $model->name; ?></h2>
 
-<table class="dataGrid">
+<table class="srbacDataGrid">
   <tr>
     <th class="label"><?php echo CHtml::encode($model->getAttributeLabel('type')); ?></th>
     <td><?php echo CHtml::encode(AuthItem::$TYPES[$model->type]); ?></td>
