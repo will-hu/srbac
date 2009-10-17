@@ -26,7 +26,8 @@ class SrbacModule extends CWebModule {
   public $userActions = array();
   /* @var $listBoxNumberOfLines integer The number of lines in the assign tabview listboxes  */
   public $listBoxNumberOfLines = 10;
-  
+  /* @var $imagesPath string The path to srbac images*/
+  public $imagesPath;
 
 
   /**
@@ -58,6 +59,13 @@ class SrbacModule extends CWebModule {
         ),
         )
     );
+
+    //Set the images path
+    if($this->imagesPath == ""){
+      $this->imagesPath = $this->getBasePath()."/views/authitem/manage/images/";
+    } else {
+      $this->imagesPath = Yii::app()->getBasePath().DIRECTORY_SEPARATOR.$this->imagesPath;
+    }
     
   }
 
