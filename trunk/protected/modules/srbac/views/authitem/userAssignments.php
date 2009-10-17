@@ -1,6 +1,6 @@
 <br />
 <h1>Assignments of user : '<?php echo $username?>'</h1>
-<table class="dataGrid" width="100%">
+<table class="srbacDataGrid" width="100%">
   <tr>
     <th class="roles"><?php echo $this->module->tr->translate('srbac','Roles')?></th>
     <th class="tasks"><?php echo $this->module->tr->translate('srbac','Tasks')?></th>

@@ -141,25 +141,39 @@ div.srbac div.message{
 }
 
 
-table.srbac
+/* begin data grid style */
+table.srbacDataGrid
 {
-  border: 2px solid red;
-  background: #EBF4FB;
-  margin: 0;
-  padding: 5px;
-
-}
-table.srbac th, table.dataGrid th {
-  background:red;
-  color: white;
+	background: white;
+	border-collapse: collapse;
+	width: 100%;
 }
 
-table.srbac td
+table.srbacDataGrid th, table.srbacDataGrid td
 {
-  font-size: 0.9em;
-  border: 1px #ffaaaa solid;
-  padding: 0.3em;
+	font-size: 0.9em;
+	border: 1px red solid;
+	padding: 0.3em;
+
 }
+
+table.srbacDataGrid th
+{
+	background: #ffaaaa;
+	text-align: center;
+  color:red;
+}
+
+table.srbacDataGrid th.label
+{
+	width: 150px;
+}
+
+table.srbacDataGrid tr.odd
+{
+	background: #E6F2FF;
+}
+/* end of data grid style */
 
 div.error {
   color:red;

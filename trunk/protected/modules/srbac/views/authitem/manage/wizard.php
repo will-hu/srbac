@@ -2,7 +2,7 @@
   <table width="100%">
     <tr valign="top">
       <td width="40%">
-        <table class="dataGrid" width="40%" align="left">
+        <table class="srbacDataGrid" width="40%" align="left">
           <tr>
             <th width="15%"><?php echo $this->module->tr->translate('srbac','Controller')?></th>
             <th width="15%"><?php echo $this->module->tr->translate('srbac','Actions')?></th>
@@ -55,7 +55,7 @@
         </table>
       </td>
       <td width="60%">
-        <table class="dataGrid" width="50%" style="float:left">
+        <table class="srbacDataGrid" width="50%" style="float:left">
           <tr>
             <th width="70%"><?php echo $this->module->tr->translate('srbac','Auth items')?></th>
           </tr>

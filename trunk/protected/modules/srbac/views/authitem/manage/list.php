@@ -58,7 +58,7 @@
    ?>
 </div>
 <br />
-<table class="dataGrid">
+<table class="srbacDataGrid">
   <tr>
     <th><?php echo $this->module->tr->translate('srbac','Name');   ?></th>
     <th>
