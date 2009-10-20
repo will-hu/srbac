@@ -611,28 +611,38 @@ class AuthitemController extends SBaseController {
     $actions = array();
     $auth = Yii::app()->authManager;
     $controller = Yii::app()->request->getParam('controller');
-    $task = str_replace("Controller", "", $controller);
+    //Check if it's a module controller
+    if(substr_count($controller, "/")){
+      $c = split("/", $controller);
+      $controller = $c[1];
+      $module = $c[0];
+      $contPath = Yii::app()->getModule($module)->getControllerPath();
+      $control = $contPath.DIRECTORY_SEPARATOR.$controller.".php";
+    } else {
+      $module = "";
+      $contPath = Yii::app()->getControllerPath();
+      $control = $contPath.DIRECTORY_SEPARATOR.$controller.".php";
+    }
+
+    $task =$module.str_replace("Controller", "", $controller);
 
     $taskViewingExists = $auth->getAuthItem($task."Viewing")!==null ? true : false;
     $taskAdministratingExists = $auth->getAuthItem($task."Administrating")!==null ? true : false;
-
-    
     $delete = Yii::app()->request->getParam('delete');
-    $contPath = Yii::app()->getControllerPath();
-    $control = $contPath.DIRECTORY_SEPARATOR.$controller.".php";
+    
     $h = file($control);
     for ($i = 0 ; $i < count($h) ; $i++) {
       $line = trim($h[$i]);
       if(preg_match("/^(.+)function action*/", $line)) {
         $action = trim(substr($line, strpos($line, "action")));
         $action = ereg_replace("[(){ ]", "", trim($action));
-        $itemId = str_replace("Controller","",$controller).
+        $itemId = $module.str_replace("Controller","",$controller).
             str_replace("action", "", $action);
         if($action !="actions" ) {
           if($auth->getAuthItem($itemId) === null && !$delete) {
-            $actions[$action] = $itemId;
+            $actions[$module.$action] = $itemId;
           } else if($auth->getAuthItem($itemId)!==null && $delete) {
-              $actions[$action] = $itemId;
+              $actions[$module.$action] = $itemId;
             }
         }
       }
@@ -758,10 +768,23 @@ class AuthitemController extends SBaseController {
         $controlers[] = str_replace(".php","",$file);
       }
     }
-    $images = Helper::getImages($this->module->imagesPath);
-    $this->renderPartial("manage/wizard", array(
-        'controllers'=>$controlers,
-        'images'=>$images),false,true);
+    //Scan modules
+    $modules = Yii::app()->getModules();
+
+    foreach ($modules as $mod_id=>$mod) {
+      $moduleControllersPath = Yii::app()->getModule($mod_id)->controllerPath;
+      $handle = opendir($moduleControllersPath);
+      while (($file = readdir($handle)) !== false) {
+        if (is_file($moduleControllersPath.DIRECTORY_SEPARATOR.$file)
+            && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
+          $controlers[] = $mod_id."/".str_replace(".php","",$file);
+        }
+      }
+    }
+      $images = Helper::getImages($this->module->imagesPath);
+      $this->renderPartial("manage/wizard", array(
+          'controllers'=>$controlers,
+          'images'=>$images),false,true);
   }
 
   function _isUserOperation($operation) {
