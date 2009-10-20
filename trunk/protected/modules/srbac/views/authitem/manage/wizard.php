@@ -4,13 +4,27 @@
       <td width="40%">
         <table class="srbacDataGrid" width="40%" align="left">
           <tr>
-            <th width="15%"><?php echo $this->module->tr->translate('srbac','Controller')?></th>
-            <th width="15%"><?php echo $this->module->tr->translate('srbac','Actions')?></th>
+            <th width="80%"><?php echo $this->module->tr->translate('srbac','Controller')?></th>
+            <th width="20%"><?php echo $this->module->tr->translate('srbac','Actions')?></th>
           </tr>
+          <?php $prevModule = ""; ?>
           <?php foreach ($controllers as $n=>$controller) { ?>
+            <?php if(substr_count($controller, "/")) { ?>
+              <?php $module = split("/", $controller); ?>
+              <?php if($module[0] != $prevModule) { ?>
+        </table>
+        <table class="srbacDataGrid" width="40%" align="left">
           <tr>
-            <td><?php echo $controller ?></td>
-            <td>
+            <th colspan="2">
+                <?php echo $this->module->tr->translate('srbac','Module').": ".  $module[0]?></th>
+          </tr>
+                <?php $prevModule = $module[0]; ?>
+              <?php }?>
+            <?php } ?>
+
+          <tr>
+            <td width="80%"><?php echo $controller ?></td>
+            <td width="20%">
                 <?php
                 echo CHtml::ajaxLink(
                 CHtml::image($images['wizard'],
@@ -30,7 +44,7 @@
                   }',
                 ),array('name'=>'buttonScan_'.$n))
                 ?>
-                 <?php
+                <?php
                 echo CHtml::ajaxLink(
                 CHtml::image($images['delete'],
                 "Delete All Auth Items of controller ".$controller,

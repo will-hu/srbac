@@ -99,6 +99,9 @@ return array (
   "Managing auth items"=>"Διαχείριση αδειών",
   "Assign to users"=>"Ανάθεση σε χρήστες",
   "User's assignments"=>"Αναθέσεις χρηστών",
-  "Srbac frontpage"=>"αρχική σελίδα srbac"
+  "Srbac frontpage"=>"αρχική σελίδα srbac",
+
+  //Version 1.3
+  "Module"=>"Υπομονάδα",
 );
 ?>
