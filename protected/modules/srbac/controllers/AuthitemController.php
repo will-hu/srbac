@@ -126,7 +126,7 @@ class AuthitemController extends SBaseController {
     $data["assign"] = array("disabled"=>true);
     $data["revoke"] = array("disabled"=>true);
     $this->_setMessage("");
-    
+
     $auth = Yii::app()->authManager;
      /* @var $auth CDbAuthManager */
     $authItemAssignName = isset($_POST['AuthItem']['assign']['name']) ?
@@ -159,9 +159,9 @@ class AuthitemController extends SBaseController {
     $assignOpers = isset($_GET['assignOpers']) ? $_GET['assignOpers'] : 0;
     $revokeOpers = isset($_GET['revokeOpers']) ? $_GET['revokeOpers'] : 0;
 
-    
+
     if($assignRoles && is_array($authItemAssignName)) {
-      
+
       $this->_assignUser($userid,$authItemAssignName,$assBizRule,$assData);
       $this->_setMessage($this->module->tr->translate('srbac','Role(s) Assigned'));
     } else if($revokeRoles && is_array($authItemRevokeName)) {
@@ -463,7 +463,7 @@ class AuthitemController extends SBaseController {
       throw new CHttpException(403,'Srbac must be in debug mode for the installation',1);
     }
   }
- 
+
   public function actionManage() {
     $this->processAdminCommand();
     $page = Yii::app()->getRequest()->getParam("page","");
@@ -610,30 +610,40 @@ class AuthitemController extends SBaseController {
   public function actionScan() {
     $actions = array();
     $auth = Yii::app()->authManager;
+    $controller = Yii::app()->request->getParam('controller');
+    $task = str_replace("Controller", "", $controller);
 
-    $c = Yii::app()->request->getParam('controller');
+    $taskViewingExists = $auth->getAuthItem($task."Viewing")!==null ? true : false;
+    $taskAdministratingExists = $auth->getAuthItem($task."Administrating")!==null ? true : false;
+
+    
     $delete = Yii::app()->request->getParam('delete');
     $contPath = Yii::app()->getControllerPath();
-    $control = $contPath.DIRECTORY_SEPARATOR.$c.".php";
+    $control = $contPath.DIRECTORY_SEPARATOR.$controller.".php";
     $h = file($control);
     for ($i = 0 ; $i < count($h) ; $i++) {
       $line = trim($h[$i]);
       if(preg_match("/^(.+)function action*/", $line)) {
         $action = trim(substr($line, strpos($line, "action")));
         $action = ereg_replace("[(){ ]", "", trim($action));
-        $itemId = str_replace("Controller","",$c).
-                str_replace("action", "", $action);
+        $itemId = str_replace("Controller","",$controller).
+            str_replace("action", "", $action);
         if($action !="actions" ) {
           if($auth->getAuthItem($itemId) === null && !$delete) {
             $actions[$action] = $itemId;
           } else if($auth->getAuthItem($itemId)!==null && $delete) {
-            $actions[$action] = $itemId;
-          }
+              $actions[$action] = $itemId;
+            }
         }
       }
     }
     $this->renderPartial("manage/createItems",
-        array('actions'=>$actions,'controller'=>$c,'delete'=>$delete),
+        array("actions"=>$actions,
+        "controller"=>$controller,
+        "delete"=>$delete,
+        "task"=>$task,
+        "taskViewingExists"=>$taskViewingExists,
+        "taskAdministratingExists"=>$taskAdministratingExists),
         false, true);
   }
 
@@ -680,7 +690,7 @@ class AuthitemController extends SBaseController {
     $actions= isset($_POST["actions"]) ? $_POST["actions"]:array();
     $message = "";
     $createTasks = isset($_POST["createTasks"]) ? $_POST["createTasks"] : 0;
-    $tasks = $_POST["tasks"];
+    $tasks = isset($_POST["tasks"]) ? $_POST["tasks"] : array("");
 
     if($createTasks == "1") {
       $message = "<div style='font-weight:bold'>".$this->module->tr->translate('srbac','Creating tasks')."</div>";
