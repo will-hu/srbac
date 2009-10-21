@@ -19,7 +19,7 @@ class SrbacModule extends CWebModule {
   /* @var $layout string the layout to use */
   public $layout ;
   /* @var $notAuthorizedView String The view to render when unathorized access*/
-  public $notAuthorizedView;
+  public $notAuthorizedView = "application.modules.srbac.views.authitem.unauthorized";
   /* @var $alwaysAllowed array The actions that are always allowed*/
   public $alwaysAllowed = array();
   /* @var $userActions Array Operations assigned to users by default*/
