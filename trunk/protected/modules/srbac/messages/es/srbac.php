@@ -100,10 +100,10 @@ return array (
   "Delete operations"=>"Eliminar Operaciones",
   "Delete tasks"=>"Eliminar Tareas",
   "Can't revoke this role"=>"No se puede revocar este rol",
-  "Managing auth items"=>"Administrando Permisos",
+  "Managing auth items"=>"Gestión de Permisos",
   "Assign to users"=>"Asignar a usuarios",
   "User's assignments"=>"Asignaciones de Usuario",
-  "Srbac frontpage"=>"Inicio de srbac"
+  "Srbac frontpage"=>"Inicio de srbac",
 
   //Version 1.3
   "Module"=>"Módulo",
