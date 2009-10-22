@@ -106,7 +106,7 @@ class SrbacModule extends CWebModule {
    */
   public function beforeControllerAction($controller, $action) {
     if(parent::beforeControllerAction($controller, $action)) {
-      $controller->layout = $this->layout;
+      //$controller->layout = $this->layout;
       return true;
     }
     else
