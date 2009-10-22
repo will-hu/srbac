@@ -14,7 +14,7 @@ return array (
   "Data"=>"Datos",
   "Save"=>"Guardar",
   "Create"=>"Crear",
-  "Managing AuthItem"=>"Administrando Permisos",
+  "Managing AuthItem"=>"Gestión de Permisos",
   "AuthItem List" => "Listado de Permisos",
   "New AuthItem" => "Nuevo Permiso",
   "Update"=>"Actualizar",
@@ -104,5 +104,8 @@ return array (
   "Assign to users"=>"Asignar a usuarios",
   "User's assignments"=>"Asignaciones de Usuario",
   "Srbac frontpage"=>"Inicio de srbac"
+
+  //Version 1.3
+  "Module"=>"Módulo",
 );
 ?>
