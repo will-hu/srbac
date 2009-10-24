@@ -28,6 +28,8 @@ class SrbacModule extends CWebModule {
   public $listBoxNumberOfLines = 10;
   /* @var $imagesPath string The path to srbac images*/
   public $imagesPath;
+  /* @var $imagesPack String The images theme to use*/
+  public $imagesPack = "tango";
 
 
   /**
@@ -63,22 +65,25 @@ class SrbacModule extends CWebModule {
 
     //Set the images path
     if($this->imagesPath == "") {
-      $this->imagesPath = $this->getBasePath()."/views/authitem/manage/images/";
+      $this->imagesPath = $this->getBasePath()."/images/".$this->imagesPack;
     } else {
-      $this->imagesPath = Yii::app()->getBasePath().DIRECTORY_SEPARATOR.$this->imagesPath;
+      $this->imagesPath = Yii::app()->getBasePath()."/".$this->imagesPath."/".$this->imagesPack;
+    }
+    if(is_dir($this->imagesPath)) {
+      $this->imagesPath = Yii::app()->assetManager->publish($this->imagesPath);
     }
 
   }
 
-  private function _getCssUrl($url){
-    //check if the css is in the default css dir
+  private function _getCssUrl($url) {
+  //check if the css is in the default css dir
     $defUrl = "css/".$this->css;
     if(file_exists($defUrl)) {
       return $defUrl;
     } else {
-     //css in srbac css dir
-     
-     return $url."/".$this->css;
+    //css in srbac css dir
+
+      return $url."/".$this->css;
     }
   }
 
@@ -106,7 +111,7 @@ class SrbacModule extends CWebModule {
    */
   public function beforeControllerAction($controller, $action) {
     if(parent::beforeControllerAction($controller, $action)) {
-      //$controller->layout = $this->layout;
+    //$controller->layout = $this->layout;
       return true;
     }
     else
