@@ -229,7 +229,7 @@ class Helper {
       $db->createCommand("drop table if exists ".$assignmentTable.";")->execute();
       $db->createCommand("drop table if exists ".$itemChildTable.";")->execute();
       $db->createCommand("drop table if exists ".$itemTable.";")->execute();
-      
+
       //create tables
       $sql = "create table ".$itemTable." (name varchar(64) not null,
                                      type integer not null,
@@ -291,28 +291,37 @@ class Helper {
     return 0; //Success
   }
 
-  public static function findModule($moduleID){
-    if(Yii::app()->getModule($moduleID)){
+  public static function findModule($moduleID) {
+    if(Yii::app()->getModule($moduleID)) {
       return Yii::app()->getModule($moduleID);
     }
     $modules = Yii::app()->getModules();
     foreach ($modules as $mod=>$conf) {
-//      CVarDumper::dump(Yii::app()->getModule($mod)->id, 3, true);
+    //      CVarDumper::dump(Yii::app()->getModule($mod)->id, 3, true);
 
-      if(Yii::app()->getModule($mod)){
-       return Helper::findInModule(Yii::app()->getModule($mod), $moduleID);
+      if(Yii::app()->getModule($mod)) {
+        return Helper::findInModule(Yii::app()->getModule($mod), $moduleID);
       }
     }
   }
 
-  private static function findInModule($parent, $moduleID){
-    if ($parent->getModule($moduleID)){
+  private static function findInModule($parent, $moduleID) {
+    if ($parent->getModule($moduleID)) {
       return $parent->getModule($moduleID);
     } else {
       $modules = $parent->getModules();
       foreach ($modules as $mod => $conf) {
         return $this->findInModule($parent->getModule($mod), $moduleID);
       }
+    }
+  }
+
+  public static function translate($source, $text) {
+    $version =  explode(".", Yii::getVersion());
+    if($version[2] < 10) {
+      return Yii::app()->getModule("srbac")->tr->translate($source,$text,$lang);
+    } else {
+      return Yii::t('srbac.'.$source,$text);
     }
   }
 }
