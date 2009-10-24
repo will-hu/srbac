@@ -1,5 +1,7 @@
 <div class="simple">
-  <?php if(!$id) { ?>
+  <?php if(!$id) { 
+      $this->renderPartial("frontpage", array('images'=>$images));
+    ?>
     <?php echo CHtml::beginForm(); ?>
     <?php echo CHtml::activeDropDownList($this->module->getUserModel(),$this->module->userid,
     Chtml::listData($this->module->getUserModel()->findAll(), $this->module->userid, $this->module->username),

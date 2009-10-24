@@ -1,5 +1,7 @@
 <div>
 <?php
+$this->renderPartial("frontpage", array('images'=>$images));
+
 $tabs = array(
     'tab1'=>array(
           'title'=>$this->module->tr->translate('srbac','Users'),

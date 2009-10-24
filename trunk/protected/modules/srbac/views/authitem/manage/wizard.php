@@ -5,29 +5,27 @@
         <table class="srbacDataGrid" width="40%" align="left">
           <tr>
             <th width="80%"><?php echo $this->module->tr->translate('srbac','Controller')?></th>
-            <th width="20%"><?php echo $this->module->tr->translate('srbac','Actions')?></th>
+            <th colspan="2"><?php echo $this->module->tr->translate('srbac','Actions')?></th>
           </tr>
           <?php $prevModule = ""; ?>
           <?php foreach ($controllers as $n=>$controller) { ?>
             <?php if(substr_count($controller, "/")) { ?>
               <?php $module = split("/", $controller); ?>
-              <?php if($module[0] != $prevModule) { ?>
-        </table>
-        <table class="srbacDataGrid" width="40%" align="left">
-          <tr>
-            <th colspan="2">
-                <?php echo $this->module->tr->translate('srbac','Module').": ".  $module[0]?></th>
-          </tr>
+              <?php if($module[0] != $prevModule) { ?>        
+                      <tr>
+                        <th colspan="3">
+                            <?php echo $this->module->tr->translate('srbac','Module').": ".  $module[0]?></th>
+                      </tr>
                 <?php $prevModule = $module[0]; ?>
               <?php }?>
             <?php } ?>
 
           <tr>
             <td width="80%"><?php echo $controller ?></td>
-            <td width="20%">
+            <td>
                 <?php
                 echo CHtml::ajaxLink(
-                CHtml::image($images['wizard'],
+                CHtml::image($this->module->imagesPath.'/wizard.png',
                 "Autocreate Auth Items for controller ".$controller,
                 array('border'=>0,'title'=>
                 $this->module->tr->translate('srbac',
@@ -44,9 +42,11 @@
                   }',
                 ),array('name'=>'buttonScan_'.$n))
                 ?>
+            </td>
+            <td>
                 <?php
                 echo CHtml::ajaxLink(
-                CHtml::image($images['delete'],
+                CHtml::image($this->module->imagesPath.'/delete.png',
                 "Delete All Auth Items of controller ".$controller,
                 array('border'=>0,'title'=>
                 $this->module->tr->translate('srbac',

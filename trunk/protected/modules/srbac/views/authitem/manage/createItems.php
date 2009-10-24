@@ -16,7 +16,7 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
   <?php if (count($actions)>0) { ?>
   <div>
     <?php echo Chtml::checkBoxList("actions", "", $actions,
-    array("checkAll"=>$this->module->tr->translate('srbac','Check All'))); ?>
+    array("checkAll"=>"<b>".$this->module->tr->translate('srbac','Check All')."</b>")); ?>
   </div>
   <?php } ?>
   <div class="simple">
