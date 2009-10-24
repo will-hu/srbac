@@ -1,14 +1,37 @@
-<table width="50%" align="left">
-    <tr align="left">
-        <td><?php echo CHtml::link($this->module->tr->translate('srbac','Managing auth items'),
-        array('authitem/manage/manage'));?></td>
-    </tr>
-     <tr align="left">
-        <td><?php echo CHtml::link($this->module->tr->translate('srbac','Assign to users'),
-        array('authitem/assign'));?></td>
-    </tr>
-    <tr align="left">
-        <td><?php echo CHtml::link($this->module->tr->translate('srbac','User\'s assignments'),
-        array('authitem/assignments'));?></td>
-    </tr>
-</table>
+<div class="marginBottom">
+    <div class="iconBox">
+    <?php echo CHtml::link(
+            CHtml::image($this->module->imagesPath.'/manageAuth.png',
+                    $this->module->tr->translate('srbac','Managing auth items'),
+                    array('class'=>'icon',
+                      'title'=>$this->module->tr->translate('srbac','Managing auth items'),
+                      'border'=>0
+                      )
+                ),
+            array('authitem/manage/manage'))
+    ?>
+    </div>
+    <div class="iconBox">
+    <?php echo CHtml::link(
+            CHtml::image($this->module->imagesPath.'/usersAssign.png',
+                    $this->module->tr->translate('srbac','Assign to users'),
+                    array('class'=>'icon',
+                      'title'=>$this->module->tr->translate('srbac','Assign to users'),
+                      'border'=>0,
+                      )
+                ),
+            array('authitem/assign'));?>
+    </div>
+    <div class="iconBox">
+    <?php echo CHtml::link(
+            CHtml::image($this->module->imagesPath.'/users.png',
+                    $this->module->tr->translate('srbac','User\'s assignments'),
+                    array('class'=>'icon',
+                      'title'=>$this->module->tr->translate('srbac','User\'s assignments'),
+                      'border'=>0
+                      )
+                ),
+            array('authitem/assignments'));?>
+    </div>
+    <div class="reset"></div>
+</div>

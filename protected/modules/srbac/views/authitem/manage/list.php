@@ -14,48 +14,56 @@
 </div>
  <?php endif; ?>
  <?php echo CHtml::beginForm();?>
-<div class="simple">
-   <?php echo CHtml::ajaxLink(
-   CHtml::image($images['create'],
-   $this->module->tr->translate('srbac','Create'),
-   array('border'=>0,'title'=>$this->module->tr->translate('srbac','Create')))  ,
-   array('create'),
-   array(
-   'type'=>'POST',
-   'update'=>'#preview',
-   'beforeSend' => 'function(){
-                      $("#preview").addClass("srbacLoading");
-                  }',
-   'complete' => 'function(){
-                      $("#preview").removeClass("srbacLoading");
-                  }',
-   ))?>
-   <?php
-   $this->widget('CAutoComplete',
-       array(
-       'name'=>'name',
-       'max'=>10,
-       'delay'=>300,
-       'matchCase'=>false,
-       'url'=>array('autocomplete'),
-       'minChars'=>2,
-       )
-   ); ?>
-   <?php
-   echo CHtml::imageButton($images['preview'],
-   array(
-   'border'=>0,
-   'title'=>$this->module->tr->translate('srbac','Search'),
-   'ajax'=>array('type'=>'POST','url'=>array('list'),'update'=>'#list',
-   'beforeSend' => 'function(){
-                      $("#list").addClass("srbacLoading");
-                  }',
-   'complete' => 'function(){
-                      $("#list").removeClass("srbacLoading");
-                  }',
-   )
-   ));
-   ?>
+<div class="controlPanel">
+    <?php echo CHtml::ajaxLink(
+                CHtml::image($this->module->imagesPath.'/create.png',
+                $this->module->tr->translate('srbac','Create'),
+                array('border'=>0,
+                  'class'=>'icon','title'=>$this->module->tr->translate('srbac','Create'),
+                  'border'=>0
+                  )
+                ),
+                array('create'),
+                array(
+                    'type'=>'POST',
+                    'update'=>'#preview',
+                    'beforeSend' => 'function(){
+                                  $("#preview").addClass("srbacLoading");
+                              }',
+                    'complete' => 'function(){
+                                  $("#preview").removeClass("srbacLoading");
+                              }',
+                )
+    );
+
+    echo $this->module->tr->translate('srbac','Search').': &nbsp; ';
+    $this->widget('CAutoComplete',
+            array(
+                'name'=>'name',
+                'max'=>10,
+                'delay'=>300,
+                'matchCase'=>false,
+                'url'=>array('autocomplete'),
+                'minChars'=>2,
+            )
+    ); ?>
+    <?php
+    echo CHtml::imageButton($this->module->imagesPath.'/preview.png',
+                array(
+                    'border'=>0,
+                    'title'=>$this->module->tr->translate('srbac','Search'),
+                    'ajax'=>array(
+                        'type'=>'POST','url'=>array('list'),'update'=>'#list',
+                        'beforeSend' => 'function(){
+                                      $("#list").addClass("srbacLoading");
+                                  }',
+                        'complete' => 'function(){
+                                      $("#list").removeClass("srbacLoading");
+                                  }',
+                    )
+                )
+    );
+    ?>
 </div>
 <br />
 <table class="srbacDataGrid">
@@ -82,7 +90,7 @@
        );
        ?>
     </th>
-    <th><?php echo $this->module->tr->translate('srbac','Actions') ?></th>
+    <th colspan="2"><?php echo $this->module->tr->translate('srbac','Actions') ?></th>
   </tr>
    <?php foreach($models as $n=>$model): ?>
   <tr class="<?php echo $n%2?'even':'odd';?>">
@@ -99,7 +107,7 @@
     <td><?php echo CHtml::encode(AuthItem::$TYPES[$model->type]); ?></td>
     <td>
          <?php echo CHtml::ajaxLink(
-         CHtml::image($images['update'],
+         CHtml::image($this->module->imagesPath.'/update.png',
          $this->module->tr->translate('srbac','Update'),
          array('border'=>0,'title'=>$this->module->tr->translate('srbac','Update'))),
          array('update','id'=>$model->name),
@@ -112,9 +120,12 @@
          'complete' => 'function(){
                       $("#preview").removeClass("srbacLoading");
                   }',))?>
+    </td>
+    <td>
          <?php if ($model->name !=  Helper::findModule('srbac')->superUser) { ?>
            <?php echo CHtml::ajaxLink(
-           CHtml::image($images['delete'],$this->module->tr->translate('srbac','Delete'), 
+           CHtml::image($this->module->imagesPath.'/delete.png'
+             ,$this->module->tr->translate('srbac','Delete'),
            array('border'=>0,'title'=>$this->module->tr->translate('srbac','Delete'))),
            array('confirm','id'=>$model->name),
            array(
