@@ -2,8 +2,8 @@
 <div class="srbacForm">
 
   <p>
-    <?php echo $this->module->tr->translate('srbac','Fields with')?> <span class="required">*</span>
-    <?php echo $this->module->tr->translate('srbac','are required')?>.
+    <?php echo Helper::translate('srbac','Fields with')?> <span class="required">*</span>
+    <?php echo Helper::translate('srbac','are required')?>.
   </p>
   <?php echo CHtml::beginForm(); ?>
 
@@ -70,8 +70,8 @@
   <div class="action">
     <?php
     echo CHtml::ajaxSubmitButton(
-    $update ? $this->module->tr->translate('srbac','Save') :
-    $this->module->tr->translate('srbac','Create'),
+    $update ? Helper::translate('srbac','Save') :
+    Helper::translate('srbac','Create'),
     $update ? array('update','id'=>$model->name) : array('create') ,
     array(
     'type'=>'POST',

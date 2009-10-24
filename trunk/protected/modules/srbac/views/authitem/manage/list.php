@@ -17,9 +17,9 @@
 <div class="controlPanel">
     <?php echo CHtml::ajaxLink(
                 CHtml::image($this->module->imagesPath.'/create.png',
-                $this->module->tr->translate('srbac','Create'),
+                Helper::translate('srbac','Create'),
                 array('border'=>0,
-                  'class'=>'icon','title'=>$this->module->tr->translate('srbac','Create'),
+                  'class'=>'icon','title'=>Helper::translate('srbac','Create'),
                   'border'=>0
                   )
                 ),
@@ -36,7 +36,7 @@
                 )
     );
 
-    echo $this->module->tr->translate('srbac','Search').': &nbsp; ';
+    echo Helper::translate('srbac','Search').': &nbsp; ';
     $this->widget('CAutoComplete',
             array(
                 'name'=>'name',
@@ -51,7 +51,7 @@
     echo CHtml::imageButton($this->module->imagesPath.'/preview.png',
                 array(
                     'border'=>0,
-                    'title'=>$this->module->tr->translate('srbac','Search'),
+                    'title'=>Helper::translate('srbac','Search'),
                     'ajax'=>array(
                         'type'=>'POST','url'=>array('list'),'update'=>'#list',
                         'beforeSend' => 'function(){
@@ -68,13 +68,13 @@
 <br />
 <table class="srbacDataGrid">
   <tr>
-    <th><?php echo $this->module->tr->translate('srbac','Name');   ?></th>
+    <th><?php echo Helper::translate('srbac','Name');   ?></th>
     <th>
        <?php
        echo CHtml::dropDownList('selectedType',Yii::app()->user->getState("selectedType"),
        AuthItem::$TYPES,
        array(
-       'prompt'=>$this->module->tr->translate('srbac','All'),
+       'prompt'=>Helper::translate('srbac','All'),
        'ajax'=>array(
        'type'=>'POST',
        'url'=>array('list'),
@@ -90,7 +90,7 @@
        );
        ?>
     </th>
-    <th colspan="2"><?php echo $this->module->tr->translate('srbac','Actions') ?></th>
+    <th colspan="2"><?php echo Helper::translate('srbac','Actions') ?></th>
   </tr>
    <?php foreach($models as $n=>$model): ?>
   <tr class="<?php echo $n%2?'even':'odd';?>">
@@ -108,8 +108,8 @@
     <td>
          <?php echo CHtml::ajaxLink(
          CHtml::image($this->module->imagesPath.'/update.png',
-         $this->module->tr->translate('srbac','Update'),
-         array('border'=>0,'title'=>$this->module->tr->translate('srbac','Update'))),
+         Helper::translate('srbac','Update'),
+         array('border'=>0,'title'=>Helper::translate('srbac','Update'))),
          array('update','id'=>$model->name),
          array(
          'type'=>'POST',
@@ -125,8 +125,8 @@
          <?php if ($model->name !=  Helper::findModule('srbac')->superUser) { ?>
            <?php echo CHtml::ajaxLink(
            CHtml::image($this->module->imagesPath.'/delete.png'
-             ,$this->module->tr->translate('srbac','Delete'),
-           array('border'=>0,'title'=>$this->module->tr->translate('srbac','Delete'))),
+             ,Helper::translate('srbac','Delete'),
+           array('border'=>0,'title'=>Helper::translate('srbac','Delete'))),
            array('confirm','id'=>$model->name),
            array(
            'type'=>'POST',

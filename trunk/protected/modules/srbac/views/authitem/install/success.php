@@ -1,9 +1,9 @@
-<h3><?php echo $this->module->tr->translate('srbac','Install Srbac')?></h3>
+<h3><?php echo Helper::translate('srbac','Install Srbac')?></h3>
  <div>
-    <?php echo $this->module->tr->translate('srbac','Srbac installed successfuly'); ?>
+    <?php echo Helper::translate('srbac','Srbac installed successfuly'); ?>
  </div>
 <div>
-    <?php echo CHtml::link($this->module->tr->translate('srbac','Srbac frontpage'),
+    <?php echo CHtml::link(Helper::translate('srbac','Srbac frontpage'),
         array('frontpage')); ?>
  </div>
 

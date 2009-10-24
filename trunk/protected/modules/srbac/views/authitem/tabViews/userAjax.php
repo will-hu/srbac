@@ -1,8 +1,8 @@
 <table>
   <tr>
-    <th><?php echo $this->module->tr->translate('srbac','Assigned Roles') ?></th>
+    <th><?php echo Helper::translate('srbac','Assigned Roles') ?></th>
     <th>&nbsp;</th>
-    <th><?php echo $this->module->tr->translate('srbac','Not Assigned Roles') ?></th>
+    <th><?php echo Helper::translate('srbac','Not Assigned Roles') ?></th>
   </tr>
   <tr><td>
       <?php echo CHtml::activeDropDownList($model,'name[revoke]',

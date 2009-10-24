@@ -16,7 +16,7 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
   <?php if (count($actions)>0) { ?>
   <div>
     <?php echo Chtml::checkBoxList("actions", "", $actions,
-    array("checkAll"=>"<b>".$this->module->tr->translate('srbac','Check All')."</b>")); ?>
+    array("checkAll"=>"<b>".Helper::translate('srbac','Check All')."</b>")); ?>
   </div>
   <?php } ?>
   <div class="simple">
@@ -25,7 +25,7 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
     <?php $button_title = $delete ? "Delete" : "Create"; ?>
     <?php $button_action = $delete ? "autoDeleteItems" : "autoCreateItems"; ?>
     <?php if(!$taskViewingExists || !$taskAdministratingExists || $delete){ ?>
-    <?php echo $this->module->tr->translate('srbac',$cb_title) ?>
+    <?php echo Helper::translate('srbac',$cb_title) ?>
     <?php echo CHtml::checkBox("createTasks", true, array("id"=>"cb_createTasks")); ?>
     <?php } ?>
   </div>
@@ -43,7 +43,7 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
     <?php echo CHtml::hiddenField("controller", $controller) ?>
   </div>
   <div class="action">
-    <?php echo CHtml::ajaxButton($this->module->tr->translate('srbac',$button_title),
+    <?php echo CHtml::ajaxButton(Helper::translate('srbac',$button_title),
     array($button_action),
     array(
     'type'=>'POST',

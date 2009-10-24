@@ -163,27 +163,27 @@ class AuthitemController extends SBaseController {
     if($assignRoles && is_array($authItemAssignName)) {
 
       $this->_assignUser($userid,$authItemAssignName,$assBizRule,$assData);
-      $this->_setMessage($this->module->tr->translate('srbac','Role(s) Assigned'));
+      $this->_setMessage(Helper::translate('srbac','Role(s) Assigned'));
     } else if($revokeRoles && is_array($authItemRevokeName)) {
         $revoke = $this->_revokeUser($userid,$authItemRevokeName);
         if($revoke) {
-          $this->_setMessage($this->module->tr->translate('srbac','Role(s) Revoked'));
+          $this->_setMessage(Helper::translate('srbac','Role(s) Revoked'));
         } else {
-          $this->_setMessage($this->module->tr->translate('srbac','Can\'t revoke this role'));
+          $this->_setMessage(Helper::translate('srbac','Can\'t revoke this role'));
 
         }
       } else if($assignTasks && is_array($authItemAssignName)) {
           $this->_assignChild($authItemName,$authItemAssignName);
-          $this->_setMessage($this->module->tr->translate('srbac','Task(s) Assigned'));
+          $this->_setMessage(Helper::translate('srbac','Task(s) Assigned'));
         } else if($revokeTasks && is_array($authItemRevokeName)) {
             $this->_revokeChild($authItemName,$authItemRevokeName);
-            $this->_setMessage($this->module->tr->translate('srbac','Task(s) Revoked'));
+            $this->_setMessage(Helper::translate('srbac','Task(s) Revoked'));
           }else if($assignOpers && is_array($authItemAssignName)) {
               $this->_assignChild($assItemName,$authItemAssignName);
-              $this->_setMessage($this->module->tr->translate('srbac','Operation(s) Assigned'));
+              $this->_setMessage(Helper::translate('srbac','Operation(s) Assigned'));
             } else if($revokeOpers && is_array($authItemRevokeName)) {
                 $this->_revokeChild($assItemName,$authItemRevokeName);
-                $this->_setMessage( $this->module->tr->translate('srbac','Operation(s) Revoked'));
+                $this->_setMessage( Helper::translate('srbac','Operation(s) Revoked'));
               }
     //If not ajax show the assign page
     if(!Yii::app()->request->isAjaxRequest) {
@@ -317,13 +317,13 @@ class AuthitemController extends SBaseController {
         $model->save();
         Yii::app()->user->setFlash('updateSuccess',
             "'".$model->name."' ".
-            $this->module->tr->translate('srbac','created successfully'));
+            Helper::translate('srbac','created successfully'));
         $this->renderPartial('manage/update',array('model'=>$model));
       }catch (CDbException $exc ) {
         Yii::app()->user->setFlash('updateError',
-            $this->module->tr->translate('srbac','Error while creating')
+            Helper::translate('srbac','Error while creating')
             .' '.$model->name."<br />".
-            $this->module->tr->translate('srbac','Possible there\'s already an item with the same name'));
+            Helper::translate('srbac','Possible there\'s already an item with the same name'));
         $this->renderPartial('manage/create',array('model'=>$model));
       }
     } else {
@@ -344,7 +344,7 @@ class AuthitemController extends SBaseController {
       if($model->save()) {
         Yii::app()->user->setFlash('updateSuccess',
             "'".$model->name."' ".
-            $this->module->tr->translate('srbac','updated successfully'));
+            Helper::translate('srbac','updated successfully'));
       } else {
 
       }
@@ -375,7 +375,7 @@ class AuthitemController extends SBaseController {
       $models=AuthItem::model()->findAll($criteria);
       
       Yii::app()->user->setFlash('updateName',
-          $this->module->tr->translate('srbac','Updating list'));
+          Helper::translate('srbac','Updating list'));
       $this->renderPartial('manage/show',array(
           'models'=>$models,
           'pages'=>$pages,
@@ -656,29 +656,29 @@ class AuthitemController extends SBaseController {
     $actions= isset($_POST["actions"])  ?$_POST["actions"]:array();
     $deleteTasks = isset($_POST["createTasks"]) ?$_POST["createTasks"] : 0;
     $tasks = $_POST["tasks"];
-    $message = "<div style='font-weight:bold'>".$this->module->tr->translate('srbac','Delete operations')."</div>";
+    $message = "<div style='font-weight:bold'>".Helper::translate('srbac','Delete operations')."</div>";
     foreach ($actions as $key => $action) {
       $action = trim(str_replace("action", $controller, $action));
       $auth=AuthItem::model()->findByPk($action);
       if($auth!==null) {
         $auth->delete();
-        $message .= "<div>".$action." ".$this->module->tr->translate('srbac','deleted')."</div>";
+        $message .= "<div>".$action." ".Helper::translate('srbac','deleted')."</div>";
       } else {
-        $message .= "<div style='color:red;font-weight:bold'>".$this->module->tr->translate('srbac',
+        $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
             'Error while deleting')
             .' '.$action."</div>";
       }
     }
 
     if($deleteTasks) {
-      $message .= "<div style='font-weight:bold'>".$this->module->tr->translate('srbac','Delete tasks')."</div>";
+      $message .= "<div style='font-weight:bold'>".Helper::translate('srbac','Delete tasks')."</div>";
       foreach ($tasks as $key => $taskname) {
         $auth=AuthItem::model()->findByPk($taskname);
         if($auth!==null) {
           $auth->delete();
-          $message .= "<div>".$taskname." ".$this->module->tr->translate('srbac','deleted')."</div>";
+          $message .= "<div>".$taskname." ".Helper::translate('srbac','deleted')."</div>";
         } else {
-          $message .= "<div style='color:red;font-weight:bold'>".$this->module->tr->translate('srbac',
+          $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
               'Error while deleting')
               .' '.$taskname."</div>";
         }
@@ -697,7 +697,7 @@ class AuthitemController extends SBaseController {
     $tasks = isset($_POST["tasks"]) ? $_POST["tasks"] : array("");
 
     if($createTasks == "1") {
-      $message = "<div style='font-weight:bold'>".$this->module->tr->translate('srbac','Creating tasks')."</div>";
+      $message = "<div style='font-weight:bold'>".Helper::translate('srbac','Creating tasks')."</div>";
       foreach ($tasks as $key => $taskname) {
         $auth=new AuthItem();
         $auth->name = $taskname;
@@ -705,22 +705,22 @@ class AuthitemController extends SBaseController {
         try {
           if($auth->save()) {
             $message .=  "'".$auth->name."' ".
-                $this->module->tr->translate('srbac','created successfully')."<br />";
+                Helper::translate('srbac','created successfully')."<br />";
           } else {
-            $message .= "<div style='color:red;font-weight:bold'>".$this->module->tr->translate('srbac',
+            $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
                 'Error while creating')
                 .' '.$auth->name.'<br />'.
-                $this->module->tr->translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
+                Helper::translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
           }
         } catch (Exception $e) {
-          $message .= "<div style='color:red;font-weight:bold'>".$this->module->tr->translate('srbac',
+          $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
               'Error while creating')
               .' '.$auth->name.'<br />'.
-              $this->module->tr->translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
+              Helper::translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
         }
       }
     }
-    $message .= "<div style='font-weight:bold'>".$this->module->tr->translate('srbac','Creating operations')."</div>";
+    $message .= "<div style='font-weight:bold'>".Helper::translate('srbac','Creating operations')."</div>";
     foreach ($actions as $action) {
       $a = trim(str_replace("action", $controller, $action));
       $auth=new AuthItem();
@@ -729,7 +729,7 @@ class AuthitemController extends SBaseController {
       try {
         if($auth->save()) {
           $message .=  "'".$auth->name."' ".
-              $this->module->tr->translate('srbac','created successfully')."<br />";
+              Helper::translate('srbac','created successfully')."<br />";
           if($createTasks == "1") {
             if($this->_isUserOperation($auth->name)) {
               $this->_assignChild($tasks["user"], array($auth->name));
@@ -738,16 +738,16 @@ class AuthitemController extends SBaseController {
 
           }
         } else {
-          $message .= "<div style='color:red;font-weight:bold'>".$this->module->tr->translate('srbac',
+          $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
               'Error while creating')
               .' '.$auth->name.'<br />'.
-              $this->module->tr->translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
+              Helper::translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
         }
       } catch (Exception $e) {
-        $message .= "<div style='color:red;font-weight:bold'>".$this->module->tr->translate('srbac',
+        $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
             'Error while creating')
             .' '.$auth->name.'<br />'.
-            $this->module->tr->translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
+            Helper::translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
       }
     }
     echo $message;
