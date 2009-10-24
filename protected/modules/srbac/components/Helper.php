@@ -291,17 +291,6 @@ class Helper {
     return 0; //Success
   }
 
-  public static function getImages($path) {
-    $images['preview'] = Yii::app()->assetManager->publish($path."preview.png");
-    $images['update'] = Yii::app()->assetManager->publish($path."update.png");
-    $images['delete'] = Yii::app()->assetManager->publish($path."delete.png");
-    $images['create'] = Yii::app()->assetManager->publish($path."create.png");
-    $images['wizard'] = Yii::app()->assetManager->publish($path."wizard.png");
-    $images['admin'] = Yii::app()->assetManager->publish($path."admin.png");
-
-    return $images;
-  }
-
   public static function findModule($moduleID){
     if(Yii::app()->getModule($moduleID)){
       return Yii::app()->getModule($moduleID);
