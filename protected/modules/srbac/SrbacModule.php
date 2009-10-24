@@ -71,7 +71,7 @@ class SrbacModule extends CWebModule {
     }
     if(is_dir($this->imagesPath)) {
       $this->imagesPath = Yii::app()->assetManager->publish($this->imagesPath);
-    }
+    } 
 
   }
 
