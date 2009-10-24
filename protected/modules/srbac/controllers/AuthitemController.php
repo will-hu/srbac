@@ -191,8 +191,8 @@ class AuthitemController extends SBaseController {
           'model'=>$model,
           'message'=>$this->_getMessage(),
           'userid'=>$userid,
-          'data'=>$data,
-      ));
+          'data'=>$data
+          ));
     } else {
     // assign to user show the user tab
       if($userid != "") {
@@ -373,15 +373,13 @@ class AuthitemController extends SBaseController {
       $sort->applyOrder($criteria);
 
       $models=AuthItem::model()->findAll($criteria);
-      $images = Helper::getImages($this->module->imagesPath);
-
+      
       Yii::app()->user->setFlash('updateName',
           $this->module->tr->translate('srbac','Updating list'));
       $this->renderPartial('manage/show',array(
           'models'=>$models,
           'pages'=>$pages,
           'sort'=>$sort,
-          'images'=>$images,
           'deleted'=>true,
           ),false,true);
     }
@@ -431,11 +429,9 @@ class AuthitemController extends SBaseController {
     $pages->route = "manage";
     $pages->setCurrentPage(Yii::app()->user->getState("currentPage"));
     $models=AuthItem::model()->findAll($criteria);
-    $images = Helper::getImages($this->module->imagesPath);
     $this->renderPartial('manage/list',array(
         'models'=>$models,
         'pages'=>$pages,
-        'images'=>$images,
         ),false,true);
   }
 
@@ -495,14 +491,12 @@ class AuthitemController extends SBaseController {
     $sort->applyOrder($criteria);
 
     $models=AuthItem::model()->findAll($criteria);
-    $images = Helper::getImages($this->module->imagesPath);
     $full = Yii::app()->request->getParam("full");
     if(Yii::app()->request->isAjaxRequest && !$full) {
       $this->renderPartial('manage/list',array(
           'models'=>$models,
           'pages'=>$pages,
           'sort'=>$sort,
-          'images'=>$images,
           'full'=>$full,
           ),false,true);
     }else if(Yii::app()->request->isAjaxRequest && $full) {
@@ -781,10 +775,8 @@ class AuthitemController extends SBaseController {
         }
       }
     }
-      $images = Helper::getImages($this->module->imagesPath);
       $this->renderPartial("manage/wizard", array(
-          'controllers'=>$controlers,
-          'images'=>$images),false,true);
+          'controllers'=>$controlers),false,true);
   }
 
   function _isUserOperation($operation) {
@@ -797,7 +789,7 @@ class AuthitemController extends SBaseController {
   }
 
   public function actionFrontPage() {
-    $this->render('frontpage');
+    $this->render('frontpage', array());
   }
 
 }
