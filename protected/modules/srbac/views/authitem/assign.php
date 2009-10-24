@@ -4,15 +4,15 @@ $this->renderPartial("frontpage", array('images'=>$images));
 
 $tabs = array(
     'tab1'=>array(
-          'title'=>$this->module->tr->translate('srbac','Users'),
+          'title'=>Helper::translate('srbac','Users'),
           'view'=>'tabViews/roleToUser',
     ),
     'tab2'=>array(
-          'title'=>$this->module->tr->translate('srbac','Roles'),
+          'title'=>Helper::translate('srbac','Roles'),
           'view'=>'tabViews/taskToRole',
     ),
     'tab3'=>array(
-          'title'=>$this->module->tr->translate('srbac','Tasks'),
+          'title'=>Helper::translate('srbac','Tasks'),
           'view'=>'tabViews/operationToTask',
     ),
 );

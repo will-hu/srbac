@@ -4,9 +4,9 @@
 <div id="wizardButton" style="text-align:left" class="controlPanel marginBottom">
   <?php echo CHtml::ajaxLink(
                 CHtml::image($this->module->imagesPath.'/admin.png',
-                    $this->module->tr->translate('srbac','Manage AuthItem'),
+                    Helper::translate('srbac','Manage AuthItem'),
                     array('class'=>'icon',
-                      'title'=>$this->module->tr->translate('srbac','Manage AuthItem'),
+                      'title'=>Helper::translate('srbac','Manage AuthItem'),
                       'border'=>0
                       )
                 ),
@@ -29,9 +29,9 @@
   ?>
 <?php echo CHtml::ajaxLink(
                 CHtml::image($this->module->imagesPath.'/wizard.png',
-                $this->module->tr->translate('srbac','Autocreate Auth Items'),
+                Helper::translate('srbac','Autocreate Auth Items'),
                 array('class'=>'icon',
-                  'title'=>$this->module->tr->translate('srbac','Autocreate Auth Items'),
+                  'title'=>Helper::translate('srbac','Autocreate Auth Items'),
                   'border'=>0
                   )
                 ),
@@ -58,8 +58,8 @@
 <div id="wizard">
   <table class="srbacDataGrid" align="center">
     <tr>
-      <th width="50%"><?php echo $this->module->tr->translate('srbac','Auth items')?></th>
-      <th><?php echo $this->module->tr->translate('srbac','Actions')?></th>
+      <th width="50%"><?php echo Helper::translate("srbac","Auth items");?></th>
+      <th><?php echo Helper::translate('srbac','Actions')?></th>
     </tr>
     <tr>
       <td valign="top" align="center">

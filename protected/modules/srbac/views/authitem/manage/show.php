@@ -29,8 +29,8 @@
 </table>
 <div class="simple">
     <?php if($delete) :?>
-    <?php echo $this->module->tr->translate('srbac','Really delete')?> <?php echo $model->name; ?> ?
-      <?php echo CHtml::ajaxButton($this->module->tr->translate('srbac','Yes'),
+    <?php echo Helper::translate('srbac','Really delete')?> <?php echo $model->name; ?> ?
+      <?php echo CHtml::ajaxButton(Helper::translate('srbac','Yes'),
       array('delete','id'=>$model->name),
       array(
       'type'=>'POST',

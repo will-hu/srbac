@@ -3,10 +3,10 @@
   <?php echo CHtml::beginForm(); ?>
   <?php echo CHtml::errorSummary($model); ?>
   <table>
-    <tr><th colspan="2"><?php echo $this->module->tr->translate('srbac','Assign Roles to Users')?></th></tr>
+    <tr><th colspan="2"><?php echo Helper::translate('srbac','Assign Roles to Users')?></th></tr>
     <tr>
       <th width="50%">
-      <?php echo CHtml::label($this->module->tr->translate('srbac',"User"),'user'); ?></th>
+      <?php echo CHtml::label(Helper::translate('srbac',"User"),'user'); ?></th>
       <td width="50%" rowspan="2">
         <div id="roles">
           <?php

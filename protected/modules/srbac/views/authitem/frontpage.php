@@ -2,9 +2,9 @@
     <div class="iconBox">
     <?php echo CHtml::link(
             CHtml::image($this->module->imagesPath.'/manageAuth.png',
-                    $this->module->tr->translate('srbac','Managing auth items'),
+                    Helper::translate('srbac','Managing auth items'),
                     array('class'=>'icon',
-                      'title'=>$this->module->tr->translate('srbac','Managing auth items'),
+                      'title'=>Helper::translate('srbac','Managing auth items'),
                       'border'=>0
                       )
                 ),
@@ -14,9 +14,9 @@
     <div class="iconBox">
     <?php echo CHtml::link(
             CHtml::image($this->module->imagesPath.'/usersAssign.png',
-                    $this->module->tr->translate('srbac','Assign to users'),
+                    Helper::translate('srbac','Assign to users'),
                     array('class'=>'icon',
-                      'title'=>$this->module->tr->translate('srbac','Assign to users'),
+                      'title'=>Helper::translate('srbac','Assign to users'),
                       'border'=>0,
                       )
                 ),
@@ -25,9 +25,9 @@
     <div class="iconBox">
     <?php echo CHtml::link(
             CHtml::image($this->module->imagesPath.'/users.png',
-                    $this->module->tr->translate('srbac','User\'s assignments'),
+                    Helper::translate('srbac','User\'s assignments'),
                     array('class'=>'icon',
-                      'title'=>$this->module->tr->translate('srbac','User\'s assignments'),
+                      'title'=>Helper::translate('srbac','User\'s assignments'),
                       'border'=>0
                       )
                 ),
