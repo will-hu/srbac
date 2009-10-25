@@ -94,7 +94,8 @@
   </tr>
    <?php foreach($models as $n=>$model): ?>
   <tr class="<?php echo $n%2?'even':'odd';?>">
-    <td><?php echo CHtml::ajaxLink($model->name,array('show','id'=>$model->name),
+    <td><?php echo CHtml::ajaxLink($model->name,
+    array('show','id'=>$model->name),
          array('type'=>'POST','update'=>'#preview',
          'beforeSend' => 'function(){
                       $("#preview").addClass("srbacLoading");
@@ -102,7 +103,7 @@
          'complete' => 'function(){
                       $("#preview").removeClass("srbacLoading");
                   }',
-         )
+         ), array("title"=>$model->description ? $model->description : $model->name)
          ); ?></td>
     <td><?php echo CHtml::encode(AuthItem::$TYPES[$model->type]); ?></td>
     <td>
