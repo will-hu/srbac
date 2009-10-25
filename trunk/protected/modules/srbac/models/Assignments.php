@@ -56,10 +56,10 @@ class Assignments extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'itemname'=>Helper::findModule('srbac')->tr->translate('srbac','Itemname'),
-			'userid'=>Helper::findModule('srbac')->tr->translate('srbac','User id'),
-			'bizrule'=>Helper::findModule('srbac')->tr->translate('srbac','Bizrule'),
-			'data'=>Helper::findModule('srbac')->tr->translate('srbac','Data'),
+			'itemname'=>Helper::translate('srbac','Itemname'),
+			'userid'=>Helper::translate('srbac','User id'),
+			'bizrule'=>Helper::translate('srbac','Bizrule'),
+			'data'=>Helper::translate('srbac','Data'),
 		);
 	}
 }

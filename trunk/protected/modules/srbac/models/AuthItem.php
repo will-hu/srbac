@@ -61,11 +61,11 @@ class AuthItem extends CActiveRecord {
    */
   public function attributeLabels() {
     return array(
-    'name'=>Helper::findModule('srbac')->tr->translate('srbac','Name'),
-    'type'=>Helper::findModule('srbac')->tr->translate('srbac','Type'),
-    'description'=>Helper::findModule('srbac')->tr->translate('srbac','Description'),
-    'bizrule'=>Helper::findModule('srbac')->tr->translate('srbac','Bizrule'),
-    'data'=>Helper::findModule('srbac')->tr->translate('srbac','Data'),
+    'name'=>Helper::translate('srbac','Name'),
+    'type'=>Helper::translate('srbac','Type'),
+    'description'=>Helper::translate('srbac','Description'),
+    'bizrule'=>Helper::translate('srbac','Bizrule'),
+    'data'=>Helper::translate('srbac','Data'),
     );
   }
 
@@ -93,7 +93,7 @@ class AuthItem extends CActiveRecord {
       $criteria->condition = "child='".$this->oldName."'";
       ItemChildren::model()->updateAll(array('child'=>$this->name),$criteria);
       Yii::app()->user->setFlash('updateName',
-          Helper::findModule('srbac')->tr->translate('srbac','Updating list'));
+          Helper::translate('srbac','Updating list'));
     }
   }
 
