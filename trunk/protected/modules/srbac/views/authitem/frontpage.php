@@ -1,7 +1,7 @@
 <div class="marginBottom">
     <div class="iconBox">
     <?php echo CHtml::link(
-            CHtml::image($this->module->imagesPath.'/manageAuth.png',
+            CHtml::image($this->module->getIconsPath().'/manageAuth.png',
                     Helper::translate('srbac','Managing auth items'),
                     array('class'=>'icon',
                       'title'=>Helper::translate('srbac','Managing auth items'),
@@ -13,7 +13,7 @@
     </div>
     <div class="iconBox">
     <?php echo CHtml::link(
-            CHtml::image($this->module->imagesPath.'/usersAssign.png',
+            CHtml::image($this->module->getIconsPath().'/usersAssign.png',
                     Helper::translate('srbac','Assign to users'),
                     array('class'=>'icon',
                       'title'=>Helper::translate('srbac','Assign to users'),
@@ -24,7 +24,7 @@
     </div>
     <div class="iconBox">
     <?php echo CHtml::link(
-            CHtml::image($this->module->imagesPath.'/users.png',
+            CHtml::image($this->module->getIconsPath().'/users.png',
                     Helper::translate('srbac','User\'s assignments'),
                     array('class'=>'icon',
                       'title'=>Helper::translate('srbac','User\'s assignments'),

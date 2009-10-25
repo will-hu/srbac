@@ -30,6 +30,8 @@ class SrbacModule extends CWebModule {
   public $imagesPath;
   /* @var $imagesPack String The images theme to use*/
   public $imagesPack = "tango";
+  /* @var $_icons String The path to the icons */
+  private $_icons;
 
 
   /**
@@ -65,13 +67,17 @@ class SrbacModule extends CWebModule {
 
     //Set the images path
     if($this->imagesPath == "") {
-      $this->imagesPath = $this->getBasePath()."/images/".$this->imagesPack;
+      $this->_icons = $this->getBasePath()."/images/".$this->imagesPack;
     } else {
-      $this->imagesPath = Yii::app()->getBasePath()."/".$this->imagesPath."/".$this->imagesPack;
+      $this->_icons = Yii::app()->getBasePath()."/".$this->imagesPath."/".$this->imagesPack;
     }
-    if(is_dir($this->imagesPath)) {
-      $this->imagesPath = Yii::app()->assetManager->publish($this->imagesPath);
-    } 
+    // if the pack exists use it else look in the images Path dir
+    if(is_dir($this->_icons)) {
+      $this->_icons = Yii::app()->assetManager->publish($this->_icons);
+    } else {
+      $this->_icons = Yii::app()->assetManager->publish
+      ($this->_icons = Yii::app()->getBasePath()."/".$this->imagesPath);
+    }
 
   }
 
@@ -116,5 +122,10 @@ class SrbacModule extends CWebModule {
     }
     else
       return false;
+  }
+
+
+  public function getIconsPath(){
+    return $this->_icons;
   }
 }

@@ -25,7 +25,7 @@
             <td>
                 <?php
                 echo CHtml::ajaxLink(
-                CHtml::image($this->module->imagesPath.'/wizard.png',
+                CHtml::image($this->module->getIconsPath().'/wizard.png',
                 "Autocreate Auth Items for controller ".$controller,
                 array('border'=>0,'title'=>
                 Helper::translate('srbac',
@@ -46,7 +46,7 @@
             <td>
                 <?php
                 echo CHtml::ajaxLink(
-                CHtml::image($this->module->imagesPath.'/delete.png',
+                CHtml::image($this->module->getIconsPath().'/delete.png',
                 "Delete All Auth Items of controller ".$controller,
                 array('border'=>0,'title'=>
                 Helper::translate('srbac',
