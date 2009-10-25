@@ -3,7 +3,7 @@
 ?>
 <div id="wizardButton" style="text-align:left" class="controlPanel marginBottom">
   <?php echo CHtml::ajaxLink(
-                CHtml::image($this->module->imagesPath.'/admin.png',
+                CHtml::image($this->module->getIconsPath().'/admin.png',
                     Helper::translate('srbac','Manage AuthItem'),
                     array('class'=>'icon',
                       'title'=>Helper::translate('srbac','Manage AuthItem'),
@@ -28,7 +28,7 @@
             );
   ?>
 <?php echo CHtml::ajaxLink(
-                CHtml::image($this->module->imagesPath.'/wizard.png',
+                CHtml::image($this->module->getIconsPath().'/wizard.png',
                 Helper::translate('srbac','Autocreate Auth Items'),
                 array('class'=>'icon',
                   'title'=>Helper::translate('srbac','Autocreate Auth Items'),

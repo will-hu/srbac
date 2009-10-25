@@ -16,7 +16,7 @@
  <?php echo CHtml::beginForm();?>
 <div class="controlPanel">
     <?php echo CHtml::ajaxLink(
-                CHtml::image($this->module->imagesPath.'/create.png',
+                CHtml::image($this->module->getIconsPath().'/create.png',
                 Helper::translate('srbac','Create'),
                 array('border'=>0,
                   'class'=>'icon','title'=>Helper::translate('srbac','Create'),
@@ -48,7 +48,7 @@
             )
     ); ?>
     <?php
-    echo CHtml::imageButton($this->module->imagesPath.'/preview.png',
+    echo CHtml::imageButton($this->module->getIconsPath().'/preview.png',
                 array(
                     'border'=>0,
                     'title'=>Helper::translate('srbac','Search'),
@@ -107,7 +107,7 @@
     <td><?php echo CHtml::encode(AuthItem::$TYPES[$model->type]); ?></td>
     <td>
          <?php echo CHtml::ajaxLink(
-         CHtml::image($this->module->imagesPath.'/update.png',
+         CHtml::image($this->module->getIconsPath().'/update.png',
          Helper::translate('srbac','Update'),
          array('border'=>0,'title'=>Helper::translate('srbac','Update'))),
          array('update','id'=>$model->name),
@@ -124,7 +124,7 @@
     <td>
          <?php if ($model->name !=  Helper::findModule('srbac')->superUser) { ?>
            <?php echo CHtml::ajaxLink(
-           CHtml::image($this->module->imagesPath.'/delete.png'
+           CHtml::image($this->module->getIconsPath().'/delete.png'
              ,Helper::translate('srbac','Delete'),
            array('border'=>0,'title'=>Helper::translate('srbac','Delete'))),
            array('confirm','id'=>$model->name),
