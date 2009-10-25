@@ -7,7 +7,7 @@
   </div>
   <div>
     <?php echo Helper::translate('srbac','Your Database, AuthManager and srbac settings:'); ?>
-    <table class="srbac" width="'100%">
+    <table class="srbacDataGrid" width="'100%">
       <?php if(Yii::app()->authManager instanceof CDbAuthManager){ ?>
       <?php try { ?>
       <tr>
