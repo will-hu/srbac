@@ -192,7 +192,7 @@ class AuthitemController extends SBaseController {
           'message'=>$this->_getMessage(),
           'userid'=>$userid,
           'data'=>$data
-          ));
+      ));
     } else {
     // assign to user show the user tab
       if($userid != "") {
@@ -216,6 +216,9 @@ class AuthitemController extends SBaseController {
     $this->_getTheRoles();
   }
 
+  /**
+   * Gets the assigned and not assigned roles of the selected user
+   */
   private function _getTheRoles() {
     $model = new AuthItem();
     $userid = $_POST[Helper::findModule('srbac')->userclass][$this->module->userid];
@@ -244,7 +247,9 @@ class AuthitemController extends SBaseController {
     $this->_setMessage("");
     $this->_getTheTasks();
   }
-
+  /**
+   * Gets the assigned and not assigned tasks of the selected user
+   */
   private function _getTheTasks() {
     $model = new AuthItem();
     $name = $_POST["AuthItem"]["name"];
@@ -273,7 +278,9 @@ class AuthitemController extends SBaseController {
     $this->_setMessage("");
     $this->_getTheOpers();
   }
-
+  /**
+   * Gets the assigned and not assigned operations of the selected user
+   */
   private function _getTheOpers() {
     $model = new AuthItem();
     $name = $_POST["Assignments"]["itemname"];
@@ -373,7 +380,7 @@ class AuthitemController extends SBaseController {
       $sort->applyOrder($criteria);
 
       $models=AuthItem::model()->findAll($criteria);
-      
+
       Yii::app()->user->setFlash('updateName',
           Helper::translate('srbac','Updating list'));
       $this->renderPartial('manage/show',array(
@@ -388,6 +395,9 @@ class AuthitemController extends SBaseController {
     }
   }
 
+  /**
+   * Show the confirmation view for deleting auth items
+   */
   public function actionConfirm() {
     $this->renderPartial('manage/show',
         array('model'=>$this->loadAuthItem(),'delete'=>true,'deleted'=>false),
@@ -437,7 +447,7 @@ class AuthitemController extends SBaseController {
 
 
   /**
-   * Installs srbac only in debug mode
+   * Installs srbac (only in debug mode)
    */
   public function actionInstall() {
     if($this->module->debug) {
@@ -460,6 +470,9 @@ class AuthitemController extends SBaseController {
     }
   }
 
+  /**
+   * Displayes the authitem manage page
+   */
   public function actionManage() {
     $this->processAdminCommand();
     $page = Yii::app()->getRequest()->getParam("page","");
@@ -519,6 +532,9 @@ class AuthitemController extends SBaseController {
       }
   }
 
+  /**
+   * Gets the authitems for the CAutocomplete textbox
+   */
   public function actionAutocomplete() {
     $criteria = new CDbCriteria();
     $criteria->condition = "name LIKE :name";
@@ -558,18 +574,32 @@ class AuthitemController extends SBaseController {
     }
   }
 
+  //TODO These messages should be replaced by flash messages
+  /**
+   * Sets the message that is displayed to the user
+   * @param String $mess  The message to show
+   */
   private function _setMessage($mess) {
     Yii::app()->user->setState("message",$mess);
   }
-
+  /**
+   *
+   * @return String Gets the message that will be displayed to the user
+   */
   private function _getMessage() {
     return Yii::app()->user->getState("message");
   }
 
+  /**
+   * Displayes the assignments page with no user selected
+   */
   public function actionAssignments() {
     $this->render('assignments',array("id"=>0));
   }
 
+  /**
+   * Show a user's assignments.The user is passed by $_GET
+   */
   public function actionShowAssignments() {
     $userid = isset($_GET["id"]) ? $_GET["id"] :
         $_POST[Helper::findModule('srbac')->userclass][$this->module->userid];
@@ -601,12 +631,16 @@ class AuthitemController extends SBaseController {
     }
   }
 
+  /**
+   * Scans applications controllers and find the actions for autocreating of
+   * authItems
+   */
   public function actionScan() {
     $actions = array();
     $auth = Yii::app()->authManager;
     $controller = Yii::app()->request->getParam('controller');
     //Check if it's a module controller
-    if(substr_count($controller, "/")){
+    if(substr_count($controller, "/")) {
       $c = split("/", $controller);
       $controller = $c[1];
       $module = $c[0];
@@ -623,7 +657,7 @@ class AuthitemController extends SBaseController {
     $taskViewingExists = $auth->getAuthItem($task."Viewing")!==null ? true : false;
     $taskAdministratingExists = $auth->getAuthItem($task."Administrating")!==null ? true : false;
     $delete = Yii::app()->request->getParam('delete');
-    
+
     $h = file($control);
     for ($i = 0 ; $i < count($h) ; $i++) {
       $line = trim($h[$i]);
@@ -651,6 +685,9 @@ class AuthitemController extends SBaseController {
         false, true);
   }
 
+  /**
+   * Deletes autocreated authItems
+   */
   public function actionAutoDeleteItems() {
     $controller = str_replace("Controller","",$_POST["controller"]);
     $actions= isset($_POST["actions"])  ?$_POST["actions"]:array();
@@ -689,6 +726,9 @@ class AuthitemController extends SBaseController {
 
   }
 
+  /**
+   * Autocreating of authItems
+   */
   public function actionAutoCreateItems() {
     $controller = str_replace("Controller","",$_POST["controller"]);
     $actions= isset($_POST["actions"]) ? $_POST["actions"]:array();
@@ -753,6 +793,10 @@ class AuthitemController extends SBaseController {
     echo $message;
   }
 
+  /**
+   * Gets the controllers and the modules' controllers for the autocreating of
+   * authItems
+   */
   public function actionAuto() {
     $contPath = Yii::app()->getControllerPath();
     $handle = opendir($contPath);
@@ -775,10 +819,15 @@ class AuthitemController extends SBaseController {
         }
       }
     }
-      $this->renderPartial("manage/wizard", array(
-          'controllers'=>$controlers),false,true);
+    $this->renderPartial("manage/wizard", array(
+        'controllers'=>$controlers),false,true);
   }
 
+  /**
+   *
+   * @param <type> $operation
+   * @return <type> Checks if an operations should be assigned to using task or not
+   */
   function _isUserOperation($operation) {
     foreach ($this->module->userActions as $oper) {
       if(strpos(strtolower($operation), strtolower($oper)) > -1) {
@@ -788,6 +837,9 @@ class AuthitemController extends SBaseController {
     return false;
   }
 
+  /**
+   * Displays srbac frontpage
+   */
   public function actionFrontPage() {
     $this->render('frontpage', array());
   }

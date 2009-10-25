@@ -2,7 +2,6 @@
 
 /**
  * A helper class for the srbac module
- * Gets assigned and not assigned items per user/role/task
  */
 class Helper {
 
@@ -291,20 +290,31 @@ class Helper {
     return 0; //Success
   }
 
+  /**
+   * Find a module searching in application modules and if it's not found there
+   * looks in modules' modules
+   * @param String $moduleID The model to find
+   * @return The module, if it's found else null
+   */
   public static function findModule($moduleID) {
     if(Yii::app()->getModule($moduleID)) {
       return Yii::app()->getModule($moduleID);
     }
     $modules = Yii::app()->getModules();
     foreach ($modules as $mod=>$conf) {
-    //      CVarDumper::dump(Yii::app()->getModule($mod)->id, 3, true);
-
       if(Yii::app()->getModule($mod)) {
         return Helper::findInModule(Yii::app()->getModule($mod), $moduleID);
       }
     }
+    return null;
   }
 
+/**
+ * Search for a child module
+ * @param String $parent The parent module
+ * @param String $moduleID The module to find
+ * @return The module, if it's not found returns null
+ */
   private static function findInModule($parent, $moduleID) {
     if ($parent->getModule($moduleID)) {
       return $parent->getModule($moduleID);
@@ -314,8 +324,15 @@ class Helper {
         return $this->findInModule($parent->getModule($mod), $moduleID);
       }
     }
+    return null;
   }
 
+/**
+ * Translates texts based on Yii version
+ * @param String $source The messages source
+ * @param String $text The text to transalte
+ * @return String The translated text
+ */
   public static function translate($source, $text) {
     $version =  explode(".", Yii::getVersion());
     if($version[2] < 10) {

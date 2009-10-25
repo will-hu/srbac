@@ -52,7 +52,7 @@ class SBaseController extends CController {
   /**
    * The auth items that access is always  allowed. Configured in srbac module's
    * configuration
-   * @return <Array>
+   * @return The always allowed auth items
    */
   private function allowedAccess() {
     return Yii::app()->getModule('srbac')->alwaysAllowed;
