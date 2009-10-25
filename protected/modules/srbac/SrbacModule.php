@@ -43,7 +43,7 @@ class SrbacModule extends CWebModule {
   // import the module-level models and components
     $this->setImport(array(
         'srbac.models.*',
-        'srbac.components.*',
+        'srbac.components.Helper',
         'srbac.controllers.SBaseController'
     ));
     //Publish css
