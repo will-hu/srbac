@@ -54,7 +54,7 @@ class SBaseController extends CController {
    * configuration
    * @return The always allowed auth items
    */
-  private function allowedAccess() {
+  protected function allowedAccess() {
     return Yii::app()->getModule('srbac')->alwaysAllowed;
   }
 }
