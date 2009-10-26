@@ -69,14 +69,14 @@ class SrbacModule extends CWebModule {
     if($this->imagesPath == "") {
       $this->_icons = $this->getBasePath()."/images/".$this->imagesPack;
     } else {
-      $this->_icons = Yii::app()->getBasePath()."/".$this->imagesPath."/".$this->imagesPack;
+     $this->_icons = Yii::getPathOfAlias("webroot")."/".$this->imagesPath."/".$this->imagesPack;
     }
     // if the pack exists use it else look in the images Path dir
     if(is_dir($this->_icons)) {
       $this->_icons = Yii::app()->assetManager->publish($this->_icons);
     } else {
       $this->_icons = Yii::app()->assetManager->publish
-      ($this->_icons = Yii::app()->getBasePath()."/".$this->imagesPath);
+      ($this->_icons = Yii::getPathOfAlias("webroot")."/".$this->imagesPath);
     }
 
   }
