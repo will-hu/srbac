@@ -15,7 +15,7 @@ class SrbacModule extends CWebModule {
   /* @var $superUser String The name of the superuser */
   public $superUser = "Authorizer";
   /* @var $css string The css to use */
-  public $css;
+  public $css = "srbac.css";
   /* @var $layout string the layout to use */
   public $layout ;
   /* @var $notAuthorizedView String The view to render when unathorized access*/
@@ -49,9 +49,6 @@ class SrbacModule extends CWebModule {
     //Publish css
     $resources = dirname(__FILE__).DIRECTORY_SEPARATOR.'css';
     $url = Yii::app()->assetManager->publish($resources);
-    if($this->css == "") {
-      $this->css =  "srbac.css";
-    }
     Yii::app()->clientScript->registerCssFile($this->_getCssUrl($url));
 
     //Create the translation component
