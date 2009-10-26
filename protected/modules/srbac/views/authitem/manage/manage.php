@@ -1,5 +1,5 @@
 <?php if(!$full){
-    $this->renderPartial("frontpage", array('images'=>$images));
+    $this->renderPartial("frontpage");
 ?>
 <div id="wizardButton" style="text-align:left" class="controlPanel marginBottom">
   <?php echo CHtml::ajaxLink(
@@ -68,7 +68,6 @@
                     'models'=>$models,
                     'pages'=>$pages,
                     'sort'=>$sort,
-                    'images'=>$images
                     )); ?>
         </div>
       </td>

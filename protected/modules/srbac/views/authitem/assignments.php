@@ -1,6 +1,6 @@
 <div class="simple">
   <?php if(!$id) { 
-      $this->renderPartial("frontpage", array('images'=>$images));
+      $this->renderPartial("frontpage");
     ?>
     <?php echo CHtml::beginForm(); ?>
     <?php echo CHtml::activeDropDownList($this->module->getUserModel(),$this->module->userid,
