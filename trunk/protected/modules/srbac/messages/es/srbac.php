@@ -107,5 +107,6 @@ return array (
 
   //Version 1.3
   "Module"=>"Módulo",
+  "Pages that access is always allowed"=>"Páginas cuyo acceso es siempre permitido",
 );
 ?>
