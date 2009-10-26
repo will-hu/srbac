@@ -635,6 +635,7 @@ class AuthitemController extends SBaseController {
    */
   public function actionScan() {
     $actions = array();
+    $allowed = array();
     $auth = Yii::app()->authManager;
     $controller = Yii::app()->request->getParam('controller');
     //Check if it's a module controller
@@ -666,7 +667,11 @@ class AuthitemController extends SBaseController {
             str_replace("action", "", $action);
         if($action !="actions" ) {
           if($auth->getAuthItem($itemId) === null && !$delete) {
-            $actions[$module.$action] = $itemId;
+            if(!in_array($itemId, $this->allowedAccess())) {
+              $actions[$module.$action] = $itemId;
+            } else {
+              $allowed[] = $itemId;
+            }
           } else if($auth->getAuthItem($itemId)!==null && $delete) {
               $actions[$module.$action] = $itemId;
             }
@@ -679,7 +684,8 @@ class AuthitemController extends SBaseController {
         "delete"=>$delete,
         "task"=>$task,
         "taskViewingExists"=>$taskViewingExists,
-        "taskAdministratingExists"=>$taskAdministratingExists),
+        "taskAdministratingExists"=>$taskAdministratingExists,
+        "allowed"=>$allowed),
         false, true);
   }
 
