@@ -1,6 +1,6 @@
 <div>
 <?php
-$this->renderPartial("frontpage", array('images'=>$images));
+$this->renderPartial("frontpage");
 
 $tabs = array(
     'tab1'=>array(

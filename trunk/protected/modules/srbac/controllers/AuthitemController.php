@@ -517,7 +517,6 @@ class AuthitemController extends SBaseController {
             'models'=>$models,
             'pages'=>$pages,
             'sort'=>$sort,
-            'images'=>$images,
             'full'=>$full
             ),false,true);
       }
@@ -526,7 +525,6 @@ class AuthitemController extends SBaseController {
             'models'=>$models,
             'pages'=>$pages,
             'sort'=>$sort,
-            'images'=>$images,
             'full'=>$full,
         ));
       }
