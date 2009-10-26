@@ -103,5 +103,6 @@ return array (
 
   //Version 1.3
   "Module"=>"Υπομονάδα",
+  "Pages that access is always allowed"=>"Σελίδες στις οποίες η πρόσβαση επιτρέπεται πάντα",
 );
 ?>
