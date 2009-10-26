@@ -32,7 +32,7 @@ class SBaseController extends CController {
     }
 
     // Check for srbac access
-    if(!Yii::app()->user->checkAccess($access)) {
+    if(!Yii::app()->user->checkAccess($access) || Yii::app()->user->isGuest) {
     // You may change this messages
       $error["code"] = "403";
       $error["title"] = "You are not authorized for this action";
