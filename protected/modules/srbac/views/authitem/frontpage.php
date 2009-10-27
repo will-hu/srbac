@@ -1,4 +1,5 @@
 <div class="marginBottom">
+  <div class="iconSet">
     <div class="iconBox">
     <?php echo CHtml::link(
             CHtml::image($this->module->getIconsPath().'/manageAuth.png',
@@ -33,5 +34,6 @@
                 ),
             array('authitem/assignments'));?>
     </div>
+  </div>
     <div class="reset"></div>
 </div>
