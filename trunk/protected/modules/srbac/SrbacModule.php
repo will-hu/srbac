@@ -32,6 +32,8 @@ class SrbacModule extends CWebModule {
   public $imagesPack = "tango";
   /* @var $_icons String The path to the icons */
   private $_icons;
+  /* @var $iconText boolean Display text next to the icons */
+  public $iconText = true;
 
 
   /**

@@ -8,7 +8,10 @@
                       'title'=>Helper::translate('srbac','Managing auth items'),
                       'border'=>0
                       )
-                ),
+                )." " .
+                ($this->module->iconText ?
+                Helper::translate('srbac','Managing auth items') :
+                ""),
             array('authitem/manage/manage'))
     ?>
     </div>
@@ -20,7 +23,10 @@
                       'title'=>Helper::translate('srbac','Assign to users'),
                       'border'=>0,
                       )
-                ),
+                )." " .
+                ($this->module->iconText ?
+                Helper::translate('srbac','Assign to users') :
+                ""),
             array('authitem/assign'));?>
     </div>
     <div class="iconBox">
@@ -31,7 +37,10 @@
                       'title'=>Helper::translate('srbac','User\'s assignments'),
                       'border'=>0
                       )
-                ),
+                )." " .
+                ($this->module->iconText ?
+                Helper::translate('srbac','User\'s assignments') :
+                ""),
             array('authitem/assignments'));?>
     </div>
   </div>
