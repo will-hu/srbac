@@ -105,8 +105,9 @@ return array (
   "User's assignments"=>"Asignaciones de Usuario",
   "Srbac frontpage"=>"Inicio de srbac",
 
-  //Version 1.3
+  //Version 1.0.3
   "Module"=>"Módulo",
   "Pages that access is always allowed"=>"Páginas cuyo acceso es siempre permitido",
+  "srbac must in debug mode" =>"Srbac debe estar en modo de depuración",
 );
 ?>
