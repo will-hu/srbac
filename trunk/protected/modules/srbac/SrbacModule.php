@@ -1,5 +1,18 @@
 <?php
+/**
+ * SrbacModule class file.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
 
+/**
+ * SrbacModule is the module that loads the srbac module in the application
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac
+ * @since 1.0.0
+ */
 class SrbacModule extends CWebModule {
 
   /* @var $userid String The primary column of the users table*/
@@ -68,18 +81,24 @@ class SrbacModule extends CWebModule {
     if($this->imagesPath == "") {
       $this->_icons = $this->getBasePath()."/images/".$this->imagesPack;
     } else {
-     $this->_icons = Yii::getPathOfAlias("webroot")."/".$this->imagesPath."/".$this->imagesPack;
+      $this->_icons = Yii::getPathOfAlias("webroot")."/".$this->imagesPath."/".$this->imagesPack;
     }
     // if the pack exists use it else look in the images Path dir
     if(is_dir($this->_icons)) {
       $this->_icons = Yii::app()->assetManager->publish($this->_icons);
     } else {
       $this->_icons = Yii::app()->assetManager->publish
-      ($this->_icons = Yii::getPathOfAlias("webroot")."/".$this->imagesPath);
+          ($this->_icons = Yii::getPathOfAlias("webroot")."/".$this->imagesPath);
     }
 
   }
 
+  /**
+   * Gets the css file url by looking in the default srbac css dir or the default
+   * application's css directory
+   * @param String $url
+   * @return String the css file url
+   */
   private function _getCssUrl($url) {
   //check if the css is in the default css dir
     $defUrl = "css/".$this->css;
@@ -87,11 +106,14 @@ class SrbacModule extends CWebModule {
       return $defUrl;
     } else {
     //css in srbac css dir
-
       return $url."/".$this->css;
     }
   }
 
+/**
+ * Checks if srbac is installed by checking if Auth items table exists.
+ * @return boolean Whether srbac is installed or not
+ */
   public function isInstalled() {
     try {
       AuthItem::model()->findAll();
@@ -100,6 +122,7 @@ class SrbacModule extends CWebModule {
       return false;
     }
   }
+
   /**
    * Gets the user's class
    * @return userclass
@@ -107,24 +130,28 @@ class SrbacModule extends CWebModule {
   public function getUserModel() {
     return new $this->userclass;
   }
+
+
   /**
    * this method is called before any module controller action is performed
-   *  you may place customized code here
+   * you may place customized code here
    * @param CController $controller
    * @param CAction $action
    * @return boolean
    */
   public function beforeControllerAction($controller, $action) {
     if(parent::beforeControllerAction($controller, $action)) {
-    //$controller->layout = $this->layout;
       return true;
     }
     else
       return false;
   }
 
-
-  public function getIconsPath(){
+  /**
+   * Gets the path to the icon files
+   * @return String The path to the icons
+   */
+  public function getIconsPath() {
     return $this->_icons;
   }
 }
