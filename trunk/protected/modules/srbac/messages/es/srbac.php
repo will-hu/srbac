@@ -9,7 +9,7 @@
 /**
  * @author Ricardo Obregón <robregonm@gmail.com>
  * @package srbac.messages.es
- * @since 1.0.3
+ * @since 1.0.2
  */
 
 return array (
