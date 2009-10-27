@@ -1,8 +1,17 @@
 <?php
 /**
- * Translated by Ricardo Obregón <robregonm@gmail.com>
- * Virtual Consulting Services
+ * Spanish translation of srbac.
+ *
+ * @author Ricardo Obregón <robregonm@gmail.com>
+ * @link http://code.google.com/p/srbac/
  */
+
+/**
+ * @author Ricardo Obregón <robregonm@gmail.com>
+ * @package srbac.messages.es
+ * @since 1.0.3
+ */
+
 return array (
   "Fields with"=>"Campos con",
   "are required"=>"son requeridos",
