@@ -1,7 +1,17 @@
 <?php
+/**
+ * Helper class file.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
 
 /**
- * A helper class for the srbac module
+ * Helper is a class providing static methods that are used across srbac.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac
+ * @since 1.0.0
  */
 class Helper {
 
@@ -196,13 +206,11 @@ class Helper {
     /* @var $auth CDbAuthManager */
     $itemTable = $auth->itemTable;
     if($action == "Install") {
-      $command = $db->createCommand("SELECT * FROM ".$itemTable);
-      try {
-        $isInstalled = $command->query();
-      } catch (CDbException $e ) {
+      if(Helper::findModule("srbac")->isInstalled()) {
+        return 1; // Already installed
+      } else {
         return  Helper::_install($demo);
       }
-      return 1; // Already installed
     } else {
       return Helper::_install($demo);
     }
@@ -309,12 +317,12 @@ class Helper {
     return null;
   }
 
-/**
- * Search for a child module
- * @param String $parent The parent module
- * @param String $moduleID The module to find
- * @return The module, if it's not found returns null
- */
+  /**
+   * Search for a child module
+   * @param String $parent The parent module
+   * @param String $moduleID The module to find
+   * @return The module, if it's not found returns null
+   */
   private static function findInModule($parent, $moduleID) {
     if ($parent->getModule($moduleID)) {
       return $parent->getModule($moduleID);
@@ -327,12 +335,12 @@ class Helper {
     return null;
   }
 
-/**
- * Translates texts based on Yii version
- * @param String $source The messages source
- * @param String $text The text to transalte
- * @return String The translated text
- */
+  /**
+   * Translates texts based on Yii version
+   * @param String $source The messages source
+   * @param String $text The text to transalte
+   * @return String The translated text
+   */
   public static function translate($source, $text) {
     $version =  explode(".", Yii::getVersion());
     if($version[2] < 10) {
