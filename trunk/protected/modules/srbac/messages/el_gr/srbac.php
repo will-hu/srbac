@@ -101,8 +101,9 @@ return array (
   "User's assignments"=>"Αναθέσεις χρηστών",
   "Srbac frontpage"=>"αρχική σελίδα srbac",
 
-  //Version 1.3
+  //Version 1.0.3
   "Module"=>"Υπομονάδα",
   "Pages that access is always allowed"=>"Σελίδες στις οποίες η πρόσβαση επιτρέπεται πάντα",
+  "srbac must in debug mode" =>"Το srbac πρέπει να είναι σε debug κατάσταση",
 );
 ?>
