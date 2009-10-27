@@ -133,6 +133,18 @@ div.srbacForm div.complex div
   height:54px;
 }
 
+.iconBox a {
+  color:#222222;
+  text-decoration:none;
+  font-weight:normal;
+}
+
+.controlPanel a {
+  color:#222222;
+  text-decoration:none;
+  font-weight:normal;
+}
+
 .icon{
   vertical-align:middle;
   border:0;
