@@ -1,9 +1,24 @@
 <?php
+/**
+ * Assignments class file.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * Assignments model is the authManager model that defines which operations /
+ * tasks / roles are assigned to which user.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.models
+ * @since 1.0.0
+ */
 
 class Assignments extends CActiveRecord
 {
 	/**
-     * The followings are the available columns in table 'authassignment':
+   * The followings are the available columns in table 'authassignment':
 	 * @var string $itemname
 	 * @var string $userid
 	 * @var string $bizrule

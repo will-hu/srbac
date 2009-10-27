@@ -1,5 +1,20 @@
 <?php
+/**
+ * Assignments class file.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
 
+/**
+ * Assignments model is the authManager model that controls which the assignments
+ * between useers/roles/tasks and operations
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.models
+ * @since 1.0.0
+ */
+ 
 class ItemChildren extends CActiveRecord
 {
 	/**

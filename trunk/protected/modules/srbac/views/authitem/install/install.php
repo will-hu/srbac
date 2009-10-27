@@ -1,3 +1,19 @@
+<?php
+/**
+ * Install.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The install view.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.install
+ * @since 1.0.0
+ */
+ ?>
 <?php $error = false; $disabled = array(); ?>
 <h3><?php echo Helper::translate('srbac','Install Srbac')?></h3>
 <div class="srbac">

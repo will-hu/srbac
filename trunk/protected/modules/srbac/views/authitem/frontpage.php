@@ -1,3 +1,19 @@
+<?php
+/**
+ * frontpage.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * Srbac main administration page
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem
+ * @since 1.0.2
+ */
+ ?>
 <div class="marginBottom">
   <div class="iconSet">
     <div class="iconBox">

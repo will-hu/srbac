@@ -1,5 +1,18 @@
 <?php
+/**
+ * AuthItem class file.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
 
+/**
+ * AuthItem is the models for authManager items (operations, tasks and roles)
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.models
+ * @since 1.0.0
+ */
 class AuthItem extends CActiveRecord {
 /**
  * The followings are the available columns in table 'authitem':

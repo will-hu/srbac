@@ -1,4 +1,7 @@
 <?php
+/**
+ * The default srbac controller
+ */
 class DefaultController extends CController {
   /**
    * The default action if no route is specified

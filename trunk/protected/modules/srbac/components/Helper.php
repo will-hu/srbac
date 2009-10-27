@@ -10,7 +10,7 @@
  * Helper is a class providing static methods that are used across srbac.
  *
  * @author Spyros Soldatos <spyros@valor.gr>
- * @package srbac
+ * @package srbac.components
  * @since 1.0.0
  */
 class Helper {

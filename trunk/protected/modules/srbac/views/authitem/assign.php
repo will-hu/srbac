@@ -1,3 +1,19 @@
+<?php
+/**
+ * assign.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The Assign tabview view
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem
+ * @since 1.0.0
+ */
+ ?>
 <div>
 <?php
 $this->renderPartial("frontpage");

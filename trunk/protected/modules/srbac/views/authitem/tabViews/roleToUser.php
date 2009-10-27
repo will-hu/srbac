@@ -1,3 +1,19 @@
+<?php
+/**
+ * roleToUser.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The tab view for assigning roles to users
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.tabViews
+ * @since 1.0.0
+ */
+ ?>
 <!-- USER -> ROLES -->
 <div class="srbac">
   <?php echo CHtml::beginForm(); ?>

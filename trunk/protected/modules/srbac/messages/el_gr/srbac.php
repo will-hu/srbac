@@ -1,4 +1,17 @@
 <?php
+/**
+ * Greek translation of srbac.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.messages.el_gr
+ * @since 1.0.0
+ */
+
 return array (
   "Fields with"=>"Τα πεδία με",
   "are required"=>"είναι απαραίτητα",

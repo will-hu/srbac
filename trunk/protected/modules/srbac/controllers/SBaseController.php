@@ -1,4 +1,10 @@
 <?php
+/**
+ * SBaseController class file.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
 
 /**
  * SBaseController must be extended by all of the applications controllers
@@ -7,13 +13,18 @@
  * 'import'=>array(<br />
  * 'application.modules.srbac.controllers.SBaseController',<br />
  * ),
+ *
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.controllers
+ * @since 1.0.2
  */
 class SBaseController extends CController {
 
 /**
  * Checks if srbac access is granted for the current user
- * @param <String> $action . The current action
- * @return <boolean> true if access is granted else false
+ * @param String $action . The current action
+ * @return boolean true if access is granted else false
  */
   protected function beforeAction($action) {
 

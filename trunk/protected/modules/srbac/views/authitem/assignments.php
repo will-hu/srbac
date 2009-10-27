@@ -1,3 +1,21 @@
+<?php
+/**
+ * assignments.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The view of the users assignments
+ * If no user id is passed a drop down with all users is shown
+ * Else the user's assignments are shown.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem
+ * @since 1.0.1
+ */
+ ?>
 <div class="simple">
   <?php if(!$id) { 
       $this->renderPartial("frontpage");

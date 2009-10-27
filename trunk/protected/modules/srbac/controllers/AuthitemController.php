@@ -1,4 +1,19 @@
 <?php
+/**
+ * AuthitemController class file.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * AuthitemController is the main controller for all of the srbac actions
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.controllers
+ * @since 1.0.0
+ */
+
 class AuthitemController extends SBaseController {
 
 /**
@@ -13,13 +28,14 @@ class AuthitemController extends SBaseController {
 
   public function init() {
     parent::init();
+   
     $this->layout = $this->module->layout;
   }
 
   /**
    * Checks if the user has the authority role
-   * @param <String> $action The current action
-   * @return <Boolean> true if user has the authority role
+   * @param String $action The current action
+   * @return Boolean true if user has the authority role
    */
   protected function beforeAction($action) {
     if($this->module->debug) {
@@ -32,7 +48,6 @@ class AuthitemController extends SBaseController {
     } else {
       parent::beforeAction($action);
     }
-
   }
 
   /**

@@ -1,3 +1,19 @@
+<?php
+/**
+ * installText.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The greek translation of the installation text.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.install.el_gr
+ * @since 1.0.0
+ */
+ ?>
 <div align="left">
   Πιέστε το 'Εγκατάσταση' για να δημιουργήσετε τους πίνακες που χρειάζονται για το module.<br />
   Πρέπει να έχετε τα database, authManager components, και το srbac module ρυθμισμένα στο αρχείο ρυθμίσεων της εφαρμογής.<br />
