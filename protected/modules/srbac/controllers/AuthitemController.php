@@ -460,13 +460,15 @@ class AuthitemController extends SBaseController {
         } else if($error == 0) {
             $this->render('install/success', array("demo"=>$demo));
           } else if($error == 2) {
-              $this->render('install/error', array("demo"=>$demo));
+              $error = Helper::translate("srbac","Error while installing srbac.<br />Please check your database and try again");
+              $this->render('install/error', array("demo"=>$demo, "error"=>$error));
             }
       } else {
         $this->render('install/install');
       }
     } else {
-      throw new CHttpException(403,'Srbac must be in debug mode for the installation',1);
+      $error = Helper::translate("srbac", "srbac must in debug mode");
+      $this->render("install/error",array("error"=>$error));
     }
   }
 
