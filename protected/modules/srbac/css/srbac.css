@@ -142,6 +142,7 @@ div.srbacForm div.complex div
   background: #EBF4FB;
   padding:0.4em;
   -moz-border-radius:0.7em;
+  border:#dddddd solid 1px;
 }
 
 .marginBottom{
