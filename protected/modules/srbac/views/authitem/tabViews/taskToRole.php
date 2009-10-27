@@ -1,3 +1,19 @@
+<?php
+/**
+ * taskToRole.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The tab view for assigning tasks to roles
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.tabViews
+ * @since 1.0.0
+ */
+ ?>
 <!-- ROLES -> TASKS -->
 <div class="srbac">
   <?php echo CHtml::beginForm(); ?>

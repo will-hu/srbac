@@ -1,3 +1,19 @@
+<?php
+/**
+ * installText.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The installation text.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.install
+ * @since 1.0.0
+ */
+ ?>
 <div align="left">
   Press install to create the tables needed for srbac module.<br />
   You must have a database, authManager component and the srbac module

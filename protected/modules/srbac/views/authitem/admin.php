@@ -1,3 +1,21 @@
+<?php
+/**
+ * admin.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * It's not used anymore
+ * Replaced by manage/manage
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem
+ * @since 1.0.0
+ * @obsolete
+ */
+ ?>
 <h2><?php echo Helper::translate('srbac','Managing AuthItem')?></h2>
 
 <div class="actionBar">

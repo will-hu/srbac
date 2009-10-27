@@ -1,6 +1,20 @@
 <?php
+/**
+ * createItems.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
 
-
+/**
+ * The auth items auto creation view
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.manage
+ * @since 1.0.2
+ */
+ ?>
+<?php
 $script = "jQuery('#cb_createTasks').click(function(){
 $('#userTask').toggle('fast');
 $('#adminTask').toggle('fast');

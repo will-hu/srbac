@@ -1,3 +1,19 @@
+<?php
+/**
+ * operationToTask.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The tab view for assigning operations to tasks
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.tabViews
+ * @since 1.0.0
+ */
+ ?>
 <!-- TASKS -> OPERATIONS -->
 <div class="srbac">
   <?php echo CHtml::beginForm(); ?>

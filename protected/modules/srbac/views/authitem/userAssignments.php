@@ -1,3 +1,19 @@
+<?php
+/**
+ * userAssignments.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * Shows a user's assignments
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem
+ * @since 1.0.2
+ */
+ ?>
 <br />
 <h1>Assignments of user : '<?php echo $username?>'</h1>
 <table class="srbacDataGrid" width="100%">

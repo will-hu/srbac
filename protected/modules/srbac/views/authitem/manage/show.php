@@ -1,3 +1,20 @@
+<?php
+/**
+ * show.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The auth items information view. Also this view is used for deleting
+ * confirmation.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.manage
+ * @since 1.0.0
+ */
+ ?>
 <?php if($deleted) :?>
 <script language="javascript">
   <?php echo CHtml::ajax(array(

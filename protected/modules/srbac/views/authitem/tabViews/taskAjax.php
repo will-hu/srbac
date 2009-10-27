@@ -1,3 +1,19 @@
+<?php
+/**
+ * taskAjax.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The assigning operations to tasks listboxes
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.tabViews
+ * @since 1.0.0
+ */
+ ?>
 <table>
   <tr>
     <th><?php echo Helper::translate('srbac','Assigned Operations') ?></th>

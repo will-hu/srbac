@@ -1,3 +1,21 @@
+<?php
+/**
+ * wizard.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The auto creation of auth items main page.<br />
+ * The controllers / modules list is on the left and the auth item actions on
+ * the right table
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.manage
+ * @since 1.0.2
+ */
+ ?>
 <div id="wizardMain" style="margin:10px">
   <table width="100%">
     <tr valign="top">

@@ -1,3 +1,19 @@
+<?php
+/**
+ * manage.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The auth items main administration page
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.manage
+ * @since 1.0.0
+ */
+ ?>
 <?php if(!$full){
     $this->renderPartial("frontpage");
 ?>

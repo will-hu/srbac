@@ -1,4 +1,19 @@
+<?php
+/**
+ * _form.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
 
+/**
+ * The create new auth item form.
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.manage
+ * @since 1.0.0
+ */
+ ?>
 <div class="srbacForm">
 
   <p>

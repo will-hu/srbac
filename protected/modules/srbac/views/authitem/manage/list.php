@@ -1,3 +1,19 @@
+<?php
+/**
+ * list.php
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @link http://code.google.com/p/srbac/
+ */
+
+/**
+ * The auth items list view
+ *
+ * @author Spyros Soldatos <spyros@valor.gr>
+ * @package srbac.views.authitem.manage
+ * @since 1.0.0
+ */
+ ?>
  <?php if(Yii::app()->user->hasFlash('updateName')): ?>
 <div id="messageUpd"
      style="color:red;font-weight:bold;font-size:14px;text-align:center
