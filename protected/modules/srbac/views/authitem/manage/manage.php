@@ -9,7 +9,10 @@
                       'title'=>Helper::translate('srbac','Manage AuthItem'),
                       'border'=>0
                       )
-                ),
+                )." " .
+                ($this->module->iconText ?
+                Helper::translate('srbac','Manage AuthItem') :
+                ""),
                 array('manage','full'=>true),
                 array(
                     'type'=>'POST',
@@ -34,7 +37,10 @@
                   'title'=>Helper::translate('srbac','Autocreate Auth Items'),
                   'border'=>0
                   )
-                ),
+                )." " .
+                ($this->module->iconText ?
+                Helper::translate('srbac','Autocreate Auth Items') :
+                ""),
                 array('auto'),
                 array(
                     'type'=>'POST',
