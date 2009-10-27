@@ -125,6 +125,14 @@ div.srbacForm div.complex div
 
 
 /* SRBAC ELEMENTS*/
+.iconSet {
+  border:#dddddd solid 1px;
+  background: #EBF4FB;
+  padding:0.4em;
+  -moz-border-radius:0.7em;
+  height:54px;
+}
+
 .icon{
   vertical-align:middle;
   border:0;
