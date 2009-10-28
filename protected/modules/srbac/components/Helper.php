@@ -28,6 +28,7 @@ class Helper {
     } else {
       $assigned->condition = "type = 2";
     }
+    $assigned->order = "name ASC";
     $assigned =  AuthItem::model()->findAll($assigned);
     return ($assigned === null) ? array(): $assigned;
   }
@@ -41,6 +42,7 @@ class Helper {
   public static function getUserNotAssignedRoles($userid) {
     $roles = new CDbCriteria();
     $roles->condition = "type=2";
+    $roles->order = "name ASC";
     $final = array();
     if($userid) {
       $na = AuthItem::model()->findAll($roles);
@@ -75,6 +77,7 @@ class Helper {
     } else {
       $tasks->condition = "type=1";
     }
+    $tasks->order = "name ASC";
     $assigned = AuthItem::model()->findAll($tasks);
 
     return ($assigned === null) ? array(): $assigned;
@@ -89,6 +92,7 @@ class Helper {
   public static function getRoleNotAssignedTasks($name) {
     $tasks = new CDbCriteria();
     $tasks->condition = "type=1";
+    $tasks->order = "name ASC";
     $final = array();
     if($name) {
       $na = AuthItem::model()->findAll($tasks);
@@ -123,6 +127,7 @@ class Helper {
     } else {
       $tasks->condition = "type=0";
     }
+    $tasks->order = "name ASC";
     $assigned = AuthItem::model()->findAll($tasks);
 
     return ($assigned === null) ? array(): $assigned;
