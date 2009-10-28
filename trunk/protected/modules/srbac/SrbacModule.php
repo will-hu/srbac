@@ -30,7 +30,7 @@ class SrbacModule extends CWebModule {
   /* @var $css string The css to use */
   public $css = "srbac.css";
   /* @var $layout string the layout to use */
-  public $layout ;
+  public $layout = "" ;
   /* @var $notAuthorizedView String The view to render when unathorized access*/
   public $notAuthorizedView = "application.modules.srbac.views.authitem.unauthorized";
   /* @var $alwaysAllowed array The actions that are always allowed*/
@@ -40,11 +40,13 @@ class SrbacModule extends CWebModule {
   /* @var $listBoxNumberOfLines integer The number of lines in the assign tabview listboxes  */
   public $listBoxNumberOfLines = 10;
   /* @var $imagesPath string The path to srbac images*/
-  public $imagesPath;
+  public $imagesPath = "images";
   /* @var $imagesPack String The images theme to use*/
   public $imagesPack = "tango";
   /* @var $_icons String The path to the icons */
   private $_icons;
+  /* @var $_yiiSupportedVersion String The yii version tha srbac supports */
+  private $_yiiSupportedVersion = "1.0.06";
   /* @var $iconText boolean Display text next to the icons */
   public $iconText = true;
 
@@ -78,7 +80,7 @@ class SrbacModule extends CWebModule {
     );
 
     //Set the images path
-    if($this->imagesPath == "") {
+    if($this->imagesPath == "images") {
       $this->_icons = $this->getBasePath()."/images/".$this->imagesPack;
     } else {
       $this->_icons = Yii::getPathOfAlias("webroot")."/".$this->imagesPath."/".$this->imagesPack;
@@ -153,5 +155,9 @@ class SrbacModule extends CWebModule {
    */
   public function getIconsPath() {
     return $this->_icons;
+  }
+
+  public function getSupportedYiiVersion(){
+    return $this->_yiiSupportedVersion;
   }
 }
