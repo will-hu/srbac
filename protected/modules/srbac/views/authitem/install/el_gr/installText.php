@@ -56,6 +56,8 @@
       //"imagesPath"=>"../images",
       //The icons pack to use (noia, tango)
       "imagesPack"=>"noia",
+      // Whether to show text next to the menu icons (default false)
+      "iconText"=>true,
     )
   ),
   <?php $this->endWidget('CTextHighlighter') ?>
