@@ -348,10 +348,33 @@ class Helper {
    */
   public static function translate($source, $text) {
     $version =  explode(".", Yii::getVersion());
-    if($version[2] < 10) {
+    if(!Helper::checkYiiVersion("1.0.10")) {
       return Yii::app()->getModule("srbac")->tr->translate($source,$text,$lang);
     } else {
       return Yii::t('srbacModule.'.$source,$text);
+    }
+  }
+
+  /**
+   * Checks if a given version is supported by the current running Yii version
+   * @param String $checkVersion
+   * @return boolean True if the given version is supportedby the running Yii
+   * version
+   */
+  public static function checkYiiVersion($checkVersion) {
+  //remove dev builds
+    $yiiVersionNoBuilds =  explode("-", Yii::getVersion());
+    
+    $checkVersion = explode(".",$checkVersion);
+    $yiiVersion =  explode(".", $yiiVersionNoBuilds[0]);
+
+    if(
+        $yiiVersion[0] >= $checkVersion[0] &&
+        $yiiVersion[1] >= $checkVersion[1] &&
+        $yiiVersion[2] >= $checkVersion[2]) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
