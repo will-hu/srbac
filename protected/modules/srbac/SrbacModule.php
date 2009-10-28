@@ -15,6 +15,11 @@
  */
 class SrbacModule extends CWebModule {
 
+ /* @var $_icons String The path to the icons */
+  private $_icons;
+  /* @var $_yiiSupportedVersion String The yii version tha srbac supports */
+  private $_yiiSupportedVersion = "1.0.06";
+ 
   /* @var $userid String The primary column of the users table*/
   public $userid = "userid";
   /* @var $username String The username column of the users table*/
@@ -43,10 +48,6 @@ class SrbacModule extends CWebModule {
   public $imagesPath = "images";
   /* @var $imagesPack String The images theme to use*/
   public $imagesPack = "tango";
-  /* @var $_icons String The path to the icons */
-  private $_icons;
-  /* @var $_yiiSupportedVersion String The yii version tha srbac supports */
-  private $_yiiSupportedVersion = "1.0.06";
   /* @var $iconText boolean Display text next to the icons */
   public $iconText = true;
 
