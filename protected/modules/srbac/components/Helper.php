@@ -351,7 +351,7 @@ class Helper {
     if($version[2] < 10) {
       return Yii::app()->getModule("srbac")->tr->translate($source,$text,$lang);
     } else {
-      return Yii::t('srbac.'.$source,$text);
+      return Yii::t('srbacModule.'.$source,$text);
     }
   }
 }
