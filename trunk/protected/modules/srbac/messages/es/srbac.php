@@ -118,5 +118,8 @@ return array (
   "Module"=>"Módulo",
   "Pages that access is always allowed"=>"Páginas cuyo acceso es siempre permitido",
   "srbac must in debug mode" =>"Srbac debe estar en modo de depuración",
+  "Yii version"=>"Versión de Yii",
+  "Wrong Yii version, lower required version is"=>"Versión de Yii incorrecta, la versión mínima requerida es",
+  "There is an error in your configuration"=>"Hay un error en su configuración",
 );
 ?>
