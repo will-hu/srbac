@@ -95,21 +95,24 @@
       </tr>
       <tr>
         <td>
-          <?php echo Helper::translate("srbac", "Yii version: "); ?>
+          <?php echo Helper::translate("srbac", "Yii version")." :"; ?>
         </td>
         <?php if(Helper::checkYiiVersion(Helper::findModule("srbac")->getSupportedYiiVersion())) {?>
         <td><?php echo Yii::getVersion()?></td>
         <?php } else {?>
         <td style="color:red;font-weight:bold"><?php echo Yii::getVersion().
-        " (version:".Helper::findModule("srbac")->getSupportedYiiVersion()." needed)"?></td>
-        <?php } ?>
+              "  <br /> ".
+              Helper::translate("srbac","Wrong Yii version, lower required version is")." ".Helper::findModule("srbac")->getSupportedYiiVersion(); ?></td>
+          <?php
+          $error =true;
+        } ?>
       </tr>
     </table>
   </div>
   <div>
     <?php if($error) { ?>
     <div>
-        <?php echo Helper::translate('srbac','There\'s an error in your config') ?>
+        <?php echo Helper::translate('srbac','There is an error in your configuration') ?>
         <?php $disabled = array('disabled'=>true)?>
     </div>
     <?php } ?>
