@@ -120,5 +120,6 @@ return array (
   "srbac must in debug mode" =>"Το srbac πρέπει να είναι σε debug κατάσταση",
   "Yii version"=>"Έκδοση Yii",
   "Wrong Yii version, lower required version is"=>"Λάθος έκδοση Yii, η χαμηλότερη απαιτούμενη έκδοση είναι η ",
+  "There is an error in your configuration"=>"Υπάρχει κάποιο σφάλμα στις ρυθμίσεις",
 );
 ?>
