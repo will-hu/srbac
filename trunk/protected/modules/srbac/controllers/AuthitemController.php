@@ -38,6 +38,12 @@ class AuthitemController extends SBaseController {
    * @return Boolean true if user has the authority role
    */
   protected function beforeAction($action) {
+    if(!$this->module->isInstalled() && $action->id != "install"){
+      $this->redirect(array("install"));
+      $this->actionInstall();
+      return false;
+    }
+
     if($this->module->debug) {
       return true;
     }
