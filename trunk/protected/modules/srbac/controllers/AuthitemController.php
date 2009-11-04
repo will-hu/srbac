@@ -152,10 +152,7 @@ class AuthitemController extends SBaseController {
      /* @var $auth CDbAuthManager */
     $authItemAssignName = isset($_POST['AuthItem']['name']['assign']) ?
         $_POST['AuthItem']['name']['assign'] : "";
-    // ver 1.1
-    //$authItemAssignName = isset($_POST['AuthItem']['name']['assign']) ?
-    //    $_POST['AuthItem']['name']['assign'] : "";
-
+  
 
     $assBizRule = isset($_POST['Assignments']['bizrule']) ?
         $_POST['Assignments']['bizrule'] : "";
@@ -165,15 +162,15 @@ class AuthitemController extends SBaseController {
 
     $authItemRevokeName = isset($_POST['AuthItem']['name']['revoke']) ?
         $_POST['AuthItem']['name']['revoke'] : "";
-    // ver 1.1
-    //$authItemRevokeName = isset($_POST['AuthItem']['name']['revoke']) ?
-    //    $_POST['AuthItem']['name']['revoke'] : "";
 
-    $authItemName =
-    isset($_POST['AuthItem']['name']) ?
-    is_array($_POST['AuthItem']['name']) ? $_POST['AuthItem']['name'][0]:
-    $_POST['AuthItem']['name'] : "";
-
+        if( isset($_POST['AuthItem']['name'])){
+          if(isset($_POST['AuthItem']['name'][0])) {
+            $authItemName = $_POST['AuthItem']['name'][0];
+          } else {
+           $authItemName = $_POST['AuthItem']['name'];
+          }
+        }
+    
     $assItemName = isset($_POST['Assignments']['itemname']) ? $_POST['Assignments']['itemname'] : "";
 
     $assignRoles = Yii::app()->request->getParam('assignRoles',0);

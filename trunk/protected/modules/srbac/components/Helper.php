@@ -346,7 +346,7 @@ class Helper {
    * @param String $text The text to transalte
    * @return String The translated text
    */
-  public static function translate($source, $text) {
+  public static function translate($source, $text, $lang = null) {
     $version =  explode(".", Yii::getVersion());
     if(!Helper::checkYiiVersion("1.0.10")) {
       return Yii::app()->getModule("srbac")->tr->translate($source,$text,$lang);
@@ -367,7 +367,7 @@ class Helper {
     
     $checkVersion = explode(".",$checkVersion);
     $yiiVersion =  explode(".", $yiiVersionNoBuilds[0]);
-
+    $yiiVersion[2] = isset($yiiVersion[2]) ? $yiiVersion[2]  : "0";
     if(
         $yiiVersion[0] >= $checkVersion[0] &&
         $yiiVersion[1] >= $checkVersion[1] &&
