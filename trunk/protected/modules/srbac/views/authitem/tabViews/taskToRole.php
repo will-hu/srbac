@@ -33,7 +33,7 @@
       </td>
     </tr>
     <tr valign="top">
-      <td><?php echo CHtml::activeDropDownList(AuthItem::model(),'name',
+      <td><?php echo CHtml::activeDropDownList(AuthItem::model(),'name[0]',
         Chtml::listData(AuthItem::model()->findAll('type=2'), 'name', 'name'),
         array('size'=>$this->module->listBoxNumberOfLines,'class'=>'dropdown','ajax' => array(
         'type'=>'POST',

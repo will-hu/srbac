@@ -131,7 +131,7 @@ class AuthitemController extends SBaseController {
    * If there's a post back it performs the assign action
    */
   public function actionAssign() {
-
+    //CVarDumper::dump($_POST, 5, true);
     $userid = isset($_POST[Helper::findModule('srbac')->userclass][$this->module->userid]) ?
         $_POST[Helper::findModule('srbac')->userclass][$this->module->userid] :
         "";
@@ -150,8 +150,8 @@ class AuthitemController extends SBaseController {
 
     $auth = Yii::app()->authManager;
      /* @var $auth CDbAuthManager */
-    $authItemAssignName = isset($_POST['AuthItem']['assign']['name']) ?
-        $_POST['AuthItem']['assign']['name'] : "";
+    $authItemAssignName = isset($_POST['AuthItem']['name']['assign']) ?
+        $_POST['AuthItem']['name']['assign'] : "";
     // ver 1.1
     //$authItemAssignName = isset($_POST['AuthItem']['name']['assign']) ?
     //    $_POST['AuthItem']['name']['assign'] : "";
@@ -163,13 +163,16 @@ class AuthitemController extends SBaseController {
         $_POST['Assignments']['data'] : "";
 
 
-    $authItemRevokeName = isset($_POST['AuthItem']['revoke']['name']) ?
-        $_POST['AuthItem']['revoke']['name'] : "";
+    $authItemRevokeName = isset($_POST['AuthItem']['name']['revoke']) ?
+        $_POST['AuthItem']['name']['revoke'] : "";
     // ver 1.1
     //$authItemRevokeName = isset($_POST['AuthItem']['name']['revoke']) ?
     //    $_POST['AuthItem']['name']['revoke'] : "";
 
-    $authItemName = isset($_POST['AuthItem']['name']) ? $_POST['AuthItem']['name'] : "";
+    $authItemName =
+    isset($_POST['AuthItem']['name']) ?
+    is_array($_POST['AuthItem']['name']) ? $_POST['AuthItem']['name'][0]:
+    $_POST['AuthItem']['name'] : "";
 
     $assItemName = isset($_POST['Assignments']['itemname']) ? $_POST['Assignments']['itemname'] : "";
 
@@ -273,7 +276,7 @@ class AuthitemController extends SBaseController {
    */
   private function _getTheTasks() {
     $model = new AuthItem();
-    $name = $_POST["AuthItem"]["name"];
+    $name = $_POST["AuthItem"]["name"][0];
     $data['roleAssignedTasks']  = Helper::getRoleAssignedTasks($name);
     $data['roleNotAssignedTasks'] = Helper::getRoleNotAssignedTasks($name);
     if($data['roleAssignedTasks'] == array()) {

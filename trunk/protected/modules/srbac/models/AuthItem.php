@@ -43,10 +43,10 @@ class AuthItem extends CActiveRecord {
     return Yii::app()->authManager->itemTable;
   }
 
-  public function safeAttributes() {
-    parent::safeAttributes();
-    return array('name','type','description','bizrule','data');
-  }
+//  public function safeAttributes() {
+//    parent::safeAttributes();
+//    return array('name','type','description','bizrule','data');
+//  }
 
   /**
    * @return array validation rules for model attributes.
@@ -56,6 +56,7 @@ class AuthItem extends CActiveRecord {
     array('name','length','max'=>64),
     array('name, type', 'required'),
     array('type', 'numerical', 'integerOnly'=>true),
+    array('name,type,description,bizrule,data','safe'),
     );
   }
 
