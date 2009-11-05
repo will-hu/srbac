@@ -347,12 +347,7 @@ class Helper {
    * @return String The translated text
    */
   public static function translate($source, $text, $lang = null) {
-    $version =  explode(".", Yii::getVersion());
-    if(!Helper::checkYiiVersion("1.0.10")) {
-      return Yii::app()->getModule("srbac")->tr->translate($source,$text,$lang);
-    } else {
-      return Yii::t('srbacModule.'.$source,$text);
-    }
+    return Yii::app()->getModule("srbac")->tr->translate($source,$text,$lang);
   }
 
   /**
@@ -363,19 +358,31 @@ class Helper {
    */
   public static function checkYiiVersion($checkVersion) {
   //remove dev builds
-    $yiiVersionNoBuilds =  explode("-", Yii::getVersion());
-    
+    $version = ereg_replace("[a-z]", "",Yii::getVersion() );
+    $yiiVersionNoBuilds =  explode("-", $version);
     $checkVersion = explode(".",$checkVersion);
     $yiiVersion =  explode(".", $yiiVersionNoBuilds[0]);
     $yiiVersion[2] = isset($yiiVersion[2]) ? $yiiVersion[2]  : "0";
-    if(
-        $yiiVersion[0] >= $checkVersion[0] &&
-        $yiiVersion[1] >= $checkVersion[1] &&
-        $yiiVersion[2] >= $checkVersion[2]) {
+    if($yiiVersion[0] > $checkVersion[0] ) {
       return true;
-    } else {
-      return false;
-    }
+    } else if($yiiVersion[0] < $checkVersion[0] ) {
+        return false;
+      } else {
+        if($yiiVersion[1] > $checkVersion[1]) {
+          return true;
+        } else if($yiiVersion[1] < $checkVersion[1]) {
+            return false;
+          }else {
+            if($yiiVersion[2] > $checkVersion[2]) {
+              return true;
+            } else if($yiiVersion[2] == $checkVersion[2]) {
+                return true;
+              } else {
+                return false;
+              }
+          }
+      }
+    return false;
   }
 }
 ?>
