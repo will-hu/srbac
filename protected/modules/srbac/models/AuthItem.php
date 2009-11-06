@@ -27,6 +27,10 @@ class AuthItem extends CActiveRecord {
   public static $TYPES = array('Operation','Task','Role');
   public $oldName;
 
+  public function getDbConnection() {
+    return Yii::app()->authManager->db;
+  }
+
 
   /**
    * Returns the static model of the specified AR class.

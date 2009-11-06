@@ -25,16 +25,17 @@
     <?php echo Helper::translate('srbac','Your Database, AuthManager and srbac settings:'); ?>
     <table class="srbacDataGrid" width="'100%">
       <?php if(Yii::app()->authManager instanceof CDbAuthManager) { ?>
+      
         <?php try { ?>
       <tr>
         <th colspan="2"><?php echo Helper::translate('srbac','Database');?></th>
       <tr>
         <td><?php echo Helper::translate('srbac','Driver');?></td>
-        <td><?php echo Yii::app()->getDb()->getDriverName()?></td>
+        <td><?php echo Yii::app()->authManager->db->getDriverName()?></td>
       </tr>
       <tr>
         <td><?php echo Helper::translate('srbac','Connection');?></td>
-        <td><?php echo Yii::app()->getDb()->connectionString?></td>
+        <td><?php echo Yii::app()->authManager->db->connectionString?></td>
       </tr>
         <?php  } catch(CException $e) { ?>
       <tr><td colspan="2">
