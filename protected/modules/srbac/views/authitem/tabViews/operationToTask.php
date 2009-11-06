@@ -13,7 +13,7 @@
  * @package srbac.views.authitem.tabViews
  * @since 1.0.0
  */
- ?>
+?>
 <!-- TASKS -> OPERATIONS -->
 <div class="srbac">
   <?php echo CHtml::beginForm(); ?>
@@ -47,12 +47,43 @@
                   }',
         ),
         )); ?>
+        <div>
+          <?php echo Helper::translate("srbac","Clever Assigning"); ?>:
+          <?php echo CHtml::checkBox("clever",  Yii::app()->getGlobalState("cleverAssigning")); ?>
+        </div>
       </td>
     </tr>
   </table>
   <br />
+
   <div class="message" id="loadMessTask">
     <?php echo $message ?>
   </div>
   <?php echo CHtml::endForm(); ?>
 </div>
+<?php
+$url = "index.php?".str_replace("assign", "", Yii::app()->getRequest()->getQueryString())."getCleverOpers";
+?>
+<?php
+$script = "jQuery('#clever').click(function(){
+  var checked = $('#clever').attr('checked');
+  var name = $('#Assignments_itemname').attr('value');
+  $.ajax({
+   type: 'POST',
+   url: '{$url}',
+   data: 'checked='+checked+'&name='+name,
+   beforeSend: function(){
+     $('#loadMessTask').addClass('srbacLoading');
+   },
+   complete: function(){
+     $('#loadMessTask').removeClass('srbacLoading');
+   },
+  success: function(data){
+     $('#operations').html(data);
+   },
+ });
+
+});";
+
+Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
+?>

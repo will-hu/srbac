@@ -15,10 +15,10 @@
  * @package srbac.views.authitem
  * @since 1.0.1
  */
- ?>
+?>
 <div class="simple">
-  <?php if(!$id) { 
-      $this->renderPartial("frontpage");
+  <?php if(!$id) {
+    $this->renderPartial("frontpage");
     ?>
     <?php echo CHtml::beginForm(); ?>
     <?php echo CHtml::activeDropDownList($this->module->getUserModel(),$this->module->userid,
@@ -38,7 +38,7 @@
     )); ?>
     <?php echo CHTml::endForm(); ?>
   <?php } else { ?>
-  <?php Yii::app()->clientScript->registerCssFile(Yii::app()->getModule('srbac')->css); ?>
+    <?php Yii::app()->clientScript->registerCssFile(Yii::app()->getModule('srbac')->css); ?>
     <?php   Yii::app()->clientScript->registerScript(
         "alert",
         "$.ajax({
