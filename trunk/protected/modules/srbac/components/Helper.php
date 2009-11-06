@@ -217,7 +217,7 @@ class Helper {
    * @return int status (0:Success, 1:Ovewrite, 2: Error)
    */
   public static function install($action,$demo) {
-    $db = Yii::app()->db;
+    $db = Yii::app()->authManager->db;
     /* @var $db CDbConnection */
     $auth = Yii::app()->authManager;
     /* @var $auth CDbAuthManager */
@@ -240,7 +240,7 @@ class Helper {
    * @return int status (0:Success, 1:Ovewrite, 2: Error)
    */
   private static function _install($demo) {
-    $db = Yii::app()->db;
+    $db = Yii::app()->authManager->db;
     /* @var $db CDbConnection */
     $auth = Yii::app()->authManager;
     /* @var $auth CDbAuthManager */
