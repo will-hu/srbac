@@ -121,5 +121,8 @@ return array (
   "Yii version"=>"Έκδοση Yii",
   "Wrong Yii version, lower required version is"=>"Λάθος έκδοση Yii, η χαμηλότερη απαιτούμενη έκδοση είναι η ",
   "There is an error in your configuration"=>"Υπάρχει κάποιο σφάλμα στις ρυθμίσεις",
+
+  //Version 1.1
+  "Clever Assigning"=>"Έξυπνη ανάθεση",
 );
 ?>
