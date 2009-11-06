@@ -19,6 +19,8 @@ class SrbacModule extends CWebModule {
   private $_icons;
   /* @var $_yiiSupportedVersion String The yii version tha srbac supports */
   private $_yiiSupportedVersion = "1.0.06";
+  /* @var $_version Srbac version */
+  private $_version = "1.1.0 beta";
  
   /* @var $userid String The primary column of the users table*/
   public $userid = "userid";
@@ -160,5 +162,9 @@ class SrbacModule extends CWebModule {
 
   public function getSupportedYiiVersion(){
     return $this->_yiiSupportedVersion;
+  }
+
+  public function getVersion(){
+    return $this->_version;
   }
 }
