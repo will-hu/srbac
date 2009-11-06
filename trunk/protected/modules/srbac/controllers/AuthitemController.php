@@ -28,7 +28,7 @@ class AuthitemController extends SBaseController {
 
   public function init() {
     parent::init();
-   
+
     $this->layout = $this->module->layout;
   }
 
@@ -38,7 +38,7 @@ class AuthitemController extends SBaseController {
    * @return Boolean true if user has the authority role
    */
   protected function beforeAction($action) {
-    if(!$this->module->isInstalled() && $action->id != "install"){
+    if(!$this->module->isInstalled() && $action->id != "install") {
       $this->redirect(array("install"));
       $this->actionInstall();
       return false;
@@ -131,7 +131,7 @@ class AuthitemController extends SBaseController {
    * If there's a post back it performs the assign action
    */
   public function actionAssign() {
-    //CVarDumper::dump($_POST, 5, true);
+  //CVarDumper::dump($_POST, 5, true);
     $userid = isset($_POST[Helper::findModule('srbac')->userclass][$this->module->userid]) ?
         $_POST[Helper::findModule('srbac')->userclass][$this->module->userid] :
         "";
@@ -152,7 +152,7 @@ class AuthitemController extends SBaseController {
      /* @var $auth CDbAuthManager */
     $authItemAssignName = isset($_POST['AuthItem']['name']['assign']) ?
         $_POST['AuthItem']['name']['assign'] : "";
-  
+
 
     $assBizRule = isset($_POST['Assignments']['bizrule']) ?
         $_POST['Assignments']['bizrule'] : "";
@@ -163,14 +163,14 @@ class AuthitemController extends SBaseController {
     $authItemRevokeName = isset($_POST['AuthItem']['name']['revoke']) ?
         $_POST['AuthItem']['name']['revoke'] : "";
 
-        if( isset($_POST['AuthItem']['name'])){
-          if(isset($_POST['AuthItem']['name'][0])) {
-            $authItemName = $_POST['AuthItem']['name'][0];
-          } else {
-           $authItemName = $_POST['AuthItem']['name'];
-          }
-        }
-    
+    if( isset($_POST['AuthItem']['name'])) {
+      if(isset($_POST['AuthItem']['name'][0])) {
+        $authItemName = $_POST['AuthItem']['name'][0];
+      } else {
+        $authItemName = $_POST['AuthItem']['name'];
+      }
+    }
+
     $assItemName = isset($_POST['Assignments']['itemname']) ? $_POST['Assignments']['itemname'] : "";
 
     $assignRoles = Yii::app()->request->getParam('assignRoles',0);
@@ -304,9 +304,16 @@ class AuthitemController extends SBaseController {
    */
   private function _getTheOpers() {
     $model = new AuthItem();
-    $name = $_POST["Assignments"]["itemname"];
-    $data['taskAssignedOpers']  = Helper::getTaskAssignedOpers($name);
-    $data['taskNotAssignedOpers'] = Helper::getTaskNotAssignedOpers($name);
+    $name = isset($_POST["Assignments"]["itemname"]) ?
+        $_POST["Assignments"]["itemname"] :
+        Yii::app()->getGlobalState("cleverName");
+    if(Yii::app()->getGlobalState("cleverAssigning")) {
+      $data['taskAssignedOpers']  = Helper::getTaskAssignedOpers($name,true);
+      $data['taskNotAssignedOpers'] = Helper::getTaskNotAssignedOpers($name,true);
+    }else {
+      $data['taskAssignedOpers']  = Helper::getTaskAssignedOpers($name,false);
+      $data['taskNotAssignedOpers'] = Helper::getTaskNotAssignedOpers($name,false);
+    }
     if($data['taskAssignedOpers'] == array()) {
       $data['revoke'] = array("name"=>"revokeOpers","disabled"=>true);
     } else {
@@ -848,6 +855,14 @@ class AuthitemController extends SBaseController {
     }
     $this->renderPartial("manage/wizard", array(
         'controllers'=>$controlers),false,true);
+  }
+
+  public function actionGetCleverOpers() {
+    $cleverAssigning = Yii::app()->getRequest()->getParam("checked") == "true" ? 1 : 0;
+    $cleverName = Yii::app()->getRequest()->getParam("name");
+    Yii::app()->setGlobalState("cleverAssigning", $cleverAssigning);
+    Yii::app()->setGlobalState("cleverName", $cleverName);
+    $this->_getTheOpers();
   }
 
   /**

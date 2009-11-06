@@ -117,13 +117,19 @@ class Helper {
    * Return the operations assigned to a task or all the operations if no task
    * is provided
    * @param string $name The name of the task
+   * @param boolean $clever Use clever Assigning
    * @return array An array of operations(AuthItems) assigned to the task
    */
-  public static function getTaskAssignedOpers($name) {
+  public static function getTaskAssignedOpers($name,$clever=false) {
     $tasks = new CDbCriteria();
     if($name) {
       $tasks->condition = "type=0 AND parent ='".$name."'";
       $tasks->join = 'left join '.Yii::app()->authManager->itemChildTable.' on name = child';
+      if($clever) {
+        $cleverName = ereg_replace("Viewing|Administrating", "", $name);
+        $len = strlen($cleverName);
+        $tasks->addCondition("LEFT(child,".$len.") = '".$cleverName."'");
+      }
     } else {
       $tasks->condition = "type=0";
     }
@@ -138,18 +144,24 @@ class Helper {
    * and removing those assigned to the task, or all the operations if no task
    * is provided
    * @param string $name The name of the task
+   * @param boolean $clever Use clever Assigning
    * @return array An array of operations(AuthItems) not assigned to the task
    */
-  public static function getTaskNotAssignedOpers($name) {
+  public static function getTaskNotAssignedOpers($name,$clever=false) {
     $tasks = new CDbCriteria();
     $tasks->condition = "type=0";
+    if($clever) {
+      $cleverName = ereg_replace("Viewing|Administrating", "", $name);
+      $len = strlen($cleverName);
+      $tasks->addCondition("LEFT(name,".$len.") = '".$cleverName."'");
+    }
     $final = array();
     if($name) {
       $na = AuthItem::model()->findAll($tasks);
     } else {
       return AuthItem::model()->findAll($tasks);
     }
-    $as = Helper::getTaskAssignedOpers($name);
+    $as = Helper::getTaskAssignedOpers($name,$clever);
     foreach ($na as $n) {
       $exists = false;
       foreach ($as as $a) {
