@@ -690,7 +690,7 @@ class AuthitemController extends SBaseController {
     $h = file($control);
     for ($i = 0 ; $i < count($h) ; $i++) {
       $line = trim($h[$i]);
-      if(preg_match("/^(.+)function action*/", $line)) {
+      if(preg_match("/^(.+)function( +)action*/", $line)) {
         $action = trim(substr($line, strpos($line, "action")));
         $action = ereg_replace("[(){ ]", "", trim($action));
         $itemId = $module.str_replace("Controller","",$controller).
