@@ -15,23 +15,34 @@
  */
 class SrbacModule extends CWebModule {
 
+//Private attributes
  /* @var $_icons String The path to the icons */
   private $_icons;
   /* @var $_yiiSupportedVersion String The yii version tha srbac supports */
   private $_yiiSupportedVersion = "1.0.06";
   /* @var $_version Srbac version */
   private $_version = "1.1.0 beta";
- 
+
+  // Srbac Attributes
+ /* @var $debug If srbac is in debug mode */
+  private $_debug;
+ /* @var $pagesize int The number of items displayed in each page*/
+  private $_pageSize = 15;
+  /* @var $alwaysAllowed array The actions that are always allowed*/
+  private $_alwaysAllowed = array();
+  /* @var $userActions Array Operations assigned to users by default*/
+  private $_userActions = array();
+   /* @var $listBoxNumberOfLines integer The number of lines in the assign tabview listboxes  */
+  private $_listBoxNumberOfLines = 10;
+  /* @var $iconText boolean Display text next to the icons */
+  private $_iconText = false;
+
   /* @var $userid String The primary column of the users table*/
   public $userid = "userid";
   /* @var $username String The username column of the users table*/
   public $username = "username";
   /* @var $userclass String The name of the users Class*/
   public $userclass = "User";
- /* @var $debug If srbac is in debug mode */
-  public $debug;
-  /* @var $pagesize int The number of items displayed in each page*/
-  public $pageSize = 15;
   /* @var $superUser String The name of the superuser */
   public $superUser = "Authorizer";
   /* @var $css string The css to use */
@@ -40,18 +51,11 @@ class SrbacModule extends CWebModule {
   public $layout = "" ;
   /* @var $notAuthorizedView String The view to render when unathorized access*/
   public $notAuthorizedView = "application.modules.srbac.views.authitem.unauthorized";
-  /* @var $alwaysAllowed array The actions that are always allowed*/
-  public $alwaysAllowed = array();
-  /* @var $userActions Array Operations assigned to users by default*/
-  public $userActions = array();
-  /* @var $listBoxNumberOfLines integer The number of lines in the assign tabview listboxes  */
-  public $listBoxNumberOfLines = 10;
   /* @var $imagesPath string The path to srbac images*/
   public $imagesPath = "images";
   /* @var $imagesPack String The images theme to use*/
   public $imagesPack = "tango";
-  /* @var $iconText boolean Display text next to the icons */
-  public $iconText = true;
+  
 
 
   /**
@@ -98,6 +102,74 @@ class SrbacModule extends CWebModule {
 
   }
 
+  // SETTERS & GETTERS
+  public function setDebug($debug) {
+    if(is_bool($debug)) {
+      $this->_debug = $debug;
+    } else {
+      throw new CException("Wrong value for srbac attribute debug in srbac configuration.
+      '".$debug."' is not a boolean.");
+    }
+  }
+  public function getDebug() {
+    return $this->_debug;
+  }
+  public function setPageSize($pageSize) {
+    if(is_numeric($pageSize)) {
+      $this->_pageSize = (int) $pageSize;
+    } else {
+      throw new CException("Wrong value for srbac attribute pageSize in srbac configuration.
+      '".$pageSize."' is not an integer.");
+    }
+  }
+  public function getPageSize() {
+    return $this->_pageSize;
+  }
+  public function setAlwaysAllowed($alwaysAllowed) {
+    if(is_array($alwaysAllowed)) {
+      $this->_alwaysAllowed = $alwaysAllowed;
+    } else {
+      $this->_alwaysAllowed = array($alwaysAllowed);
+    }
+  }
+  public function getAlwaysAllowed() {
+    return $this->_alwaysAllowed;
+  }
+  public function setUserActions($userActions) {
+    if(is_array($userActions)) {
+      $this->_userActions = $userActions;
+    } else {
+      $this->_userActions = array($userActions);
+    }
+  }
+  public function getUserActions() {
+    return $this->_userActions;
+  }
+  public function setListBoxNumberOfLines($size) {
+    if(is_numeric($size)) {
+      $this->_listBoxNumberOfLines = (int) $size;
+    } else {
+      throw new CException("Wrong value for srbac attribute listBoxNumberOfLines in srbac configuration.
+      '".$size."' is not an integer.");
+    }
+  }
+  public function getListBoxNumberOfLines() {
+    return $this->_listBoxNumberOfLines;
+  }
+  public function setIconText($iconText) {
+    if(is_bool($iconText)) {
+      $this->_iconText = $iconText;
+    } else {
+      throw new CException("Wrong value for srbac attribute iconText in srbac configuration.
+      '".$iconText."' is not a boolean.");
+    }
+  }
+  public function getIconText() {
+    return $this->_iconText;
+  }
+
+
+
   /**
    * Gets the css file url by looking in the default srbac css dir or the default
    * application's css directory
@@ -115,10 +187,10 @@ class SrbacModule extends CWebModule {
     }
   }
 
-/**
- * Checks if srbac is installed by checking if Auth items table exists.
- * @return boolean Whether srbac is installed or not
- */
+  /**
+   * Checks if srbac is installed by checking if Auth items table exists.
+   * @return boolean Whether srbac is installed or not
+   */
   public function isInstalled() {
     try {
       AuthItem::model()->findAll();
@@ -160,11 +232,11 @@ class SrbacModule extends CWebModule {
     return $this->_icons;
   }
 
-  public function getSupportedYiiVersion(){
+  public function getSupportedYiiVersion() {
     return $this->_yiiSupportedVersion;
   }
 
-  public function getVersion(){
+  public function getVersion() {
     return $this->_version;
   }
 }
