@@ -13,9 +13,13 @@
  * @package srbac
  * @since 1.0.0
  */
+
 class SrbacModule extends CWebModule {
 
-//Private attributes
+//Constants
+  const ICON_PACKS = "noia,tango";
+
+  //Private attributes
  /* @var $_icons String The path to the icons */
   private $_icons;
   /* @var $_yiiSupportedVersion String The yii version tha srbac supports */
@@ -26,7 +30,7 @@ class SrbacModule extends CWebModule {
   private $_cssPublished = false;
   /* @var $_imagesPublished boolean If images files exists and are published */
   private $_imagesPublished = false;
- 
+
   // Srbac Attributes
  /* @var $debug If srbac is in debug mode */
   private $_debug = false;
@@ -78,8 +82,8 @@ class SrbacModule extends CWebModule {
     $this->_cssPublished = Helper::publishCss($this->css);
 
     //Publish images
-   $this->setIconsPath(Helper::publishImages($this->imagesPath,$this->imagesPack));
-   $this->_imagesPublished = $this->getIconsPath() == "" ? false : true;
+    $this->setIconsPath(Helper::publishImages($this->imagesPath,$this->imagesPack));
+    $this->_imagesPublished = $this->getIconsPath() == "" ? false : true;
 
     //Create the translation component
     $this->setComponents(
@@ -158,7 +162,7 @@ class SrbacModule extends CWebModule {
   public function getIconText() {
     return $this->_iconText;
   }
-  
+
 
   /**
    * Checks if srbac is installed by checking if Auth items table exists.
@@ -204,7 +208,7 @@ class SrbacModule extends CWebModule {
   public function getIconsPath() {
     return $this->_icons;
   }
-  public function setIconsPath($path){
+  public function setIconsPath($path) {
     $this->_icons = $path;
   }
 
@@ -222,4 +226,8 @@ class SrbacModule extends CWebModule {
   public function isImagesPublished() {
     return $this->_imagesPublished;
   }
+
+ public function getAttributes(){
+   return get_object_vars($this);
+ }
 }
