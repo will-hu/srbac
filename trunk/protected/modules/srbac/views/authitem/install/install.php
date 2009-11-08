@@ -79,8 +79,9 @@
         <?php foreach (Helper::findModule("srbac") as $key=>$value) { ?>
       <tr>
         <td><?php echo $key ?></td>
-        <td><?php echo (!is_array($value)) ? $value : CVarDumper::dump($value, 1, true); ?></td>
+        <td><?php $check = Helper::checkInstall($key,$value);echo $check[0];?></td>
       </tr>
+      <?php if($check[1] == 1)$error = true;?>
         <?php } ?>
       <?php  } catch(CException $e ) { ?>
       <tr>
