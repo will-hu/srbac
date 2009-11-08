@@ -121,5 +121,8 @@ return array (
   "Yii version"=>"Versión de Yii",
   "Wrong Yii version, lower required version is"=>"Versión de Yii incorrecta, la versión mínima requerida es",
   "There is an error in your configuration"=>"Hay un error en su configuración",
+
+  //Version 1.1
+  "Clever Assigning"=>"Asignación inteligente",
 );
 ?>
