@@ -337,3 +337,16 @@ div.srbacLoading {
 div.srbacLoading * {
   opacity: .2;
 }
+
+/*Installing srbac styles*/
+
+span.installNoError{
+  color:green;
+
+}
+span.installError{
+  color:red;
+  font-weight:bold;
+
+}
+
