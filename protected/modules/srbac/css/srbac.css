@@ -340,13 +340,22 @@ div.srbacLoading * {
 
 /*Installing srbac styles*/
 
-span.installNoError{
+div.installNoError{
   color:green;
-
-}
-span.installError{
+  }
+div.installError{
   color:red;
   font-weight:bold;
+}
+div.installNoError {
+  background-image: url(noError.png);
+  background-repeat:no-repeat;
 
+  background-position: right;
+}
+div.installError {
+  background-image: url(error.png);
+  background-repeat:no-repeat;
+  background-position: right;
 }
 
