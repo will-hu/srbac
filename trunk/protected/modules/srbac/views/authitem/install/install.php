@@ -77,10 +77,8 @@
         <th colspan="2"><?php echo Helper::translate('srbac','srbac');?></th>
       </tr>
         <?php foreach ($this->module->getAttributes() as $key=>$value) { ?>
-      <tr>
-        <td><?php echo substr($key, 0,1) == "_" ?  substr($key,1) : $key ?></td>
-        <td><?php $check = Helper::checkInstall($key,$value);echo $check[0];?></td>
-      </tr>
+        <?php $check = Helper::checkInstall($key,$value); ?>
+        <?php echo $check[0]; ?>
       <?php if($check[1] == 1)$error = true;?>
         <?php } ?>
       <?php  } catch(CException $e ) { ?>

@@ -18,6 +18,7 @@ class SrbacModule extends CWebModule {
 
 //Constants
   const ICON_PACKS = "noia,tango";
+  const PRIVATE_ATTRIBUTES = "_icons,_cssPublished,_imagesPublished,defaultController,controllerMap,preload,behaviors";
 
   //Private attributes
  /* @var $_icons String The path to the icons */
@@ -227,7 +228,7 @@ class SrbacModule extends CWebModule {
     return $this->_imagesPublished;
   }
 
- public function getAttributes(){
-   return get_object_vars($this);
- }
+  public function getAttributes() {
+    return get_object_vars($this);
+  }
 }

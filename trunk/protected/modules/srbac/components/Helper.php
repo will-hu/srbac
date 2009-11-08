@@ -398,10 +398,14 @@ class Helper {
   }
 
   public static function checkInstall($key, $value) {
-    $class = "installNoError";
-    $out = array("","");
+    if(in_array($key, explode(",",SrbacModule::PRIVATE_ATTRIBUTES))) {
+      return;
+    }
+    $class = "";
+    $out = array("","","");
     switch ($key) {
       case ($key == "userid" || $key == "username"):
+        $class = "installNoError";
         $u = Helper::findModule("srbac")->getUserModel();
         $user = new $u;
         if(!$user->hasAttribute($value)) {
@@ -409,31 +413,39 @@ class Helper {
           $out[1]="1";
         }
         break;
-        case "css":
-          $cssPublished = Helper::findModule("srbac")->isCssPublished();
-          if(!$cssPublished){
-            $class = "installError";
-            $out[1]="1";
-          }
+      case "css":
+        $class = "installNoError";
+        $cssPublished = Helper::findModule("srbac")->isCssPublished();
+        if(!$cssPublished) {
+          $class = "installError";
+          $out[1]="1";
+        }
         break;
-        case ($key == "layout" || $key == "notAuthorizedView" || $key == "imagesPath"):
-          $file = Yii::getPathOfAlias($value).".php";
-          $path = Yii::getPathOfAlias($value);
-          if(!file_exists($file) && !is_dir($path)){
-            $class = "installError";
-            $out[1]="1";
-          }
+      case ($key == "layout" || $key == "notAuthorizedView" || $key == "imagesPath"):
+        $class = "installNoError";
+        $file = Yii::getPathOfAlias($value).".php";
+        $path = Yii::getPathOfAlias($value);
+        if(!file_exists($file) && !is_dir($path)) {
+          $class = "installError";
+          $out[1]="1";
+        }
         break;
-         case ($key == "imagesPack"):
-          if(!in_array($value, explode(",",SrbacModule::ICON_PACKS))){
-            $class = "installError";
-            $out[1]="1";
-          }
+      case ($key == "imagesPack"):
+        $class = "installNoError";
+        if(!in_array($value, explode(",",SrbacModule::ICON_PACKS))) {
+          $class = "installError";
+          $out[1]="1";
+        }
         break;
+      case "debug":
+        
+        break;
+      
     }
-    $out[0] = "<span class='$class'>";
-    $out[0] .= (!is_array($value)) ? $value : CVarDumper::dump($value, 1, true);
-    $out[0] .= "</span>";
+    $out[0] = "<tr><td valign='top'>".(substr($key,0,1) == "_" ? substr($key,1) : $key)."</td>";
+    $out[0] .= "<td><div class='$class'>";
+    $out[0] .= (!is_array($value)) ? $value : CVarDumper::dumpAsString($value, 1, true);
+    $out[0] .= "</div><div class='$class'></div></td>";
     return $out;
 
   }
@@ -464,15 +476,15 @@ class Helper {
     }
   }
 
-/**
- * Publish srbac images
- * @param String $imagesPath The path to the images
- * @param String $imagesPack The icons pack to use
- */
-  public static function publishImages($imagesPath, $imagesPack){
+  /**
+   * Publish srbac images
+   * @param String $imagesPath The path to the images
+   * @param String $imagesPack The icons pack to use
+   */
+  public static function publishImages($imagesPath, $imagesPack) {
     $path = Yii::getPathOfAlias($imagesPath).DIRECTORY_SEPARATOR.$imagesPack;
-    if(is_dir($path)){
-     return Yii::app()->assetManager->publish($path);
+    if(is_dir($path)) {
+      return Yii::app()->assetManager->publish($path);
     } else {
       return "";
     }
