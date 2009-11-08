@@ -22,10 +22,14 @@ class SrbacModule extends CWebModule {
   private $_yiiSupportedVersion = "1.0.06";
   /* @var $_version Srbac version */
   private $_version = "1.1.0 beta";
-
+  /* @var $_cssPublished boolean If css file exists and is published */
+  private $_cssPublished = false;
+  /* @var $_imagesPublished boolean If images files exists and are published */
+  private $_imagesPublished = false;
+ 
   // Srbac Attributes
  /* @var $debug If srbac is in debug mode */
-  private $_debug;
+  private $_debug = false;
  /* @var $pagesize int The number of items displayed in each page*/
   private $_pageSize = 15;
   /* @var $alwaysAllowed array The actions that are always allowed*/
@@ -47,15 +51,15 @@ class SrbacModule extends CWebModule {
   public $superUser = "Authorizer";
   /* @var $css string The css to use */
   public $css = "srbac.css";
-  /* @var $layout string the layout to use */
-  public $layout = "" ;
   /* @var $notAuthorizedView String The view to render when unathorized access*/
   public $notAuthorizedView = "application.modules.srbac.views.authitem.unauthorized";
+  /* @var $layout string the layout to use */
+  public $layout = "";
   /* @var $imagesPath string The path to srbac images*/
-  public $imagesPath = "images";
+  public $imagesPath = "application.modules.srbac.images";
   /* @var $imagesPack String The images theme to use*/
-  public $imagesPack = "tango";
-  
+  public $imagesPack = "noia";
+
 
 
   /**
@@ -71,9 +75,11 @@ class SrbacModule extends CWebModule {
         'srbac.controllers.SBaseController'
     ));
     //Publish css
-    $resources = dirname(__FILE__).DIRECTORY_SEPARATOR.'css';
-    $url = Yii::app()->assetManager->publish($resources);
-    Yii::app()->clientScript->registerCssFile($this->_getCssUrl($url));
+    $this->_cssPublished = Helper::publishCss($this->css);
+
+    //Publish images
+   $this->setIconsPath(Helper::publishImages($this->imagesPath,$this->imagesPack));
+   $this->_imagesPublished = $this->getIconsPath() == "" ? false : true;
 
     //Create the translation component
     $this->setComponents(
@@ -85,21 +91,6 @@ class SrbacModule extends CWebModule {
         ),
         )
     );
-
-    //Set the images path
-    if($this->imagesPath == "images") {
-      $this->_icons = $this->getBasePath()."/images/".$this->imagesPack;
-    } else {
-      $this->_icons = Yii::getPathOfAlias("webroot")."/".$this->imagesPath."/".$this->imagesPack;
-    }
-    // if the pack exists use it else look in the images Path dir
-    if(is_dir($this->_icons)) {
-      $this->_icons = Yii::app()->assetManager->publish($this->_icons);
-    } else {
-      $this->_icons = Yii::app()->assetManager->publish
-          ($this->_icons = Yii::getPathOfAlias("webroot")."/".$this->imagesPath);
-    }
-
   }
 
   // SETTERS & GETTERS
@@ -167,25 +158,7 @@ class SrbacModule extends CWebModule {
   public function getIconText() {
     return $this->_iconText;
   }
-
-
-
-  /**
-   * Gets the css file url by looking in the default srbac css dir or the default
-   * application's css directory
-   * @param String $url
-   * @return String the css file url
-   */
-  private function _getCssUrl($url) {
-  //check if the css is in the default css dir
-    $defUrl = "css/".$this->css;
-    if(file_exists($defUrl)) {
-      return $defUrl;
-    } else {
-    //css in srbac css dir
-      return $url."/".$this->css;
-    }
-  }
+  
 
   /**
    * Checks if srbac is installed by checking if Auth items table exists.
@@ -231,6 +204,9 @@ class SrbacModule extends CWebModule {
   public function getIconsPath() {
     return $this->_icons;
   }
+  public function setIconsPath($path){
+    $this->_icons = $path;
+  }
 
   public function getSupportedYiiVersion() {
     return $this->_yiiSupportedVersion;
@@ -238,5 +214,12 @@ class SrbacModule extends CWebModule {
 
   public function getVersion() {
     return $this->_version;
+  }
+
+  public function isCssPublished() {
+    return $this->_cssPublished;
+  }
+  public function isImagesPublished() {
+    return $this->_imagesPublished;
   }
 }
