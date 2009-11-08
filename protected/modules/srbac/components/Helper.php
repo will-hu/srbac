@@ -396,5 +396,103 @@ class Helper {
       }
     return false;
   }
+
+  public static function checkInstall($key, $value) {
+    $class = "installNoError";
+    $out = array("","");
+    switch ($key) {
+      case ($key == "userid" || $key == "username"):
+        $u = Helper::findModule("srbac")->getUserModel();
+        $user = new $u;
+        if(!$user->hasAttribute($value)) {
+          $class = "installError";
+          $out[1]="1";
+        }
+        break;
+        case "css":
+          $cssPublished = Helper::findModule("srbac")->isCssPublished();
+          if(!$cssPublished){
+            $class = "installError";
+            $out[1]="1";
+          }
+        break;
+        case ($key == "layout" || $key == "notAuthorizedView" || $key == "imagesPath"):
+          $file = Yii::getPathOfAlias($value).".php";
+          $path = Yii::getPathOfAlias($value);
+          if(!file_exists($file) && !is_dir($path)){
+            $class = "installError";
+            $out[1]="1";
+          }
+        break;
+         case ($key == "imagesPack"):
+          if(!in_array($value, explode(",",SrbacModule::ICON_PACKS))){
+            $class = "installError";
+            $out[1]="1";
+          }
+        break;
+    }
+    $out[0] = "<span class='$class'>";
+    $out[0] .= (!is_array($value)) ? $value : CVarDumper::dump($value, 1, true);
+    $out[0] .= "</span>";
+    return $out;
+
+  }
+
+  /**
+   * Publishes srbac cssfile
+   * @return boolean If css published or not
+   */
+  public static function publishCss($css) {
+    $resources = dirname(__FILE__).DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.'css';
+    $url = Yii::app()->assetManager->publish($resources);
+    $cssFile = Helper::_getCssUrl($url,$css);
+    if($cssFile ==  "css/".$css) {
+      if(file_exists($cssFile)) {
+        Yii::app()->clientScript->registerCssFile($cssFile);
+        return true;
+      } else {
+        return false;
+      }
+    }
+    else {
+      if(file_exists("../".$url."/".$css)) {
+        Yii::app()->clientScript->registerCssFile($cssFile);
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+/**
+ * Publish srbac images
+ * @param String $imagesPath The path to the images
+ * @param String $imagesPack The icons pack to use
+ */
+  public static function publishImages($imagesPath, $imagesPack){
+    $path = Yii::getPathOfAlias($imagesPath).DIRECTORY_SEPARATOR.$imagesPack;
+    if(is_dir($path)){
+     return Yii::app()->assetManager->publish($path);
+    } else {
+      return "";
+    }
+  }
+
+  /**
+   * Gets the css file url by looking in the default srbac css dir or the default
+   * application's css directory
+   * @param String $url
+   * @return String the css file url
+   */
+  private static function _getCssUrl($url,$css) {
+  //check if the css is in the default css dir
+    $defUrl = "css/".$css;
+    if(file_exists($defUrl)) {
+      return $defUrl;
+    } else {
+    //css in srbac css dir
+      return $url."/".$css;
+    }
+  }
 }
 ?>
