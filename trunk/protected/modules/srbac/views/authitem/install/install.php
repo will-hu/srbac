@@ -76,9 +76,9 @@
       <tr>
         <th colspan="2"><?php echo Helper::translate('srbac','srbac');?></th>
       </tr>
-        <?php foreach (Helper::findModule("srbac") as $key=>$value) { ?>
+        <?php foreach ($this->module->getAttributes() as $key=>$value) { ?>
       <tr>
-        <td><?php echo $key ?></td>
+        <td><?php echo substr($key, 0,1) == "_" ?  substr($key,1) : $key ?></td>
         <td><?php $check = Helper::checkInstall($key,$value);echo $check[0];?></td>
       </tr>
       <?php if($check[1] == 1)$error = true;?>
