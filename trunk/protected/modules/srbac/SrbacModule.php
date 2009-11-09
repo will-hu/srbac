@@ -37,9 +37,9 @@ class SrbacModule extends CWebModule {
   private $_debug = false;
  /* @var $pagesize int The number of items displayed in each page*/
   private $_pageSize = 15;
-  /* @var $alwaysAllowed array The actions that are always allowed*/
+  /* @var $alwaysAllowed mixed The actions that are always allowed*/
   private $_alwaysAllowed = array();
-  /* @var $userActions Array Operations assigned to users by default*/
+  /* @var $userActions mixed Operations assigned to users by default*/
   private $_userActions = array();
    /* @var $listBoxNumberOfLines integer The number of lines in the assign tabview listboxes  */
   private $_listBoxNumberOfLines = 10;
@@ -125,7 +125,7 @@ class SrbacModule extends CWebModule {
     if(is_array($alwaysAllowed)) {
       $this->_alwaysAllowed = $alwaysAllowed;
     } else {
-      $this->_alwaysAllowed = array($alwaysAllowed);
+      $this->_alwaysAllowed = explode(",",$alwaysAllowed);
     }
   }
   public function getAlwaysAllowed() {
@@ -135,7 +135,7 @@ class SrbacModule extends CWebModule {
     if(is_array($userActions)) {
       $this->_userActions = $userActions;
     } else {
-      $this->_userActions = array($userActions);
+      $this->_userActions = explode(",",$userActions);
     }
   }
   public function getUserActions() {
