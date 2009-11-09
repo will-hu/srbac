@@ -124,5 +124,6 @@ return array (
 
   //Version 1.1
   "Clever Assigning"=>"Asignación inteligente",
+  "Help"=>"Ayuda",
 );
 ?>
