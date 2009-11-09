@@ -444,7 +444,7 @@ class Helper {
     }
     $out[0] = "<tr><td valign='top'>".(substr($key,0,1) == "_" ? substr($key,1) : $key)."</td>";
     $out[0] .= "<td><div class='$class'>";
-    $out[0] .= (!is_array($value)) ? $value : CVarDumper::dumpAsString($value, 1, true);
+    $out[0] .= (!is_array($value)) ? $value : implode(", ",$value);
     $out[0] .= "</div><div class='$class'></div></td>";
     return $out;
 
