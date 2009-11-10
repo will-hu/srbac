@@ -57,11 +57,11 @@ class SrbacModule extends CWebModule {
   /* @var $css string The css to use */
   public $css = "srbac.css";
   /* @var $notAuthorizedView String The view to render when unathorized access*/
-  public $notAuthorizedView = "application.modules.srbac.views.authitem.unauthorized";
+  public $notAuthorizedView = "srbac.views.authitem.unauthorized";
   /* @var $layout string the layout to use */
   public $layout = "";
   /* @var $imagesPath string The path to srbac images*/
-  public $imagesPath = "application.modules.srbac.images";
+  public $imagesPath = "srbac.images";
   /* @var $imagesPack String The images theme to use*/
   public $imagesPack = "noia";
 
@@ -171,7 +171,7 @@ class SrbacModule extends CWebModule {
    */
   public function isInstalled() {
     try {
-      $tables = Yii::app()->db->schema->tableNames;
+      $tables = Yii::app()->authManager->db->schema->tableNames;
       if(in_array(AuthItem::model()->tableName(), $tables)) {
         return true;
       }
