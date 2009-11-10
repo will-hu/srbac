@@ -16,8 +16,14 @@
  * @since 1.0.1
  */
 ?>
+
+
+<?php if(!$id) {
+  if($this->module->getShowHeader()) {
+    $this->renderPartial($this->module->header);  }
+  ?>
 <div class="simple">
-  <?php if(!$id) {
+    <?php
     $this->renderPartial("frontpage");
     ?>
     <?php echo CHtml::beginForm(); ?>
@@ -37,22 +43,27 @@
     'prompt'=>'select user'
     )); ?>
     <?php echo CHTml::endForm(); ?>
-  <?php } else { ?>
-    <?php Yii::app()->clientScript->registerCssFile(Yii::app()->getModule('srbac')->css); ?>
-    <?php   Yii::app()->clientScript->registerScript(
-        "alert",
-        "$.ajax({
+</div>
+<?php } else { ?>
+  <?php Yii::app()->clientScript->registerCssFile(Yii::app()->getModule('srbac')->css); ?>
+  <?php   Yii::app()->clientScript->registerScript(
+      "alert",
+      "$.ajax({
             type: 'POST',
             url: 'index.php?r=srbac/authitem/showAssignments&id=$id',
             success: function(html){
                $('#assignments').html(html);
         }
           });
-        ",
-        CClientScript::POS_READY
-    ); ?>
-  <?php } ?>
-</div>
+      ",
+      CClientScript::POS_READY
+  ); ?>
+<?php } ?>
 <div id="assignments">
 
 </div>
+<?php if(!$id) {?>
+<?php if($this->module->getShowFooter()) {
+  $this->renderPartial($this->module->footer);
+}?>
+<?php }?>
