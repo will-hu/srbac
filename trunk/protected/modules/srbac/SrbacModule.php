@@ -24,7 +24,7 @@ class SrbacModule extends CWebModule {
  /* @var $_icons String The path to the icons */
   private $_icons;
   /* @var $_yiiSupportedVersion String The yii version tha srbac supports */
-  private $_yiiSupportedVersion = "1.0.06";
+  private $_yiiSupportedVersion = "1.1.0";
   /* @var $_version Srbac version */
   private $_version = "1.1.0 beta";
   /* @var $_cssPublished boolean If css file exists and is published */
@@ -169,14 +169,14 @@ class SrbacModule extends CWebModule {
    * Checks if srbac is installed by checking if Auth items table exists.
    * @return boolean Whether srbac is installed or not
    */
-   public function isInstalled() {
+  public function isInstalled() {
     try {
-      $tables = Yii::app()->authManager->db->schema->tableNames;
-      if(in_array(AuthItem::model()->tableName(), $tables)){
+      $tables = Yii::app()->db->schema->tableNames;
+      if(in_array(AuthItem::model()->tableName(), $tables)) {
         return true;
       }
       return false;
-    } catch (CDbException  $exc ) {
+    } catch (CDbException  $exc )  {
       return false;
     }
   }
