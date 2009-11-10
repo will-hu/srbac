@@ -117,11 +117,14 @@ class SrbacModule extends CWebModule {
  * Checks if srbac is installed by checking if Auth items table exists.
  * @return boolean Whether srbac is installed or not
  */
-  public function isInstalled() {
+ public function isInstalled() {
     try {
-      AuthItem::model()->findAll();
-      return true;
-    } catch (CDbException  $exc ) {
+      $tables = Yii::app()->db->schema->tableNames;
+      if(in_array(AuthItem::model()->tableName(), $tables)) {
+        return true;
+      }
+      return false;
+    } catch (CDbException  $exc )  {
       return false;
     }
   }
