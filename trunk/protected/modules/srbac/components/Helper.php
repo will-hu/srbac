@@ -421,7 +421,8 @@ class Helper {
           $out[1]="1";
         }
         break;
-      case ($key == "layout" || $key == "notAuthorizedView" || $key == "imagesPath"):
+      case ($key == "layout" || $key == "notAuthorizedView" || $key == "imagesPath"
+        ||$key == "header" || $key == "footer"):
         $class = "installNoError";
         $file = Yii::getPathOfAlias($value).".php";
         $path = Yii::getPathOfAlias($value);

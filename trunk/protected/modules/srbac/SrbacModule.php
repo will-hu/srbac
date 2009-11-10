@@ -45,6 +45,12 @@ class SrbacModule extends CWebModule {
   private $_listBoxNumberOfLines = 10;
   /* @var $iconText boolean Display text next to the icons */
   private $_iconText = false;
+  /* @var $_useHeader boolean Use header or not */
+  private $_showHeader = false;
+  /* @var $_useFooter boolean Use footer or not */
+  private $_showFooter = false;
+
+
 
   /* @var $userid String The primary column of the users table*/
   public $userid = "userid";
@@ -64,7 +70,11 @@ class SrbacModule extends CWebModule {
   public $imagesPath = "srbac.images";
   /* @var $imagesPack String The images theme to use*/
   public $imagesPack = "noia";
-
+  /* @var $header String Srbac header*/
+  public $header = "srbac.views.authitem.header";
+  /* @var $footer String Srbac footer*/
+  public $footer = "srbac.views.authitem.footer";
+  
 
 
   /**
@@ -163,6 +173,29 @@ class SrbacModule extends CWebModule {
   public function getIconText() {
     return $this->_iconText;
   }
+  public function setShowHeader($useHeader) {
+    if(is_bool($useHeader)) {
+      $this->_showHeader = $useHeader;
+    } else {
+      throw new CException("Wrong value for srbac attribute useHeader in srbac configuration.
+      '".$useHeader."' is not a boolean.");
+    }
+  }
+  public function getShowHeader() {
+    return $this->_showHeader;
+  }
+   public function setShowFooter($useFooter) {
+    if(is_bool($useFooter)) {
+      $this->_showFooter = $useFooter;
+    } else {
+      throw new CException("Wrong value for srbac attribute footer in srbac configuration.
+      '".$useFooter."' is not a boolean.");
+    }
+  }
+  public function getShowFooter() {
+    return $this->_showFooter;
+  }
+
 
 
   /**

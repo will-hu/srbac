@@ -15,6 +15,9 @@
  */
  ?>
 <?php if(!$full){
+    if($this->module->getShowHeader()) {
+      $this->renderPartial($this->module->header);
+    }
     $this->renderPartial("frontpage");
 ?>
 <div id="wizardButton" style="text-align:left" class="controlPanel marginBottom">
@@ -101,3 +104,8 @@
     </tr>
   </table>
 </div>
+<?php if(!$full) {
+  if($this->module->getShowFooter()) {
+    $this->renderPartial($this->module->footer);
+  }
+}?>
