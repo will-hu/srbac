@@ -62,7 +62,9 @@
   <?php echo CHtml::endForm(); ?>
 </div>
 <?php
-$url = "index.php?".str_replace("assign", "", Yii::app()->getRequest()->getQueryString())."getCleverOpers";
+$urlManager = Yii::app()->getUrlManager();
+$parent = $this->module->parentModule ? $this->module->parentModule."/" : "" ;
+$url = $urlManager->createUrl($parent."srbac/authitem/getCleverOpers");
 ?>
 <?php
 $script = "jQuery('#clever').click(function(){
