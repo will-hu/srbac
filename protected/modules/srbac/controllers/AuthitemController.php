@@ -304,13 +304,15 @@ class AuthitemController extends SBaseController {
    */
   private function _getTheOpers() {
     $model = new AuthItem();
+    $data['taskAssignedOpers'] = array();
+    $data['taskNotAssignedOpers'] = array();
     $name = isset($_POST["Assignments"]["itemname"]) ?
         $_POST["Assignments"]["itemname"] :
         Yii::app()->getGlobalState("cleverName");
-    if(Yii::app()->getGlobalState("cleverAssigning")) {
+    if(Yii::app()->getGlobalState("cleverAssigning") && $name) {
       $data['taskAssignedOpers']  = Helper::getTaskAssignedOpers($name,true);
       $data['taskNotAssignedOpers'] = Helper::getTaskNotAssignedOpers($name,true);
-    }else {
+    }else if($name){
       $data['taskAssignedOpers']  = Helper::getTaskAssignedOpers($name,false);
       $data['taskNotAssignedOpers'] = Helper::getTaskNotAssignedOpers($name,false);
     }
