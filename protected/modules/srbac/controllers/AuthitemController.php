@@ -273,7 +273,7 @@ class AuthitemController extends SBaseController {
    */
   private function _getTheTasks() {
     $model = new AuthItem();
-    $name = $_POST["AuthItem"]["name"][0];
+    $name = isset($_POST["AuthItem"]["name"][0]) ? $_POST["AuthItem"]["name"][0] : "" ;
     $data['roleAssignedTasks']  = Helper::getRoleAssignedTasks($name);
     $data['roleNotAssignedTasks'] = Helper::getRoleNotAssignedTasks($name);
     if($data['roleAssignedTasks'] == array()) {
