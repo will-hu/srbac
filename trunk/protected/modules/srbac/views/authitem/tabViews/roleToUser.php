@@ -35,8 +35,11 @@
       </td>
     </tr>
     <tr valign="top">
-      <td><?php echo CHtml::activeDropDownList($this->module->getUserModel(),$this->module->userid,
-        Chtml::listData($this->module->getUserModel()->findAll(), $this->module->userid, $this->module->username),
+      <td><?php
+          $criteria = new CDbCriteria();
+          $criteria->order = $this->module->username;
+          echo CHtml::activeDropDownList($this->module->getUserModel(),$this->module->userid,
+        Chtml::listData($this->module->getUserModel()->findAll($criteria), $this->module->userid, $this->module->username),
         array('size'=>$this->module->listBoxNumberOfLines,'class'=>'dropdown','ajax' => array(
         'type'=>'POST',
         'url'=>array('getRoles'),
