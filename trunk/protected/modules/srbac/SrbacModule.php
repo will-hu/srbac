@@ -74,7 +74,7 @@ class SrbacModule extends CWebModule {
   public $header = "srbac.views.authitem.header";
   /* @var $footer String Srbac footer*/
   public $footer = "srbac.views.authitem.footer";
-  
+
 
 
   /**
@@ -135,9 +135,14 @@ class SrbacModule extends CWebModule {
     if(is_array($alwaysAllowed)) {
       $this->_alwaysAllowed = $alwaysAllowed;
     } else {
-      $this->_alwaysAllowed = explode(",",$alwaysAllowed);
+      if(is_file(Yii::getPathOfAlias($alwaysAllowed).".php")) {
+        $this->_alwaysAllowed = include(Yii::getPathOfAlias($alwaysAllowed).".php");
+      } else {
+        $this->_alwaysAllowed = explode(",",$alwaysAllowed);
+      }
     }
   }
+  
   public function getAlwaysAllowed() {
     return $this->_alwaysAllowed;
   }
@@ -184,7 +189,7 @@ class SrbacModule extends CWebModule {
   public function getShowHeader() {
     return $this->_showHeader;
   }
-   public function setShowFooter($useFooter) {
+  public function setShowFooter($useFooter) {
     if(is_bool($useFooter)) {
       $this->_showFooter = $useFooter;
     } else {
@@ -209,7 +214,7 @@ class SrbacModule extends CWebModule {
         return true;
       }
       return false;
-    } catch (CDbException  $exc )  {
+    } catch (CDbException  $exc ) {
       return false;
     }
   }
