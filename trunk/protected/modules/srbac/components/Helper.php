@@ -456,24 +456,21 @@ class Helper {
    * @return boolean If css published or not
    */
   public static function publishCss($css) {
-    $resources = dirname(__FILE__).DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.'css';
-    $url = Yii::app()->assetManager->publish($resources);
-    $cssFile = Helper::_getCssUrl($url,$css);
-    if($cssFile ==  "css/".$css) {
-      if(file_exists($cssFile)) {
-        Yii::app()->clientScript->registerCssFile($cssFile);
+    //Search in default Yii css directory
+    $cssFile = Yii::getPathOfAlias("webroot.css").DIRECTORY_SEPARATOR.$css;
+    if(is_file($cssFile)){
+      Yii::app()->clientScript->registerCssFile($cssFile);
         return true;
-      } else {
-        return false;
-      }
-    }
-    else {
-      if(file_exists("../".$url."/".$css)) {
-        Yii::app()->clientScript->registerCssFile($cssFile);
+    } else {
+      // Search in srbac css dir
+       $cssFile = Yii::getPathOfAlias("srbac.css").DIRECTORY_SEPARATOR.$css;
+       if(is_file($cssFile)){
+       $published = Yii::app()->assetManager->publish($cssFile);
+        Yii::app()->clientScript->registerCssFile($published);
         return true;
-      } else {
-        return false;
-      }
+       } else {
+         return false;
+       }
     }
   }
 
@@ -488,23 +485,6 @@ class Helper {
       return Yii::app()->assetManager->publish($path);
     } else {
       return "";
-    }
-  }
-
-  /**
-   * Gets the css file url by looking in the default srbac css dir or the default
-   * application's css directory
-   * @param String $url
-   * @return String the css file url
-   */
-  private static function _getCssUrl($url,$css) {
-  //check if the css is in the default css dir
-    $defUrl = "css/".$css;
-    if(file_exists($defUrl)) {
-      return $defUrl;
-    } else {
-    //css in srbac css dir
-      return $url."/".$css;
     }
   }
 }
