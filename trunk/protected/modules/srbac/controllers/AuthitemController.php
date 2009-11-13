@@ -671,8 +671,8 @@ class AuthitemController extends SBaseController {
     $auth = Yii::app()->authManager;
     $controller = Yii::app()->request->getParam('controller');
     //Check if it's a module controller
-    if(substr_count($controller, "/")) {
-      $c = split("/", $controller);
+    if(substr_count($controller, "_")) {
+      $c = split("_", $controller);
       $controller = $c[1];
       $module = $c[0];
       $contPath = Yii::app()->getModule($module)->getControllerPath();
@@ -851,7 +851,7 @@ class AuthitemController extends SBaseController {
       while (($file = readdir($handle)) !== false) {
         if (is_file($moduleControllersPath.DIRECTORY_SEPARATOR.$file)
             && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
-          $controlers[] = $mod_id."/".str_replace(".php","",$file);
+          $controlers[] = $mod_id."_".str_replace(".php","",$file);
         }
       }
     }

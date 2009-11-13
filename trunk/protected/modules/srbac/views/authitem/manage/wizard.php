@@ -27,8 +27,8 @@
           </tr>
           <?php $prevModule = ""; ?>
           <?php foreach ($controllers as $n=>$controller) { ?>
-            <?php if(substr_count($controller, "/")) { ?>
-              <?php $module = split("/", $controller); ?>
+            <?php if(substr_count($controller, "_")) { ?>
+              <?php $module = split("_", $controller); ?>
               <?php if($module[0] != $prevModule) { ?>        
                       <tr>
                         <th colspan="3">
