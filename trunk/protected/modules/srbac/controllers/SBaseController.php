@@ -69,4 +69,3 @@ class SBaseController extends CController {
     return Yii::app()->getModule('srbac')->alwaysAllowed;
   }
 }
-?>
