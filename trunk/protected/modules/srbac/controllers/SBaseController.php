@@ -44,17 +44,7 @@ class SBaseController extends CController {
 
     // Check for srbac access
     if(!Yii::app()->user->checkAccess($access) || Yii::app()->user->isGuest) {
-    // You may change this messages
-      $error["code"] = "403";
-      $error["title"] = "You are not authorized for this action";
-      $error["message"] = "Error while trying to access " .$mod."/".$this->id."/".$this->action->id."." ;
-      //You may change the view for unauthorized access
-      if(Yii::app()->request->isAjaxRequest) {
-        $this->renderPartial(Yii::app()->getModule('srbac')->notAuthorizedView,array("error"=>$error));
-      } else {
-        $this->render(Yii::app()->getModule('srbac')->notAuthorizedView,array("error"=>$error));
-      }
-      return false;
+      $this->onUnauthorizedAccess();
     } else {
       return true;
     }
@@ -67,5 +57,20 @@ class SBaseController extends CController {
    */
   protected function allowedAccess() {
     return Yii::app()->getModule('srbac')->alwaysAllowed;
+  }
+
+  protected function onUnauthorizedAccess() {
+    $mod = $this->module !== null ? $this->module->id : "";
+    $access =  $mod.ucfirst($this->id).ucfirst($this->action->id);
+    $error["code"] = "403";
+    $error["title"] = "You are not authorized for this action";
+    $error["message"] = "Error while trying to access " .$mod."/".$this->id."/".$this->action->id."." ;
+    //You may change the view for unauthorized access
+    if(Yii::app()->request->isAjaxRequest) {
+      $this->renderPartial(Yii::app()->getModule('srbac')->notAuthorizedView,array("error"=>$error));
+    } else {
+      $this->render(Yii::app()->getModule('srbac')->notAuthorizedView,array("error"=>$error));
+    }
+    return false;
   }
 }
