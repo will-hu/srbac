@@ -463,10 +463,12 @@ class Helper {
         return true;
     } else {
       // Search in srbac css dir
+
        $cssFile = Yii::getPathOfAlias("srbac.css").DIRECTORY_SEPARATOR.$css;
+       $cssDir = Yii::getPathOfAlias("srbac.css");
        if(is_file($cssFile)){
-       $published = Yii::app()->assetManager->publish($cssFile);
-        Yii::app()->clientScript->registerCssFile($published);
+       $published = Yii::app()->assetManager->publish($cssDir);
+        Yii::app()->clientScript->registerCssFile($published."/".$css);
         return true;
        } else {
          return false;
