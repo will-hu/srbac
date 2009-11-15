@@ -267,7 +267,7 @@ table.operations {
 }
 
 /* TABVIEW ELEMENTS */
-.yiiTab ul.tabs
+.horTab .yiiTab ul.tabs
 {
   padding: 2px 0;
   margin: 0;
@@ -276,14 +276,14 @@ table.operations {
   text-align:left;
 }
 
-.yiiTab ul.tabs li
+.horTab .yiiTab ul.tabs li
 {
   list-style: none;
   margin: 0;
   display: inline;
 }
 
-.yiiTab ul.tabs a
+.horTab .yiiTab ul.tabs a
 {
   -moz-border-radius-topleft:5px;
   -moz-border-radius-topright:5px;
@@ -295,36 +295,112 @@ table.operations {
   text-decoration: none;
 }
 
-.yiiTab ul.tabs a:link
+.horTab .yiiTab ul.tabs a:link
 {
   color: #667;
 }
 
-.yiiTab ul.tabs a:visited
+.horTab .yiiTab ul.tabs a:visited
 {
   color: #667;
 }
 
-.yiiTab ul.tabs a:hover
+.horTab .yiiTab ul.tabs a:hover
 {
   color: #000;
   background: #E6F2FF;
   border-color: #227;
 }
 
-.yiiTab ul.tabs a.active
+.horTab .yiiTab ul.tabs a.active
 {
   background: white;
   border-bottom: 1px solid white;
 }
 
-.yiiTab div.view
+.horTab .yiiTab div.view
 {
   border-left: 1px solid #4F81BD;
   border-right: 1px solid #4F81BD;
   border-bottom: 1px solid #4F81BD;
   padding: 8px;
   margin: 0;
+}
+
+/* VERT TAB */
+
+.vertTab {
+  width:800px;
+}
+
+.vertTab .yiiTab ul.tabs
+{
+  padding: 2px 0;
+  margin: 0;
+  font: bold 12px Verdana, sans-serif;
+  text-align:left;
+  float:left;
+
+}
+
+.vertTab .yiiTab ul.tabs li
+{
+  list-style: none;
+  display: inline;
+   margin: 0;
+}
+
+
+.vertTab .yiiTab ul.tabs a{
+  display:block;
+   -moz-border-radius-topleft:5px;
+  -moz-border-radius-bottomleft:5px;
+  -moz-border-radius-topright:0px;
+  -moz-border-radius-bottomright:0px;
+  padding:6px;
+  margin: 0;
+  border: 1px solid #4F81BD;
+  border-right: 1px solid #4F81BD;
+  background: #d3dfee;
+  text-decoration: none;
+}
+
+.vertTab .yiiTab ul.tabs a:link
+{
+  color: #667;
+}
+
+.vertTab .yiiTab ul.tabs a:visited
+{
+  color: #667;
+}
+
+.vertTab .yiiTab ul.tabs a:hover
+{
+  color: #000;
+  background: #E6F2FF;
+  border-color: #227;
+}
+
+.vertTab .yiiTab ul.tabs a.active
+{
+  background: white;
+  border-right: 1px solid white;
+}
+
+
+.vertTab .yiiTab div.view
+{
+  border-right:1px solid #4F81BD;
+  border-top:1px solid #4F81BD;
+  border-bottom:1px solid #4F81BD;
+  border-left:0;
+  padding: 8px;
+  margin: 0;
+  text-align:left;
+  float:none;
+  /*height:200px;*/
+  overflow:scroll;
 }
 
 /* LOADING INDICATORS */
