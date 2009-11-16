@@ -126,6 +126,7 @@ return array (
   "Clever Assigning"=>"Έξυπνη ανάθεση",
   "Help"=>"Βοήθεια",
   "Edit always allowed list"=>"Μετατροπή λίστας πάντα προσβάσιμων σελίδων",
-  
+  "The following authItems are saved in the always allowed file" =>
+  "Οι παρακάτω άδειες αποθηκεύτηκαν στο αρχείο των πάντα προσβάσιμων σελίδων",
 );
 ?>
