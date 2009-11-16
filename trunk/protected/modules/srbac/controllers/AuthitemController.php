@@ -943,6 +943,7 @@ class AuthitemController extends SBaseController {
     $handle = fopen($allowedFile, "wb");
     fwrite($handle, "<?php \n return array(\n\t'".implode("',\n\t'", $allowed)."'\n);\n?>");
     fclose($handle);
+    $this->renderPartial("saveAllowed", array("allowed"=>$allowed));
   }
 
 }

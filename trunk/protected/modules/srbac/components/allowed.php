@@ -1,3 +1,9 @@
 <?php 
- return array();
+ return array(
+	'slogSlogShow',
+	'slogSlogToggle',
+	'slogSlogDeleteLog',
+	'slogSlogRestoreList',
+	'slogSlogRestoreLog'
+);
 ?>
