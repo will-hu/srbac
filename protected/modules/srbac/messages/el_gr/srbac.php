@@ -125,5 +125,7 @@ return array (
   //Version 1.1
   "Clever Assigning"=>"Έξυπνη ανάθεση",
   "Help"=>"Βοήθεια",
+  "Edit always allowed list"=>"Μετατροπή λίστας πάντα προσβάσιμων σελίδων",
+  
 );
 ?>

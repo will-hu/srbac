@@ -132,17 +132,24 @@ class SrbacModule extends CWebModule {
     return $this->_pageSize;
   }
   public function setAlwaysAllowed($alwaysAllowed) {
-    if(is_array($alwaysAllowed)) {
-      $this->_alwaysAllowed = $alwaysAllowed;
+  //If created by the GUI
+    if($alwaysAllowed == "gui") {
+      $this->_alwaysAllowed = include(Yii::getPathOfAlias('srbac.components.allowed').".php");
     } else {
-      if(is_file(Yii::getPathOfAlias($alwaysAllowed).".php")) {
-        $this->_alwaysAllowed = include(Yii::getPathOfAlias($alwaysAllowed).".php");
+    // If array given
+      if(is_array($alwaysAllowed)) {
+        $this->_alwaysAllowed = $alwaysAllowed;
       } else {
-        $this->_alwaysAllowed = explode(",",$alwaysAllowed);
+      // If file given
+        if(is_file(Yii::getPathOfAlias($alwaysAllowed).".php")) {
+          $this->_alwaysAllowed = include(Yii::getPathOfAlias($alwaysAllowed).".php");
+        } else {
+        // If comma delimited string
+          $this->_alwaysAllowed = explode(",",$alwaysAllowed);
+        }
       }
     }
   }
-  
   public function getAlwaysAllowed() {
     return $this->_alwaysAllowed;
   }

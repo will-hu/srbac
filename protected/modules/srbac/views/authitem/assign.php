@@ -37,13 +37,16 @@
       'view'=>'tabViews/operationToTask',
       ),
   );
-
-  $this->widget('system.web.widgets.CTabView',
-      array('tabs'=>$tabs,
-      'viewData'=>array('model'=>$model,'userid'=>$userid,'message'=>$message,'data'=>$data),
-      'cssFile'=>$this->module->css,
-  ));
   ?>
+  <div class="horTab">
+    <?
+    $this->widget('system.web.widgets.CTabView',
+        array('tabs'=>$tabs,
+        'viewData'=>array('model'=>$model,'userid'=>$userid,'message'=>$message,'data'=>$data),
+        'cssFile'=>$this->module->css,
+    ));
+    ?>
+  </div>
 </div>
 <?php if($this->module->getShowFooter()) {
   $this->renderPartial($this->module->footer);
