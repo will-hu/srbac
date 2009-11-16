@@ -312,10 +312,10 @@ class AuthitemController extends SBaseController {
     if(Yii::app()->getGlobalState("cleverAssigning") && $name) {
       $data['taskAssignedOpers']  = Helper::getTaskAssignedOpers($name,true);
       $data['taskNotAssignedOpers'] = Helper::getTaskNotAssignedOpers($name,true);
-    }else if($name){
-      $data['taskAssignedOpers']  = Helper::getTaskAssignedOpers($name,false);
-      $data['taskNotAssignedOpers'] = Helper::getTaskNotAssignedOpers($name,false);
-    }
+    }else if($name) {
+        $data['taskAssignedOpers']  = Helper::getTaskAssignedOpers($name,false);
+        $data['taskNotAssignedOpers'] = Helper::getTaskNotAssignedOpers($name,false);
+      }
     if($data['taskAssignedOpers'] == array()) {
       $data['revoke'] = array("name"=>"revokeOpers","disabled"=>true);
     } else {
@@ -666,10 +666,27 @@ class AuthitemController extends SBaseController {
    * authItems
    */
   public function actionScan() {
+    $controller = Yii::app()->request->getParam('controller');
+    $controllerInfo = $this->_getControllerInfo($controller);
+    $this->renderPartial("manage/createItems",
+        array("actions"=>$controllerInfo[0],
+        "controller"=>$controller,
+        "delete"=>$controllerInfo[2],
+        "task"=>$controllerInfo[3],
+        "taskViewingExists"=>$controllerInfo[4],
+        "taskAdministratingExists"=>$controllerInfo[5],
+        "allowed"=>$controllerInfo[1]),
+        false, true);
+  }
+
+  /**
+   * Getting a controllers actions and also th actions that are always allowed
+   * return array
+   **/
+  private function _getControllerInfo($controller, $getAll = false) {
     $actions = array();
     $allowed = array();
     $auth = Yii::app()->authManager;
-    $controller = Yii::app()->request->getParam('controller');
     //Check if it's a module controller
     if(substr_count($controller, "_")) {
       $c = split("_", $controller);
@@ -698,27 +715,30 @@ class AuthitemController extends SBaseController {
         $itemId = $module.str_replace("Controller","",$controller).
             str_replace("action", "", $action);
         if($action !="actions" ) {
-          if($auth->getAuthItem($itemId) === null && !$delete) {
-            if(!in_array($itemId, $this->allowedAccess())) {
-              $actions[$module.$action] = $itemId;
-            } else {
+          if($getAll) {
+            $actions[$module.$action] = $itemId;
+            if(in_array($itemId, $this->allowedAccess())) {
               $allowed[] = $itemId;
             }
-          } else if($auth->getAuthItem($itemId)!==null && $delete) {
-              $actions[$module.$action] = $itemId;
+          } else {
+            if(in_array($itemId, $this->allowedAccess())) {
+              $allowed[] = $itemId;
+            } else {
+              if($auth->getAuthItem($itemId) === null && !$delete) {
+                if(!in_array($itemId, $this->allowedAccess())) {
+                  $actions[$module.$action] = $itemId;
+                }
+              } else if($auth->getAuthItem($itemId)!==null && $delete) {
+                  if(!in_array($itemId, $this->allowedAccess())) {
+                    $actions[$module.$action] = $itemId;
+                  }
+                }
             }
+          }
         }
       }
     }
-    $this->renderPartial("manage/createItems",
-        array("actions"=>$actions,
-        "controller"=>$controller,
-        "delete"=>$delete,
-        "task"=>$task,
-        "taskViewingExists"=>$taskViewingExists,
-        "taskAdministratingExists"=>$taskAdministratingExists,
-        "allowed"=>$allowed),
-        false, true);
+    return array($actions,$allowed, $delete , $task, $taskViewingExists, $taskAdministratingExists);
   }
 
   /**
@@ -834,12 +854,22 @@ class AuthitemController extends SBaseController {
    * authItems
    */
   public function actionAuto() {
+    $controllers = $this->_getControllers();
+    $this->renderPartial("manage/wizard", array(
+        'controllers'=>$controllers),false,true);
+  }
+
+  /**
+   * Geting all the application's and  modules controllers
+   * @return array The application's and modules controllers
+   */
+  private function _getControllers() {
     $contPath = Yii::app()->getControllerPath();
     $handle = opendir($contPath);
     while (($file = readdir($handle)) !== false) {
       if (is_file($contPath.DIRECTORY_SEPARATOR.$file)
           && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
-        $controlers[] = str_replace(".php","",$file);
+        $controllers[] = str_replace(".php","",$file);
       }
     }
     //Scan modules
@@ -851,12 +881,11 @@ class AuthitemController extends SBaseController {
       while (($file = readdir($handle)) !== false) {
         if (is_file($moduleControllersPath.DIRECTORY_SEPARATOR.$file)
             && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
-          $controlers[] = $mod_id."_".str_replace(".php","",$file);
+          $controllers[] = $mod_id."_".str_replace(".php","",$file);
         }
       }
     }
-    $this->renderPartial("manage/wizard", array(
-        'controllers'=>$controlers),false,true);
+    return $controllers;
   }
 
   public function actionGetCleverOpers() {
@@ -886,6 +915,33 @@ class AuthitemController extends SBaseController {
    */
   public function actionFrontPage() {
     $this->render('frontpage', array());
+  }
+
+  /**
+   * Displays the editor for the alwaysAllowed items
+   */
+  public function actionEditAllowed() {
+    $controllers = $this->_getControllers();
+    foreach ($controllers as $n=>$controller) {
+      $info = $this->_getControllerInfo($controller,true);
+      $c[$n]["title"] = $controller;
+      $c[$n]["actions"] = $info[0];
+      $c[$n]["allowed"] = $info[1];
+    }
+    $this->renderPartial('allowed',array('controllers'=>$c),false,true);
+
+  }
+
+  public function actionSaveAllowed() {
+    foreach ($_POST as $controller) {
+      foreach ($controller as $action) {
+        $allowed[] = $action;
+      }
+    }
+    $allowedFile = Yii::getPathOfAlias("srbac.components").DIRECTORY_SEPARATOR."allowed.php";
+    $handle = fopen($allowedFile, "wb");
+    fwrite($handle, "<?php \n return array(\n\t'".implode("',\n\t'", $allowed)."'\n);\n?>");
+    fclose($handle);
   }
 
 }
