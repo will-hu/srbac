@@ -933,6 +933,7 @@ class AuthitemController extends SBaseController {
   }
 
   public function actionSaveAllowed() {
+    $allowed = array();
     foreach ($_POST as $controller) {
       foreach ($controller as $action) {
         $allowed[] = $action;

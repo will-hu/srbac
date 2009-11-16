@@ -23,10 +23,11 @@ foreach ($controllers as $n=>$controller) {
   foreach ($controller["actions"] as $key=>$val) {
     $data[$val] = $val;
   }
-
-  $select = $controller["allowed"];
-  $cont[$n]["title"] = $title;
-  $cont[$n]["content"] = CHtml::checkBoxList($title, $select, $data);
+  if(sizeof($data) > 0) {
+    $select = $controller["allowed"];
+    $cont[$n]["title"] = $title;
+    $cont[$n]["content"] = CHtml::checkBoxList($title, $select, $data);
+  }
 }
 
 $tabs = $cont;

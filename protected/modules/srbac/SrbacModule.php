@@ -38,7 +38,7 @@ class SrbacModule extends CWebModule {
  /* @var $pagesize int The number of items displayed in each page*/
   private $_pageSize = 15;
   /* @var $alwaysAllowed mixed The actions that are always allowed*/
-  private $_alwaysAllowed = array();
+  private $_alwaysAllowed = "gui";
   /* @var $userActions mixed Operations assigned to users by default*/
   private $_userActions = array();
    /* @var $listBoxNumberOfLines integer The number of lines in the assign tabview listboxes  */
@@ -132,25 +132,30 @@ class SrbacModule extends CWebModule {
     return $this->_pageSize;
   }
   public function setAlwaysAllowed($alwaysAllowed) {
-  //If created by the GUI
-    if($alwaysAllowed == "gui") {
+    $this->_alwaysAllowed = $alwaysAllowed;
+  
+  }
+  public function getAlwaysAllowed() {
+    //If created by the GUI
+    if($this->_alwaysAllowed == "gui") {
       $this->_alwaysAllowed = include(Yii::getPathOfAlias('srbac.components.allowed').".php");
+      if(!is_array($this->_alwaysAllowed)) {
+        $this->_alwaysAllowed = array();
+      }
     } else {
     // If array given
-      if(is_array($alwaysAllowed)) {
-        $this->_alwaysAllowed = $alwaysAllowed;
+      if(is_array($this->_alwaysAllowed)) {
+        $this->_alwaysAllowed = $this->_alwaysAllowed;
       } else {
       // If file given
-        if(is_file(Yii::getPathOfAlias($alwaysAllowed).".php")) {
-          $this->_alwaysAllowed = include(Yii::getPathOfAlias($alwaysAllowed).".php");
+        if(is_file(Yii::getPathOfAlias($this->_alwaysAllowed).".php")) {
+          $this->_alwaysAllowed = include(Yii::getPathOfAlias($this->_alwaysAllowed).".php");
         } else {
         // If comma delimited string
-          $this->_alwaysAllowed = explode(",",$alwaysAllowed);
+          $this->_alwaysAllowed = explode(",",$this->_alwaysAllowed);
         }
       }
     }
-  }
-  public function getAlwaysAllowed() {
     return $this->_alwaysAllowed;
   }
   public function setUserActions($userActions) {
