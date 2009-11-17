@@ -125,5 +125,8 @@ return array (
   //Version 1.1
   "Clever Assigning"=>"Asignación inteligente",
   "Help"=>"Ayuda",
+  "Edit always allowed list"=>"Editar listado de Permitidos Siempre",
+  "The following authItems are saved in the always allowed file" =>
+  "Los siguientes permisos son guardados en el archivo de Siempre Permitidos",
 );
 ?>
