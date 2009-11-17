@@ -138,7 +138,11 @@ class SrbacModule extends CWebModule {
   public function getAlwaysAllowed() {
     //If created by the GUI
     if($this->_alwaysAllowed == "gui") {
-      $this->_alwaysAllowed = include(Yii::getPathOfAlias('srbac.components.allowed').".php");
+      $allowedFile = Yii::getPathOfAlias('srbac.components.allowed').".php";
+      if(!is_file($allowedFile)){
+        fopen($allowedFile, "wb");
+      }
+      $this->_alwaysAllowed = include($allowedFile);
       if(!is_array($this->_alwaysAllowed)) {
         $this->_alwaysAllowed = array();
       }
