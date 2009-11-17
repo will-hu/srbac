@@ -687,6 +687,7 @@ class AuthitemController extends SBaseController {
     $actions = array();
     $allowed = array();
     $auth = Yii::app()->authManager;
+
     //Check if it's a module controller
     if(substr_count($controller, "_")) {
       $c = split("_", $controller);
@@ -697,7 +698,7 @@ class AuthitemController extends SBaseController {
     } else {
       $module = "";
       $contPath = Yii::app()->getControllerPath();
-      $control = $contPath.DIRECTORY_SEPARATOR.$controller.".php";
+      $control = $contPath.DIRECTORY_SEPARATOR.str_replace(".", DIRECTORY_SEPARATOR, $controller).".php";
     }
 
     $task =$module.str_replace("Controller", "", $controller);
@@ -865,13 +866,9 @@ class AuthitemController extends SBaseController {
    */
   private function _getControllers() {
     $contPath = Yii::app()->getControllerPath();
-    $handle = opendir($contPath);
-    while (($file = readdir($handle)) !== false) {
-      if (is_file($contPath.DIRECTORY_SEPARATOR.$file)
-          && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
-        $controllers[] = str_replace(".php","",$file);
-      }
-    }
+
+    $controllers = $this->_scanDir($contPath);
+
     //Scan modules
     $modules = Yii::app()->getModules();
 
@@ -887,6 +884,24 @@ class AuthitemController extends SBaseController {
     }
     return $controllers;
   }
+
+  private function _scanDir($contPath,$subdir="",$controllers = array()){
+    $handle = opendir($contPath);
+    while (($file = readdir($handle)) !== false ) {
+      $filePath = $contPath.DIRECTORY_SEPARATOR.$file;
+      if (is_file($filePath)) {
+          if(preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
+
+            $controllers[] = (($subdir) ? $subdir."." : "") . str_replace(".php","",$file);
+            
+          }
+      } else if(is_dir($filePath) && $file != "." && $file != ".."){
+        $controllers = $this->_scanDir($filePath,$file,$controllers);
+      }
+    }
+    return $controllers;
+  }
+
 
   public function actionGetCleverOpers() {
     $cleverAssigning = Yii::app()->getRequest()->getParam("checked") == "true" ? 1 : 0;
