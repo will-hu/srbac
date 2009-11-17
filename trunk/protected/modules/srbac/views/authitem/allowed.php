@@ -25,18 +25,20 @@ foreach ($controllers as $n=>$controller) {
   }
   if(sizeof($data) > 0) {
     $select = $controller["allowed"];
-    $cont[$n]["title"] = $title;
-    $cont[$n]["content"] = CHtml::checkBoxList($title, $select, $data);
+    // It seems that this tabview conflicts with assign tabview so I raise the tab number by 3
+    $cont[$n+3]["title"] = str_replace("Controller", "", $title);
+    $cont[$n+3]["content"] = CHtml::checkBoxList($title, $select, $data);
   }
 }
 
-$tabs = $cont;
+$altabs = $cont;
 ?>
 <?php echo CHtml::form();?>
 <div class="vertTab">
   <?
   $this->widget('system.web.widgets.CTabView',
-      array('tabs'=>$tabs,
+      array(
+      'tabs'=>$altabs,
       'cssFile'=>$this->module->css,
   ));
   ?>
