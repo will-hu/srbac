@@ -1,9 +1,13 @@
 <?php 
  return array(
-	'slogSlogShow',
-	'slogSlogToggle',
-	'slogSlogDeleteLog',
-	'slogSlogRestoreList',
-	'slogSlogRestoreLog'
+	'admin.PostList',
+	'admin.PostDelete',
+	'SiteIndex',
+	'SiteError',
+	'SiteContact',
+	'SiteChangePass',
+	'SiteUpdatePassword',
+	'SiteLogin',
+	'SiteLogout'
 );
 ?>
