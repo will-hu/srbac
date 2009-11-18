@@ -183,7 +183,7 @@ class Helper {
    */
   public static function markWords($event) {
     if(Helper::findModule('srbac')->debug) {
-      $event->message .= "<span style='color:red'>*</span>";
+      $event->message .= "*";
     }
   }
 
