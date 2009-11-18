@@ -39,7 +39,7 @@
   );
   ?>
   <div class="horTab">
-    <?
+    <?php
     $this->widget('system.web.widgets.CTabView',
         array('tabs'=>$tabs,
         'viewData'=>array('model'=>$model,'userid'=>$userid,'message'=>$message,'data'=>$data),
