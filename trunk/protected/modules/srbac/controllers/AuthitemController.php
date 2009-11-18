@@ -692,9 +692,9 @@ class AuthitemController extends SBaseController {
     if(substr_count($controller, "_")) {
       $c = split("_", $controller);
       $controller = $c[1];
-      $module = $c[0];
-      $contPath = Yii::app()->getModule($module)->getControllerPath();
-      $control = $contPath.DIRECTORY_SEPARATOR.$controller.".php";
+      $module = $c[0]."_";
+      $contPath = Yii::app()->getModule($c[0])->getControllerPath();
+      $control = $contPath.DIRECTORY_SEPARATOR.str_replace(".", DIRECTORY_SEPARATOR, $controller).".php";
     } else {
       $module = "";
       $contPath = Yii::app()->getControllerPath();
@@ -819,7 +819,8 @@ class AuthitemController extends SBaseController {
     }
     $message .= "<div style='font-weight:bold'>".Helper::translate('srbac','Creating operations')."</div>";
     foreach ($actions as $action) {
-      $a = trim(str_replace("action", $controller, $action));
+      $act = split("action", $action);
+      $a = trim($controller.$act[1]);
       $auth=new AuthItem();
       $auth->name = $a;
       $auth->type = 0;
@@ -871,32 +872,35 @@ class AuthitemController extends SBaseController {
 
     //Scan modules
     $modules = Yii::app()->getModules();
-
+    $modControllers=array();
     foreach ($modules as $mod_id=>$mod) {
       $moduleControllersPath = Yii::app()->getModule($mod_id)->controllerPath;
-      $handle = opendir($moduleControllersPath);
-      while (($file = readdir($handle)) !== false) {
-        if (is_file($moduleControllersPath.DIRECTORY_SEPARATOR.$file)
-            && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
-          $controllers[] = $mod_id."_".str_replace(".php","",$file);
-        }
-      }
+      $modControllers = $this->_scanDir($moduleControllersPath,$mod_id,"",$modControllers);
+//      $handle = opendir($moduleControllersPath);
+//      while (($file = readdir($handle)) !== false) {
+//        if (is_file($moduleControllersPath.DIRECTORY_SEPARATOR.$file)
+//            && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
+//          $controllers[] = $mod_id."_".str_replace(".php","",$file);
+//        }
+//      }
     }
-    return $controllers;
+    return  array_merge($controllers, $modControllers);
   }
 
-  private function _scanDir($contPath,$subdir="",$controllers = array()){
+  private function _scanDir($contPath, $module="", $subdir="",$controllers = array()){
     $handle = opendir($contPath);
     while (($file = readdir($handle)) !== false ) {
       $filePath = $contPath.DIRECTORY_SEPARATOR.$file;
       if (is_file($filePath)) {
           if(preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
 
-            $controllers[] = (($subdir) ? $subdir."." : "") . str_replace(".php","",$file);
+            $controllers[] = (($module) ? $module."_" : "").
+                             (($subdir) ? $subdir."." : "").
+                             str_replace(".php","",$file);
             
           }
       } else if(is_dir($filePath) && $file != "." && $file != ".."){
-        $controllers = $this->_scanDir($filePath,$file,$controllers);
+        $controllers = $this->_scanDir($filePath,$module, $file,$controllers);
       }
     }
     return $controllers;
