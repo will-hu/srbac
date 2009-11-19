@@ -14,19 +14,19 @@
  * @since 1.0.0
  */
  ?>
-<table>
+<table width="100%">
   <tr>
     <th><?php echo Helper::translate('srbac','Assigned Operations') ?></th>
     <th>&nbsp;</th>
     <th><?php echo Helper::translate('srbac','Not Assigned Operations')?></th>
   </tr>
-  <tr><td>
+  <tr><td width="45%">
       <?php echo CHtml::activeDropDownList($model,'name[revoke]',
       Chtml::listData(
       $data['taskAssignedOpers'], 'name', 'name'),
       array('size'=>$this->module->listBoxNumberOfLines,'multiple'=>'multiple','class'=>'dropdown')) ?>
     </td>
-    <td>
+    <td width="10%" align="center">
       <?php
       $ajax =
           array(
@@ -52,7 +52,7 @@
                   }',);
       echo  CHtml::ajaxSubmitButton('>>',array('assign','revokeOpers'=>1),$ajax,$data['revoke']); ?>
     </td>
-    <td>
+    <td width="45%">
       <?php echo CHtml::activeDropDownList($model,'name[assign]',
       Chtml::listData(
       $data['taskNotAssignedOpers'], 'name', 'name'),

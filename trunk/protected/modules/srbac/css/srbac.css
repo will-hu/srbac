@@ -189,10 +189,10 @@ div.srbac
   background: #EBF4FB;
   margin: 0;
   padding: 5px;
-  width: 600px;
+  /*width: 600px;*/
 }
 div.srbac .dropdown{
-  width: 180px;
+  width: 100%;
 }
 
 div.srbac div.message{

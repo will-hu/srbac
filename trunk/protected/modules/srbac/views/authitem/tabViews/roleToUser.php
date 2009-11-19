@@ -18,7 +18,7 @@
 <div class="srbac">
   <?php echo CHtml::beginForm(); ?>
   <?php echo CHtml::errorSummary($model); ?>
-  <table>
+  <table width="100%">
     <tr><th colspan="2"><?php echo Helper::translate('srbac','Assign Roles to Users')?></th></tr>
     <tr>
       <th width="50%">
