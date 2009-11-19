@@ -29,9 +29,15 @@ class SBaseController extends CController {
   protected function beforeAction($action) {
 
   //srbac access
-    $mod = $this->module !== null ? $this->module->id : "";
-    $access =  $mod.ucfirst($this->id).ucfirst($this->action->id);
+    $mod = $this->module !== null ? $this->module->id."_" : "";
+    $contrArr = split("/", $this->id);
+    $contrArr[sizeof($contrArr)-1] = ucfirst($contrArr[sizeof($contrArr)-1]);
+    $controller = implode(".", $contrArr);
 
+    $contr = str_replace("/", ".", $this->id);
+
+    $access =  $mod.$controller.ucfirst($this->action->id);
+    
     //Always allow access if $access is in the allowedAccess array
     if(in_array($access, $this->allowedAccess())) {
       return true;
