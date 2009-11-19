@@ -14,7 +14,7 @@
  * @since 1.1.0
  */
 ?>
-<?
+<?php
 
 //CVarDumper::dump($controllers, 3, true);
 foreach ($controllers as $n=>$controller) {
@@ -38,7 +38,7 @@ foreach ($controllers as $n=>$controller) {
 ?>
 <?php echo CHtml::form();?>
 <div class="vertTab">
-  <?
+  <?php
   $this->widget('system.web.widgets.CTabView',
       array(
       'tabs'=>$cont,
