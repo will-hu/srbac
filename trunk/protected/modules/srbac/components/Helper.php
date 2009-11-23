@@ -456,9 +456,12 @@ class Helper {
    * @return boolean If css published or not
    */
   public static function publishCss($css) {
+    if(Yii::app()->request->isAjaxRequest){
+      return true;
+    }
     //Search in default Yii css directory
     $cssFile = Yii::getPathOfAlias("webroot.css").DIRECTORY_SEPARATOR.$css;
-    if(is_file($cssFile) && !Yii::app()->clientScript->isScriptFileRegistered($cssFile)){
+    if(is_file($cssFile) && !Yii::app()->clientScript->isCssFileRegistered($cssFile)){
       Yii::app()->clientScript->registerCssFile($cssFile);
         return true;
     } else {
@@ -469,8 +472,8 @@ class Helper {
        if(is_file($cssFile)){
        $published = Yii::app()->assetManager->publish($cssDir);
        $cssFile = $published."/".$css;
-       if(!Yii::app()->clientScript->isScriptFileRegistered($cssFile))
-        Yii::app()->clientScript->registerCssFile($cssFile);
+       if(!Yii::app()->clientScript->isCssFileRegistered($cssFile))
+        echo Yii::app()->clientScript->registerCssFile($cssFile);
         return true;
        } else {
          return false;
