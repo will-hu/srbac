@@ -458,7 +458,7 @@ class Helper {
   public static function publishCss($css) {
     //Search in default Yii css directory
     $cssFile = Yii::getPathOfAlias("webroot.css").DIRECTORY_SEPARATOR.$css;
-    if(is_file($cssFile)){
+    if(is_file($cssFile) && !Yii::app()->clientScript->isScriptFileRegistered($cssFile)){
       Yii::app()->clientScript->registerCssFile($cssFile);
         return true;
     } else {
@@ -468,7 +468,9 @@ class Helper {
        $cssDir = Yii::getPathOfAlias("srbac.css");
        if(is_file($cssFile)){
        $published = Yii::app()->assetManager->publish($cssDir);
-        Yii::app()->clientScript->registerCssFile($published."/".$css);
+       $cssFile = $published."/".$css;
+       if(!Yii::app()->clientScript->isScriptFileRegistered($cssFile))
+        Yii::app()->clientScript->registerCssFile($cssFile);
         return true;
        } else {
          return false;
