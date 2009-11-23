@@ -746,12 +746,19 @@ class AuthitemController extends SBaseController {
    * Deletes autocreated authItems
    */
   public function actionAutoDeleteItems() {
-    $controller = str_replace("Controller","",$_POST["controller"]);
-    $actions= isset($_POST["actions"])  ?$_POST["actions"]:array();
+    $cont = str_replace("Controller","",$_POST["controller"]);
+    
+    //Check for module controller
+    $controllerArr = split("_",$cont);
+    $controller = $controllerArr[sizeof($controllerArr)-1];
+
+
+    $actions= isset($_POST["actions"])  ? $_POST["actions"]:array();
     $deleteTasks = isset($_POST["createTasks"]) ?$_POST["createTasks"] : 0;
-    $tasks = $_POST["tasks"];
+    $tasks = isset($_POST["tasks"]) ? $_POST["tasks"] : array();
     $message = "<div style='font-weight:bold'>".Helper::translate('srbac','Delete operations')."</div>";
     foreach ($actions as $key => $action) {
+
       $action = trim(str_replace("action", $controller, $action));
       $auth=AuthItem::model()->findByPk($action);
       if($auth!==null) {
