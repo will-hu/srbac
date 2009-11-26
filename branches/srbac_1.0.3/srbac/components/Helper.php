@@ -143,6 +143,7 @@ class Helper {
   public static function getTaskNotAssignedOpers($name) {
     $tasks = new CDbCriteria();
     $tasks->condition = "type=0";
+    $tasks->order = "name ASC";
     $final = array();
     if($name) {
       $na = AuthItem::model()->findAll($tasks);

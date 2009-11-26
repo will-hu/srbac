@@ -15,10 +15,15 @@
  */
  ?>
 <!-- ROLES -> TASKS -->
+<?php
+$criteria = new CDbCriteria();
+$criteria->condition = "type=2";
+$criteria->order = "name";
+?>
 <div class="srbac">
   <?php echo CHtml::beginForm(); ?>
   <?php echo CHtml::errorSummary($model); ?>
-  <table>
+  <table width="100%">
     <tr><th colspan="2"><?php echo Helper::translate('srbac','Assign Tasks to Roles') ?></th></tr>
     <tr>
       <th width="50%">
@@ -34,7 +39,7 @@
     </tr>
     <tr valign="top">
       <td><?php echo CHtml::activeDropDownList(AuthItem::model(),'name',
-        Chtml::listData(AuthItem::model()->findAll('type=2'), 'name', 'name'),
+        Chtml::listData(AuthItem::model()->findAll($criteria), 'name', 'name'),
         array('size'=>$this->module->listBoxNumberOfLines,'class'=>'dropdown','ajax' => array(
         'type'=>'POST',
         'url'=>array('getTasks'),
