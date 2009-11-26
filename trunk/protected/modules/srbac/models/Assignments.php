@@ -51,7 +51,7 @@ class Assignments extends CActiveRecord {
     array('itemname','length','max'=>64),
     array('userid','length','max'=>64),
     array('itemname, userid', 'required'),
-    array('user_id,itemname,bizrule,data'),
+    array('user_id,itemname,bizrule,data','safe'),
     );
   }
 
