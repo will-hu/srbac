@@ -14,11 +14,16 @@
  * @since 1.0.0
  */
  ?>
+<?php
+$criteria = new CDbCriteria();
+$criteria->condition = "type=1";
+$criteria->order = "name";
+?>
 <!-- TASKS -> OPERATIONS -->
 <div class="srbac">
   <?php echo CHtml::beginForm(); ?>
   <?php echo CHtml::errorSummary($model); ?>
-  <table>
+  <table width="100%">
     <tr><th colspan="2"><?php echo Helper::translate('srbac','Assign Operations to Tasks') ?></th></tr>
     <tr>
       <th width="50%">
@@ -34,7 +39,7 @@
     </tr>
     <tr valign="top">
       <td><?php echo CHtml::activeDropDownList(Assignments::model(),'itemname',
-        Chtml::listData(AuthItem::model()->findAll('type=1'), 'name', 'name'),
+        Chtml::listData(AuthItem::model()->findAll($criteria), 'name', 'name'),
         array('size'=>$this->module->listBoxNumberOfLines,'class'=>'dropdown','ajax' => array(
         'type'=>'POST',
         'url'=>array('getOpers'),
