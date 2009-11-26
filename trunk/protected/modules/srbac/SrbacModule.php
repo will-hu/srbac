@@ -15,7 +15,6 @@
  */
 
 class SrbacModule extends CWebModule {
-
 //Constants
   const ICON_PACKS = "noia,tango";
   const PRIVATE_ATTRIBUTES = "_icons,_cssPublished,_imagesPublished,defaultController,controllerMap,preload,behaviors";
@@ -49,6 +48,8 @@ class SrbacModule extends CWebModule {
   private $_showHeader = false;
   /* @var $_useFooter boolean Use footer or not */
   private $_showFooter = false;
+  /* @var $useAlwaysAllowedGui boolean */
+  public $useAlwaysAllowedGui = true;
 
 
 
@@ -132,6 +133,11 @@ class SrbacModule extends CWebModule {
     return $this->_pageSize;
   }
   public function setAlwaysAllowed($alwaysAllowed) {
+    if($alwaysAllowed == 'gui'){
+      $this->useAlwaysAllowedGui = true;
+    } else {
+      $this->useAlwaysAllowedGui = false;
+    }
     $this->_alwaysAllowed = $alwaysAllowed;
   
   }

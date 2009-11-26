@@ -128,5 +128,10 @@ return array (
   "Edit always allowed list"=>"Μετατροπή λίστας πάντα προσβάσιμων σελίδων",
   "The following authItems are saved in the always allowed file" =>
   "Οι παρακάτω άδειες αποθηκεύτηκαν στο αρχείο των πάντα προσβάσιμων σελίδων",
+  "srbac is not configuered to use the alwaysAllowed GUI editor."=>
+  "Το srbac δεν είναι ρυθμισμένο ώστε να χρησιμοποιεί το γραφικό περιβάλλον για
+    την μετατροπή των πάντα προσβάσιμων σελίδων.",
+  "Remove alwaysAllowed attribute from srbac configuration or set it to 'gui'."=>
+  "Αφαιρέστε από τις ρυθμίσεις την παράμετρο alwaysAllowed ή δώστε της την τιμή 'gui'."
 );
 ?>
