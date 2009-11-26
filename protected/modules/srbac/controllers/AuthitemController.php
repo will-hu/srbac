@@ -747,7 +747,7 @@ class AuthitemController extends SBaseController {
    */
   public function actionAutoDeleteItems() {
     $cont = str_replace("Controller","",$_POST["controller"]);
-    
+
     //Check for module controller
     $controllerArr = split("_",$cont);
     $controller = $controllerArr[sizeof($controllerArr)-1];
@@ -883,32 +883,32 @@ class AuthitemController extends SBaseController {
     foreach ($modules as $mod_id=>$mod) {
       $moduleControllersPath = Yii::app()->getModule($mod_id)->controllerPath;
       $modControllers = $this->_scanDir($moduleControllersPath,$mod_id,"",$modControllers);
-//      $handle = opendir($moduleControllersPath);
-//      while (($file = readdir($handle)) !== false) {
-//        if (is_file($moduleControllersPath.DIRECTORY_SEPARATOR.$file)
-//            && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
-//          $controllers[] = $mod_id."_".str_replace(".php","",$file);
-//        }
-//      }
+    //      $handle = opendir($moduleControllersPath);
+    //      while (($file = readdir($handle)) !== false) {
+    //        if (is_file($moduleControllersPath.DIRECTORY_SEPARATOR.$file)
+    //            && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
+    //          $controllers[] = $mod_id."_".str_replace(".php","",$file);
+    //        }
+    //      }
     }
     return  array_merge($controllers, $modControllers);
   }
 
-  private function _scanDir($contPath, $module="", $subdir="",$controllers = array()){
+  private function _scanDir($contPath, $module="", $subdir="",$controllers = array()) {
     $handle = opendir($contPath);
     while (($file = readdir($handle)) !== false ) {
       $filePath = $contPath.DIRECTORY_SEPARATOR.$file;
       if (is_file($filePath)) {
-          if(preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
+        if(preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
 
-            $controllers[] = (($module) ? $module."_" : "").
-                             (($subdir) ? $subdir."." : "").
-                             str_replace(".php","",$file);
-            
-          }
-      } else if(is_dir($filePath) && $file != "." && $file != ".."){
-        $controllers = $this->_scanDir($filePath,$module, $file,$controllers);
-      }
+          $controllers[] = (($module) ? $module."_" : "").
+              (($subdir) ? $subdir."." : "").
+              str_replace(".php","",$file);
+
+        }
+      } else if(is_dir($filePath) && $file != "." && $file != "..") {
+          $controllers = $this->_scanDir($filePath,$module, $file,$controllers);
+        }
     }
     return $controllers;
   }
@@ -947,15 +947,19 @@ class AuthitemController extends SBaseController {
    * Displays the editor for the alwaysAllowed items
    */
   public function actionEditAllowed() {
-    $controllers = $this->_getControllers();
-    foreach ($controllers as $n=>$controller) {
-      $info = $this->_getControllerInfo($controller,true);
-      $c[$n]["title"] = $controller;
-      $c[$n]["actions"] = $info[0];
-      $c[$n]["allowed"] = $info[1];
+    if(!$this->module->useAlwaysAllowedGui) {
+      echo Helper::translate("srbac", "srbac is not configuered to use the alwaysAllowed GUI editor.")."<br />";
+      echo Helper::translate("srbac", "Remove alwaysAllowed attribute from srbac configuration or set it to 'gui'.")."<br />";
+    } else {
+      $controllers = $this->_getControllers();
+      foreach ($controllers as $n=>$controller) {
+        $info = $this->_getControllerInfo($controller,true);
+        $c[$n]["title"] = $controller;
+        $c[$n]["actions"] = $info[0];
+        $c[$n]["allowed"] = $info[1];
+      }
+      $this->renderPartial('allowed',array('controllers'=>$c),false,true);
     }
-    $this->renderPartial('allowed',array('controllers'=>$c),false,true);
-
   }
 
   public function actionSaveAllowed() {
