@@ -116,7 +116,7 @@ return array (
 
   //Version 1.0.3
   "Module"=>"Módulo",
-  "Pages that access is always allowed"=>"Páginas cuyo acceso es siempre permitido",
+  "Pages that access is always allowed"=>"Páginas cuyo acceso es siempre accesible",
   "srbac must in debug mode" =>"Srbac debe estar en modo de depuración",
   "Yii version"=>"Versión de Yii",
   "Wrong Yii version, lower required version is"=>"Versión de Yii incorrecta, la versión mínima requerida es",
@@ -125,8 +125,12 @@ return array (
   //Version 1.1
   "Clever Assigning"=>"Asignación inteligente",
   "Help"=>"Ayuda",
-  "Edit always allowed list"=>"Editar listado de Permitidos Siempre",
+  "Edit always allowed list"=>"Editar listado de Siempre Accesibles",
   "The following authItems are saved in the always allowed file" =>
-  "Los siguientes permisos son guardados en el archivo de Siempre Permitidos",
+  "Los siguientes permisos son guardados en el archivo de Siempre Accesibles",
+  "srbac is not configuered to use the alwaysAllowed GUI editor."=>
+  "Srbac no está configurado para usar la interfaz gráfica de usuario (GUI) para definir las páginas Siempre Accesibles",
+  "Remove alwaysAllowed attribute from srbac configuration or set it to 'gui'."=>
+  "Eliminar la configuración del atributo de páginas Siempre Accesibles o dar el valor de 'gui'."
 );
 ?>
