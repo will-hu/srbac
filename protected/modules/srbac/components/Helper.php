@@ -126,7 +126,11 @@ class Helper {
       $tasks->condition = "type=0 AND parent ='".$name."'";
       $tasks->join = 'left join '.Yii::app()->authManager->itemChildTable.' on name = child';
       if($clever) {
-        $cleverName = ereg_replace("Viewing|Administrating", "", $name);
+        $p[0] = "/Viewing/";
+        $p[1] = "/Administrating/";
+        $r[0] = "";
+        $r[1]= "";
+        $cleverName = preg_replace($p, $r, $name);
         $len = strlen($cleverName);
         $tasks->addCondition("LEFT(child,".$len.") = '".$cleverName."'");
       }
@@ -151,7 +155,11 @@ class Helper {
     $tasks = new CDbCriteria();
     $tasks->condition = "type=0";
     if($clever) {
-      $cleverName = ereg_replace("Viewing|Administrating", "", $name);
+      $p[0] = "/Viewing/";
+      $p[1] = "/Administrating/";
+      $r[0] = "";
+      $r[1]= "";
+      $cleverName = preg_replace($p, $r, $name);
       $len = strlen($cleverName);
       $tasks->addCondition("LEFT(name,".$len.") = '".$cleverName."'");
     }
@@ -370,7 +378,7 @@ class Helper {
    */
   public static function checkYiiVersion($checkVersion) {
   //remove dev builds
-    $version = ereg_replace("[a-z]", "",Yii::getVersion() );
+    echo $version = preg_replace("/[a-z]/", "",Yii::getVersion() );
     $yiiVersionNoBuilds =  explode("-", $version);
     $checkVersion = explode(".",$checkVersion);
     $yiiVersion =  explode(".", $yiiVersionNoBuilds[0]);
@@ -422,7 +430,7 @@ class Helper {
         }
         break;
       case ($key == "layout" || $key == "notAuthorizedView" || $key == "imagesPath"
-        ||$key == "header" || $key == "footer"):
+          ||$key == "header" || $key == "footer"):
         $class = "installNoError";
         $file = Yii::getPathOfAlias($value).".php";
         $path = Yii::getPathOfAlias($value);
@@ -439,9 +447,9 @@ class Helper {
         }
         break;
       case "debug":
-        
+
         break;
-      
+
     }
     $out[0] = "<tr><td valign='top'>".(substr($key,0,1) == "_" ? substr($key,1) : $key)."</td>";
     $out[0] .= "<td><div class='$class'>";
@@ -456,28 +464,28 @@ class Helper {
    * @return boolean If css published or not
    */
   public static function publishCss($css) {
-    if(Yii::app()->request->isAjaxRequest){
+    if(Yii::app()->request->isAjaxRequest) {
       return true;
     }
     //Search in default Yii css directory
     $cssFile = Yii::getPathOfAlias("webroot.css").DIRECTORY_SEPARATOR.$css;
-    if(is_file($cssFile) && !Yii::app()->clientScript->isCssFileRegistered($cssFile)){
+    if(is_file($cssFile) && !Yii::app()->clientScript->isCssFileRegistered($cssFile)) {
       Yii::app()->clientScript->registerCssFile($cssFile);
-        return true;
+      return true;
     } else {
-      // Search in srbac css dir
+    // Search in srbac css dir
 
-       $cssFile = Yii::getPathOfAlias("srbac.css").DIRECTORY_SEPARATOR.$css;
-       $cssDir = Yii::getPathOfAlias("srbac.css");
-       if(is_file($cssFile)){
-       $published = Yii::app()->assetManager->publish($cssDir);
-       $cssFile = $published."/".$css;
-       if(!Yii::app()->clientScript->isCssFileRegistered($cssFile))
-        echo Yii::app()->clientScript->registerCssFile($cssFile);
+      $cssFile = Yii::getPathOfAlias("srbac.css").DIRECTORY_SEPARATOR.$css;
+      $cssDir = Yii::getPathOfAlias("srbac.css");
+      if(is_file($cssFile)) {
+        $published = Yii::app()->assetManager->publish($cssDir);
+        $cssFile = $published."/".$css;
+        if(!Yii::app()->clientScript->isCssFileRegistered($cssFile))
+          echo Yii::app()->clientScript->registerCssFile($cssFile);
         return true;
-       } else {
-         return false;
-       }
+      } else {
+        return false;
+      }
     }
   }
 
