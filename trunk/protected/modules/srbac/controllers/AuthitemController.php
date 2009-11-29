@@ -690,7 +690,7 @@ class AuthitemController extends SBaseController {
 
     //Check if it's a module controller
     if(substr_count($controller, "_")) {
-      $c = split("_", $controller);
+      $c = explode("_", $controller);
       $controller = $c[1];
       $module = $c[0]."_";
       $contPath = Yii::app()->getModule($c[0])->getControllerPath();
@@ -712,7 +712,14 @@ class AuthitemController extends SBaseController {
       $line = trim($h[$i]);
       if(preg_match("/^(.+)function( +)action*/", $line)) {
         $action = trim(substr($line, strpos($line, "action")));
-        $action = ereg_replace("[(){ ]", "", trim($action));
+        $patterns[0] = '/\s*/m';
+        $patterns[1] = '/\(/m';
+        $patterns[2] = '/\)/m';
+        $patterns[3] = '/\{/m';
+        $replacements[2] = '';
+        $replacements[1] = '';
+        $replacements[0] = '';
+        $action = preg_replace($patterns, $replacements, trim($action));
         $itemId = $module.str_replace("Controller","",$controller).
             str_replace("action", "", $action);
         if($action !="actions" ) {
@@ -749,7 +756,7 @@ class AuthitemController extends SBaseController {
     $cont = str_replace("Controller","",$_POST["controller"]);
 
     //Check for module controller
-    $controllerArr = split("_",$cont);
+    $controllerArr = explode("_",$cont);
     $controller = $controllerArr[sizeof($controllerArr)-1];
 
 
@@ -826,7 +833,7 @@ class AuthitemController extends SBaseController {
     }
     $message .= "<div style='font-weight:bold'>".Helper::translate('srbac','Creating operations')."</div>";
     foreach ($actions as $action) {
-      $act = split("action", $action);
+      $act = explode("action", $action);
       $a = trim($controller.$act[1]);
       $auth=new AuthItem();
       $auth->name = $a;
