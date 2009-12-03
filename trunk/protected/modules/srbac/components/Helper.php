@@ -463,8 +463,8 @@ class Helper {
    * Publishes srbac cssfile
    * @return boolean If css published or not
    */
-  public static function publishCss($css) {
-    if(Yii::app()->request->isAjaxRequest) {
+  public static function publishCss($css,$forcePublish = false) {
+    if(Yii::app()->request->isAjaxRequest && !$forcePublish){
       return true;
     }
     //Search in default Yii css directory
