@@ -45,12 +45,13 @@
     <?php echo CHTml::endForm(); ?>
 </div>
 <?php } else { ?>
+<?php $url = Yii::app()->urlManager->createUrl("srbac/authitem/showAssignments",array("id"=>$id));?>
   <?php Yii::app()->clientScript->registerCssFile(Yii::app()->getModule('srbac')->css); ?>
   <?php   Yii::app()->clientScript->registerScript(
       "alert",
       "$.ajax({
             type: 'POST',
-            url: 'index.php?r=srbac/authitem/showAssignments&id=$id',
+            url: '".$url."',
             success: function(html){
                $('#assignments').html(html);
         }
