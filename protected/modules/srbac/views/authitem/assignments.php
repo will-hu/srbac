@@ -45,8 +45,9 @@
     <?php echo CHTml::endForm(); ?>
 </div>
 <?php } else { ?>
-<?php $url = Yii::app()->urlManager->createUrl("srbac/authitem/showAssignments",array("id"=>$id));?>
-  <?php Yii::app()->clientScript->registerCssFile(Yii::app()->getModule('srbac')->css); ?>
+  <?php $url = Yii::app()->urlManager->createUrl("srbac/authitem/showAssignments",array("id"=>$id));?>
+  <?php Yii::import("srbac.components.Helper");?>
+  <?php Helper::publishCss(Yii::app()->getModule('srbac')->css,true);?>
   <?php   Yii::app()->clientScript->registerScript(
       "alert",
       "$.ajax({
@@ -64,7 +65,7 @@
 
 </div>
 <?php if(!$id) {?>
-<?php if($this->module->getShowFooter()) {
-  $this->renderPartial($this->module->footer);
-}?>
+  <?php if($this->module->getShowFooter()) {
+    $this->renderPartial($this->module->footer);
+  }?>
 <?php }?>
