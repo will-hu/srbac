@@ -133,19 +133,19 @@ class SrbacModule extends CWebModule {
     return $this->_pageSize;
   }
   public function setAlwaysAllowed($alwaysAllowed) {
-    if($alwaysAllowed == 'gui'){
+    if($alwaysAllowed == 'gui') {
       $this->useAlwaysAllowedGui = true;
     } else {
       $this->useAlwaysAllowedGui = false;
     }
     $this->_alwaysAllowed = $alwaysAllowed;
-  
+
   }
   public function getAlwaysAllowed() {
-    //If created by the GUI
+  //If created by the GUI
     if($this->_alwaysAllowed == "gui") {
       $allowedFile = Yii::getPathOfAlias('srbac.components.allowed').".php";
-      if(!is_file($allowedFile)){
+      if(!is_file($allowedFile)) {
         fopen($allowedFile, "wb");
       }
       $this->_alwaysAllowed = include($allowedFile);
@@ -232,9 +232,15 @@ class SrbacModule extends CWebModule {
   public function isInstalled() {
     try {
       $tables = Yii::app()->authManager->db->schema->tableNames;
-      if(in_array(AuthItem::model()->tableName(), $tables)) {
+      $tableName = AuthItem::model()->tableName();
+      $tablePrefix = AuthItem::model()->getDbConnection()->tablePrefix;
+      if(!is_null($tablePrefix)){
+        $tableName = preg_replace('/{{(.*?)}}/',$tablePrefix.'\1',$tableName);
+      }
+      if(in_array($tableName, $tables)) {
         return true;
       }
+      
       return false;
     } catch (CDbException  $exc ) {
       return false;
