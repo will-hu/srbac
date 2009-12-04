@@ -28,7 +28,7 @@
                 ($this->module->iconText ?
                 Helper::translate('srbac','Managing auth items') :
                 ""),
-            array('authitem/manage/manage'))
+            array('authitem/manage'))
     ?>
     </div>
     <div class="iconBox">
