@@ -68,7 +68,7 @@ $criteria->order = "name";
 </div>
 <?php
 $urlManager = Yii::app()->getUrlManager();
-$parent = $this->module->parentModule ? $this->module->parentModule."/" : "" ;
+$parent = $this->module->parentModule ? $this->module->parentModule->name."/" : "" ;
 $url = $urlManager->createUrl($parent."srbac/authitem/getCleverOpers");
 ?>
 <?php
