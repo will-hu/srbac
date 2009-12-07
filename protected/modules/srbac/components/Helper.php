@@ -367,7 +367,7 @@ class Helper {
    * @return String The translated text
    */
   public static function translate($source, $text, $lang = null) {
-    return self::findInModule("srbac")->tr->translate($source,$text,$lang);
+    return self::findModule("srbac")->tr->translate($source,$text,$lang);
   }
 
   /**
