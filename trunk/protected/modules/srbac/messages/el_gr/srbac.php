@@ -132,6 +132,7 @@ return array (
   "Το srbac δεν είναι ρυθμισμένο ώστε να χρησιμοποιεί το γραφικό περιβάλλον για
     την μετατροπή των πάντα προσβάσιμων σελίδων.",
   "Remove alwaysAllowed attribute from srbac configuration or set it to 'gui'."=>
-  "Αφαιρέστε από τις ρυθμίσεις την παράμετρο alwaysAllowed ή δώστε της την τιμή 'gui'."
+  "Αφαιρέστε από τις ρυθμίσεις την παράμετρο alwaysAllowed ή δώστε της την τιμή 'gui'.",
+  "The always allowed file is not writable by the server"=>"Δεν υπάρχουν δικαιωματα εγγραφής στο αρχείο των πάντα προσβάσιμων σελίδων",
 );
 ?>
