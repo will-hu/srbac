@@ -49,7 +49,7 @@ class Helper {
     } else {
       return AuthItem::model()->findAll($roles);
     }
-    $as = Helper::getUserAssignedRoles($userid);
+    $as = self::getUserAssignedRoles($userid);
     foreach ($na as $n) {
       $exists = false;
       foreach ($as as $a) {
@@ -99,7 +99,7 @@ class Helper {
     } else {
       return AuthItem::model()->findAll($tasks);
     }
-    $as = Helper::getRoleAssignedTasks($name);
+    $as = self::getRoleAssignedTasks($name);
     foreach ($na as $n) {
       $exists = false;
       foreach ($as as $a) {
@@ -169,7 +169,7 @@ class Helper {
     } else {
       return AuthItem::model()->findAll($tasks);
     }
-    $as = Helper::getTaskAssignedOpers($name,$clever);
+    $as = self::getTaskAssignedOpers($name,$clever);
     foreach ($na as $n) {
       $exists = false;
       foreach ($as as $a) {
@@ -190,7 +190,7 @@ class Helper {
    * @param CMissingTranslationEvent $event
    */
   public static function markWords($event) {
-    if(Helper::findModule('srbac')->debug) {
+    if(self::findModule('srbac')->debug) {
       $event->message .= "*";
     }
   }
@@ -203,11 +203,11 @@ class Helper {
    * @return true if authorizer is assigned to a user
    */
   public static function isAuthorizer() {
-    if(Helper::findModule('srbac')->debug) {
+    if(self::findModule('srbac')->debug) {
       return false;
     }
     $criteria = new CDbCriteria();
-    $criteria->condition = "itemname = '".Helper::findModule('srbac')->superUser."'";
+    $criteria->condition = "itemname = '".self::findModule('srbac')->superUser."'";
     $authorizer = Assignments::model()->find($criteria);
     if($authorizer !== null) {
       return true;
@@ -231,13 +231,13 @@ class Helper {
     /* @var $auth CDbAuthManager */
     $itemTable = $auth->itemTable;
     if($action == "Install") {
-      if(Helper::findModule("srbac")->isInstalled()) {
+      if(self::findModule("srbac")->isInstalled()) {
         return 1; // Already installed
       } else {
-        return  Helper::_install($demo);
+        return  self::_install($demo);
       }
     } else {
-      return Helper::_install($demo);
+      return self::_install($demo);
     }
 
   }
@@ -286,7 +286,7 @@ class Helper {
                                               );";
       $db->createCommand($sql)->execute();
       //Insert Authorizer
-      $sql = "INSERT INTO ".$itemTable." (name, type) VALUES ('".Helper::findModule('srbac')->superUser."',2)";
+      $sql = "INSERT INTO ".$itemTable." (name, type) VALUES ('".self::findModule('srbac')->superUser."',2)";
       $db->createCommand($sql)->execute();
       if($demo == 1) {
       //Insert Demo Data
@@ -336,7 +336,7 @@ class Helper {
     $modules = Yii::app()->getModules();
     foreach ($modules as $mod=>$conf) {
       if(Yii::app()->getModule($mod)) {
-        return Helper::findInModule(Yii::app()->getModule($mod), $moduleID);
+        return self::findInModule(Yii::app()->getModule($mod), $moduleID);
       }
     }
     return null;
@@ -414,7 +414,7 @@ class Helper {
     switch ($key) {
       case ($key == "userid" || $key == "username"):
         $class = "installNoError";
-        $u = Helper::findModule("srbac")->getUserModel();
+        $u = self::findModule("srbac")->getUserModel();
         $user = new $u;
         if(!$user->hasAttribute($value)) {
           $class = "installError";
@@ -423,7 +423,7 @@ class Helper {
         break;
       case "css":
         $class = "installNoError";
-        $cssPublished = Helper::findModule("srbac")->isCssPublished();
+        $cssPublished = self::findModule("srbac")->isCssPublished();
         if(!$cssPublished) {
           $class = "installError";
           $out[1]="1";
@@ -464,7 +464,7 @@ class Helper {
    * @return boolean If css published or not
    */
   public static function publishCss($css,$forcePublish = false) {
-    if(Yii::app()->request->isAjaxRequest && !$forcePublish){
+    if(Yii::app()->request->isAjaxRequest && !$forcePublish) {
       return true;
     }
     //Search in default Yii css directory
@@ -501,5 +501,18 @@ class Helper {
     } else {
       return "";
     }
+  }
+
+  /**
+   * Checks if the always allowed file is writeable
+   * @return boolean true if always allowed file is writeable or false otherwise
+   */
+  public static function isAlwaysAllowedFileWritable() {
+    if (!($f = @fopen(self::findModule("srbac")->getAlwaysAllowedFile(), 'r+'))) {
+      return false;
+    }
+    fclose($f);
+    return true;
+
   }
 }
