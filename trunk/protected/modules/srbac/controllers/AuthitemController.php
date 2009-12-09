@@ -958,6 +958,11 @@ class AuthitemController extends SBaseController {
       echo Helper::translate("srbac", "srbac is not configuered to use the alwaysAllowed GUI editor.")."<br />";
       echo Helper::translate("srbac", "Remove alwaysAllowed attribute from srbac configuration or set it to 'gui'.")."<br />";
     } else {
+      if(!Helper::isAlwaysAllowedFileWritable()) {
+        echo Helper::translate("srbac", "The always allowed file is not writeable by the server")."<br />";
+        echo "File : ".$this->module->getAlwaysAllowedFile();
+        return;
+      }
       $controllers = $this->_getControllers();
       foreach ($controllers as $n=>$controller) {
         $info = $this->_getControllerInfo($controller,true);
@@ -970,14 +975,19 @@ class AuthitemController extends SBaseController {
   }
 
   public function actionSaveAllowed() {
+    if(!Helper::isAlwaysAllowedFileWritable()) {
+        echo Helper::translate("srbac", "The always allowed file is not writable by the server")."<br />";
+        echo "File : ".$this->module->getAlwaysAllowedFile();
+        return;
+      }
     $allowed = array();
     foreach ($_POST as $controller) {
       foreach ($controller as $action) {
         $allowed[] = $action;
       }
     }
-    $allowedFile = Yii::getPathOfAlias("srbac.components").DIRECTORY_SEPARATOR."allowed.php";
-    $handle = fopen($allowedFile, "wb");
+
+    $handle = fopen($this->module->getAlwaysAllowedFile(), "wb");
     fwrite($handle, "<?php \n return array(\n\t'".implode("',\n\t'", $allowed)."'\n);\n?>");
     fclose($handle);
     $this->renderPartial("saveAllowed", array("allowed"=>$allowed));

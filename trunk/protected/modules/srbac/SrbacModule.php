@@ -50,6 +50,7 @@ class SrbacModule extends CWebModule {
   private $_showFooter = false;
   /* @var $useAlwaysAllowedGui boolean */
   public $useAlwaysAllowedGui = true;
+  
 
 
 
@@ -75,7 +76,8 @@ class SrbacModule extends CWebModule {
   public $header = "srbac.views.authitem.header";
   /* @var $footer String Srbac footer*/
   public $footer = "srbac.views.authitem.footer";
-
+  /* @var $alwaysAllowedPath String */
+  public $alwaysAllowedPath = "srbac.components";
 
 
   /**
@@ -144,11 +146,10 @@ class SrbacModule extends CWebModule {
   public function getAlwaysAllowed() {
   //If created by the GUI
     if($this->_alwaysAllowed == "gui") {
-      $allowedFile = Yii::getPathOfAlias('srbac.components.allowed').".php";
-      if(!is_file($allowedFile)) {
+      if(!is_file($this->getAlwaysAllowedFile())) {
         fopen($allowedFile, "wb");
       }
-      $this->_alwaysAllowed = include($allowedFile);
+      $this->_alwaysAllowed = include($this->getAlwaysAllowedFile());
       if(!is_array($this->_alwaysAllowed)) {
         $this->_alwaysAllowed = array();
       }
@@ -168,6 +169,11 @@ class SrbacModule extends CWebModule {
     }
     return $this->_alwaysAllowed;
   }
+
+  public function getAlwaysAllowedFile() {
+    return Yii::getPathOfAlias($this->alwaysAllowedPath).DIRECTORY_SEPARATOR."allowed.php";
+  }
+
   public function setUserActions($userActions) {
     if(is_array($userActions)) {
       $this->_userActions = $userActions;
@@ -234,15 +240,15 @@ class SrbacModule extends CWebModule {
       $tables = Yii::app()->authManager->db->schema->tableNames;
       $tableName = AuthItem::model()->tableName();
       $tablePrefix = AuthItem::model()->getDbConnection()->tablePrefix;
-      if(!is_null($tablePrefix)){
+      if(!is_null($tablePrefix)) {
         $tableName = preg_replace('/{{(.*?)}}/',$tablePrefix.'\1',$tableName);
       }
       if(in_array($tableName, $tables)) {
         return true;
       }
-      
+
       return false;
-    } catch (CDbException  $exc ) {
+    } catch (CDbException  $ex )  {
       return false;
     }
   }
