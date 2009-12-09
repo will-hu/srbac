@@ -147,7 +147,7 @@ class SrbacModule extends CWebModule {
   //If created by the GUI
     if($this->_alwaysAllowed == "gui") {
       if(!is_file($this->getAlwaysAllowedFile())) {
-        fopen($allowedFile, "wb");
+        fopen($this->getAlwaysAllowedFile(), "wb");
       }
       $this->_alwaysAllowed = include($this->getAlwaysAllowedFile());
       if(!is_array($this->_alwaysAllowed)) {
