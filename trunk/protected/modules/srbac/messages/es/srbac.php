@@ -131,6 +131,7 @@ return array (
   "srbac is not configuered to use the alwaysAllowed GUI editor."=>
   "Srbac no está configurado para usar la interfaz gráfica de usuario (GUI) para definir las páginas Siempre Accesibles",
   "Remove alwaysAllowed attribute from srbac configuration or set it to 'gui'."=>
-  "Eliminar la configuración del atributo de páginas Siempre Accesibles o dar el valor de 'gui'."
+  "Eliminar la configuración del atributo de páginas Siempre Accesibles o dar el valor de 'gui'.",
+  "The always allowed file is not writable by the server"=>"El archivo de Siempre Accesibles no tiene permisos de esritura",
 );
 ?>
