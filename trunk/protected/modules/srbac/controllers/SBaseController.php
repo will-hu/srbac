@@ -21,14 +21,14 @@
  */
 class SBaseController extends CController {
 
-/**
- * Checks if srbac access is granted for the current user
- * @param String $action . The current action
- * @return boolean true if access is granted else false
- */
+  /**
+   * Checks if srbac access is granted for the current user
+   * @param String $action . The current action
+   * @return boolean true if access is granted else false
+   */
   protected function beforeAction($action) {
 
-  //srbac access
+    //srbac access
     $mod = $this->module !== null ? $this->module->id."_" : "";
     $contrArr = explode("/", $this->id);
     $contrArr[sizeof($contrArr)-1] = ucfirst($contrArr[sizeof($contrArr)-1]);
@@ -37,7 +37,7 @@ class SBaseController extends CController {
     $contr = str_replace("/", ".", $this->id);
 
     $access =  $mod.$controller.ucfirst($this->action->id);
-    
+
     //Always allow access if $access is in the allowedAccess array
     if(in_array($access, $this->allowedAccess())) {
       return true;
@@ -63,7 +63,7 @@ class SBaseController extends CController {
    */
   protected function allowedAccess() {
     Yii::import("srbac.components.Helper");
-     return Helper::findModule('srbac')->getAlwaysAllowed();
+    return Helper::findModule('srbac')->getAlwaysAllowed();
   }
 
   protected function onUnauthorizedAccess() {
