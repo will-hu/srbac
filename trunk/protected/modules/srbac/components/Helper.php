@@ -469,8 +469,10 @@ class Helper {
     }
     //Search in default Yii css directory
     $cssFile = Yii::getPathOfAlias("webroot.css").DIRECTORY_SEPARATOR.$css;
-    if(is_file($cssFile) && !Yii::app()->clientScript->isCssFileRegistered($cssFile)) {
-      Yii::app()->clientScript->registerCssFile($cssFile);
+    if(is_file($cssFile) && !Yii::app()->clientScript->isCssFileRegistered(Yii::app()->request->baseUrl."/css/".$css)) {
+      $cssUrl = Yii::app()->request->baseUrl."/css/".$css;
+      Yii::app()->clientScript->registerCssFile($cssUrl);
+      self::findModule("srbac")->setCssUrl($cssUrl);
       return true;
     } else {
     // Search in srbac css dir
@@ -480,8 +482,9 @@ class Helper {
       if(is_file($cssFile)) {
         $published = Yii::app()->assetManager->publish($cssDir);
         $cssFile = $published."/".$css;
-        if(!Yii::app()->clientScript->isCssFileRegistered($cssFile))
-          echo Yii::app()->clientScript->registerCssFile($cssFile);
+        if(!Yii::app()->clientScript->isCssFileRegistered($cssFile)){
+         Yii::app()->clientScript->registerCssFile($cssFile);
+        }
         return true;
       } else {
         return false;
