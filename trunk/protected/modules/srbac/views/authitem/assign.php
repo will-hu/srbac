@@ -39,11 +39,12 @@
   );
   ?>
   <div class="horTab">
-    <?php
+    <?php 
+    Helper::publishCss($this->module->css);
     $this->widget('system.web.widgets.CTabView',
         array('tabs'=>$tabs,
         'viewData'=>array('model'=>$model,'userid'=>$userid,'message'=>$message,'data'=>$data),
-        'cssFile'=>$this->module->css,
+        'cssFile'=>$this->module->getCssUrl(),
     ));
     ?>
   </div>
