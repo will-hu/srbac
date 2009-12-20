@@ -48,6 +48,8 @@ class SrbacModule extends CWebModule {
   private $_showHeader = false;
   /* @var $_useFooter boolean Use footer or not */
   private $_showFooter = false;
+  /* @var $_cssUrl The url of the css file to register */
+  private $_cssUrl;
   /* @var $useAlwaysAllowedGui boolean */
   public $useAlwaysAllowedGui = true;
   
@@ -112,6 +114,13 @@ class SrbacModule extends CWebModule {
   }
 
   // SETTERS & GETTERS
+  public function setCssUrl($cssUrl){
+    $this->_cssUrl = $cssUrl;
+  }
+  public function getCssUrl(){
+    return $this->_cssUrl;
+
+  }
   public function setDebug($debug) {
     if(is_bool($debug)) {
       $this->_debug = $debug;
