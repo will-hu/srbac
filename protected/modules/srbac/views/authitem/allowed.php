@@ -39,10 +39,11 @@ foreach ($controllers as $n=>$controller) {
 <?php echo CHtml::form();?>
 <div class="vertTab">
   <?php
+   Helper::publishCss($this->module->css);
   $this->widget('system.web.widgets.CTabView',
       array(
       'tabs'=>$cont,
-      'cssFile'=>$this->module->css,
+      'cssFile'=>$this->module->getCssUrl(),
   ));
   ?>
 </div>
