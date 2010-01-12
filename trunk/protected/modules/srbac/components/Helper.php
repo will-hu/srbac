@@ -378,7 +378,7 @@ class Helper {
    */
   public static function checkYiiVersion($checkVersion) {
   //remove dev builds
-    echo $version = preg_replace("/[a-z]/", "",Yii::getVersion() );
+    $version = preg_replace("/[a-z]/", "",Yii::getVersion() );
     $yiiVersionNoBuilds =  explode("-", $version);
     $checkVersion = explode(".",$checkVersion);
     $yiiVersion =  explode(".", $yiiVersionNoBuilds[0]);
