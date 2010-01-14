@@ -16,10 +16,14 @@
 
 class AuthitemController extends SBaseController {
 
-/**
- * @var string specifies the default action to be 'list'.
- */
+  /**
+   * @var string specifies the default action to be 'list'.
+   */
   public $defaultAction='frontpage';
+  /**
+   *  @var $breadcrumbs  
+   */
+  public $breadcrumbs;
 
   /**
    * @var CActiveRecord the currently loaded data model instance.
@@ -49,7 +53,7 @@ class AuthitemController extends SBaseController {
     }
 
     if( Yii::app()->user->checkAccess(Helper::findModule('srbac')->superUser) ||
-        !Helper::isAuthorizer()) {
+      !Helper::isAuthorizer()) {
       return true;
     } else {
       parent::beforeAction($action);
@@ -67,7 +71,7 @@ class AuthitemController extends SBaseController {
   private function _assignUser($userid,$roles,$bizRules,$data) {
     if($userid) {
       $auth = Yii::app()->authManager;
-    /* @var $auth CDbAuthManager */
+      /* @var $auth CDbAuthManager */
       foreach ($roles as $role) {
         $auth->assign($role, $userid,$bizRules,$data);
       }
@@ -81,7 +85,7 @@ class AuthitemController extends SBaseController {
   private function _revokeUser($userid,$roles) {
     if($userid) {
       $auth = Yii::app()->authManager;
-    /* @var $auth CDbAuthManager */
+      /* @var $auth CDbAuthManager */
       foreach ($roles as $role) {
         if($role == $this->module->superUser) {
           $count = Assignments::model()->count("itemname='".$role."'");
@@ -103,7 +107,7 @@ class AuthitemController extends SBaseController {
   private function _assignChild($parent,$children) {
     if($parent) {
       $auth = Yii::app()->authManager;
-    /* @var $auth CDbAuthManager */
+      /* @var $auth CDbAuthManager */
       foreach ($children as $child) {
         $auth->addItemChild($parent, $child);
       }
@@ -117,7 +121,7 @@ class AuthitemController extends SBaseController {
   private function _revokeChild($parent,$children) {
     if($parent) {
       $auth = Yii::app()->authManager;
-    /* @var $auth CDbAuthManager */
+      /* @var $auth CDbAuthManager */
       foreach ($children as $child) {
         $auth->removeItemChild($parent, $child);
       }
@@ -131,10 +135,10 @@ class AuthitemController extends SBaseController {
    * If there's a post back it performs the assign action
    */
   public function actionAssign() {
-  //CVarDumper::dump($_POST, 5, true);
+    //CVarDumper::dump($_POST, 5, true);
     $userid = isset($_POST[Helper::findModule('srbac')->userclass][$this->module->userid]) ?
-        $_POST[Helper::findModule('srbac')->userclass][$this->module->userid] :
-        "";
+      $_POST[Helper::findModule('srbac')->userclass][$this->module->userid] :
+      "";
 
     //Init values
     $model = AuthItem::model();
@@ -149,19 +153,19 @@ class AuthitemController extends SBaseController {
     $this->_setMessage("");
 
     $auth = Yii::app()->authManager;
-     /* @var $auth CDbAuthManager */
+    /* @var $auth CDbAuthManager */
     $authItemAssignName = isset($_POST['AuthItem']['name']['assign']) ?
-        $_POST['AuthItem']['name']['assign'] : "";
+      $_POST['AuthItem']['name']['assign'] : "";
 
 
     $assBizRule = isset($_POST['Assignments']['bizrule']) ?
-        $_POST['Assignments']['bizrule'] : "";
+      $_POST['Assignments']['bizrule'] : "";
     $assData = isset($_POST['Assignments']['data']) ?
-        $_POST['Assignments']['data'] : "";
+      $_POST['Assignments']['data'] : "";
 
 
     $authItemRevokeName = isset($_POST['AuthItem']['name']['revoke']) ?
-        $_POST['AuthItem']['name']['revoke'] : "";
+      $_POST['AuthItem']['name']['revoke'] : "";
 
     if( isset($_POST['AuthItem']['name'])) {
       if(isset($_POST['AuthItem']['name'][0])) {
@@ -186,45 +190,45 @@ class AuthitemController extends SBaseController {
       $this->_assignUser($userid,$authItemAssignName,$assBizRule,$assData);
       $this->_setMessage(Helper::translate('srbac','Role(s) Assigned'));
     } else if($revokeRoles && is_array($authItemRevokeName)) {
-        $revoke = $this->_revokeUser($userid,$authItemRevokeName);
-        if($revoke) {
-          $this->_setMessage(Helper::translate('srbac','Role(s) Revoked'));
-        } else {
-          $this->_setMessage(Helper::translate('srbac','Can\'t revoke this role'));
+      $revoke = $this->_revokeUser($userid,$authItemRevokeName);
+      if($revoke) {
+        $this->_setMessage(Helper::translate('srbac','Role(s) Revoked'));
+      } else {
+        $this->_setMessage(Helper::translate('srbac','Can\'t revoke this role'));
 
-        }
-      } else if($assignTasks && is_array($authItemAssignName)) {
-          $this->_assignChild($authItemName,$authItemAssignName);
-          $this->_setMessage(Helper::translate('srbac','Task(s) Assigned'));
-        } else if($revokeTasks && is_array($authItemRevokeName)) {
-            $this->_revokeChild($authItemName,$authItemRevokeName);
-            $this->_setMessage(Helper::translate('srbac','Task(s) Revoked'));
-          }else if($assignOpers && is_array($authItemAssignName)) {
-              $this->_assignChild($assItemName,$authItemAssignName);
-              $this->_setMessage(Helper::translate('srbac','Operation(s) Assigned'));
-            } else if($revokeOpers && is_array($authItemRevokeName)) {
-                $this->_revokeChild($assItemName,$authItemRevokeName);
-                $this->_setMessage( Helper::translate('srbac','Operation(s) Revoked'));
-              }
+      }
+    } else if($assignTasks && is_array($authItemAssignName)) {
+      $this->_assignChild($authItemName,$authItemAssignName);
+      $this->_setMessage(Helper::translate('srbac','Task(s) Assigned'));
+    } else if($revokeTasks && is_array($authItemRevokeName)) {
+      $this->_revokeChild($authItemName,$authItemRevokeName);
+      $this->_setMessage(Helper::translate('srbac','Task(s) Revoked'));
+    }else if($assignOpers && is_array($authItemAssignName)) {
+      $this->_assignChild($assItemName,$authItemAssignName);
+      $this->_setMessage(Helper::translate('srbac','Operation(s) Assigned'));
+    } else if($revokeOpers && is_array($authItemRevokeName)) {
+      $this->_revokeChild($assItemName,$authItemRevokeName);
+      $this->_setMessage( Helper::translate('srbac','Operation(s) Revoked'));
+    }
     //If not ajax show the assign page
     if(!Yii::app()->request->isAjaxRequest) {
       $this->render('assign',array(
-          'model'=>$model,
-          'message'=>$this->_getMessage(),
-          'userid'=>$userid,
-          'data'=>$data
+        'model'=>$model,
+        'message'=>$this->_getMessage(),
+        'userid'=>$userid,
+        'data'=>$data
       ));
     } else {
-    // assign to user show the user tab
+      // assign to user show the user tab
       if($userid != "") {
         $this->_getTheRoles();
       }
       else if($assignTasks != 0 || $revokeTasks != 0) {
-          $this->_getTheTasks();
-        }
-        else if($assignOpers != 0 || $revokeOpers != 0) {
-            $this->_getTheOpers();
-          }
+        $this->_getTheTasks();
+      }
+      else if($assignOpers != 0 || $revokeOpers != 0) {
+        $this->_getTheOpers();
+      }
     }
   }
 
@@ -256,8 +260,8 @@ class AuthitemController extends SBaseController {
       $data['assign'] = array("name"=>"assignUser");
     }
     $this->renderPartial('tabViews/userAjax',
-        array('model'=>$model,'userid'=>$userid,'data'=>$data,'message'=>$this->_getMessage()),
-        false,true);
+      array('model'=>$model,'userid'=>$userid,'data'=>$data,'message'=>$this->_getMessage()),
+      false,true);
   }
 
   /**
@@ -287,7 +291,7 @@ class AuthitemController extends SBaseController {
       $data['assign'] = array("name"=>"assignTasks");
     }
     $this->renderPartial('tabViews/roleAjax',
-        array('model'=>$model,'name'=>$name,'data'=>$data,'message'=>$this->_getMessage()),false,true);
+      array('model'=>$model,'name'=>$name,'data'=>$data,'message'=>$this->_getMessage()),false,true);
 
   }
 
@@ -307,15 +311,15 @@ class AuthitemController extends SBaseController {
     $data['taskAssignedOpers'] = array();
     $data['taskNotAssignedOpers'] = array();
     $name = isset($_POST["Assignments"]["itemname"]) ?
-        $_POST["Assignments"]["itemname"] :
-        Yii::app()->getGlobalState("cleverName");
+      $_POST["Assignments"]["itemname"] :
+      Yii::app()->getGlobalState("cleverName");
     if(Yii::app()->getGlobalState("cleverAssigning") && $name) {
       $data['taskAssignedOpers']  = Helper::getTaskAssignedOpers($name,true);
       $data['taskNotAssignedOpers'] = Helper::getTaskNotAssignedOpers($name,true);
     }else if($name) {
-        $data['taskAssignedOpers']  = Helper::getTaskAssignedOpers($name,false);
-        $data['taskNotAssignedOpers'] = Helper::getTaskNotAssignedOpers($name,false);
-      }
+      $data['taskAssignedOpers']  = Helper::getTaskAssignedOpers($name,false);
+      $data['taskNotAssignedOpers'] = Helper::getTaskNotAssignedOpers($name,false);
+    }
     if($data['taskAssignedOpers'] == array()) {
       $data['revoke'] = array("name"=>"revokeOpers","disabled"=>true);
     } else {
@@ -327,7 +331,7 @@ class AuthitemController extends SBaseController {
       $data['assign'] = array("name"=>"assignOpers");
     }
     $this->renderPartial('tabViews/taskAjax',
-        array('model'=>$model,'name'=>$name,'data'=>$data,'message'=>$this->_getMessage()),false,true);
+      array('model'=>$model,'name'=>$name,'data'=>$data,'message'=>$this->_getMessage()),false,true);
 
   }
 
@@ -338,8 +342,8 @@ class AuthitemController extends SBaseController {
     $deleted = Yii::app()->request->getParam('deleted',false);
     $delete = Yii::app()->request->getParam('delete',false);
     $this->renderPartial('manage/show',array('model'=>$this->loadAuthItem(),
-        'deleted'=>$deleted,
-        'delete'=>$delete));
+      'deleted'=>$deleted,
+      'delete'=>$delete));
   }
 
   /**
@@ -353,14 +357,14 @@ class AuthitemController extends SBaseController {
       try {
         $model->save();
         Yii::app()->user->setFlash('updateSuccess',
-            "'".$model->name."' ".
-            Helper::translate('srbac','created successfully'));
+          "'".$model->name."' ".
+          Helper::translate('srbac','created successfully'));
         $this->renderPartial('manage/update',array('model'=>$model));
       }catch (CDbException $exc ) {
         Yii::app()->user->setFlash('updateError',
-            Helper::translate('srbac','Error while creating')
-            .' '.$model->name."<br />".
-            Helper::translate('srbac','Possible there\'s already an item with the same name'));
+          Helper::translate('srbac','Error while creating')
+          .' '.$model->name."<br />".
+          Helper::translate('srbac','Possible there\'s already an item with the same name'));
         $this->renderPartial('manage/create',array('model'=>$model));
       }
     } else {
@@ -380,8 +384,8 @@ class AuthitemController extends SBaseController {
       $model->attributes=$_POST['AuthItem'];
       if($model->save()) {
         Yii::app()->user->setFlash('updateSuccess',
-            "'".$model->name."' ".
-            Helper::translate('srbac','updated successfully'));
+          "'".$model->name."' ".
+          Helper::translate('srbac','updated successfully'));
       } else {
 
       }
@@ -412,13 +416,13 @@ class AuthitemController extends SBaseController {
       $models=AuthItem::model()->findAll($criteria);
 
       Yii::app()->user->setFlash('updateName',
-          Helper::translate('srbac','Updating list'));
+        Helper::translate('srbac','Updating list'));
       $this->renderPartial('manage/show',array(
-          'models'=>$models,
-          'pages'=>$pages,
-          'sort'=>$sort,
-          'deleted'=>true,
-          ),false,true);
+        'models'=>$models,
+        'pages'=>$pages,
+        'sort'=>$sort,
+        'deleted'=>true,
+        ),false,true);
     }
     else {
       throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -430,24 +434,24 @@ class AuthitemController extends SBaseController {
    */
   public function actionConfirm() {
     $this->renderPartial('manage/show',
-        array('model'=>$this->loadAuthItem(),'delete'=>true,'deleted'=>false),
-        false,true);
+      array('model'=>$this->loadAuthItem(),'delete'=>true,'deleted'=>false),
+      false,true);
   }
 
   /**
    * Lists all models.
    */
   public function actionList() {
-  // Get selected type
+    // Get selected type
     $selectedType =
-        Yii::app()->request->getParam('selectedType',
-        Yii::app()->user->getState("selectedType"));
+      Yii::app()->request->getParam('selectedType',
+      Yii::app()->user->getState("selectedType"));
     Yii::app()->user->setState("selectedType",$selectedType);
 
     //Get selected name
     $selectedName =
-        Yii::app()->request->getParam('name',
-        Yii::app()->user->getState("selectedName"));
+      Yii::app()->request->getParam('name',
+      Yii::app()->user->getState("selectedName"));
     Yii::app()->user->setState("selectedName",$selectedName);
 
     if(!Yii::app()->request->isAjaxRequest) {
@@ -470,9 +474,9 @@ class AuthitemController extends SBaseController {
     $pages->setCurrentPage(Yii::app()->user->getState("currentPage"));
     $models=AuthItem::model()->findAll($criteria);
     $this->renderPartial('manage/list',array(
-        'models'=>$models,
-        'pages'=>$pages,
-        ),false,true);
+      'models'=>$models,
+      'pages'=>$pages,
+      ),false,true);
   }
 
 
@@ -488,11 +492,11 @@ class AuthitemController extends SBaseController {
         if($error == 1) {
           $this->render('install/overwrite', array("demo"=>$demo));
         } else if($error == 0) {
-            $this->render('install/success', array("demo"=>$demo));
-          } else if($error == 2) {
-              $error = Helper::translate("srbac","Error while installing srbac.<br />Please check your database and try again");
-              $this->render('install/error', array("demo"=>$demo, "error"=>$error));
-            }
+          $this->render('install/success', array("demo"=>$demo));
+        } else if($error == 2) {
+          $error = Helper::translate("srbac","Error while installing srbac.<br />Please check your database and try again");
+          $this->render('install/error', array("demo"=>$demo, "error"=>$error));
+        }
       } else {
         $this->render('install/install');
       }
@@ -539,27 +543,27 @@ class AuthitemController extends SBaseController {
     $full = Yii::app()->request->getParam("full");
     if(Yii::app()->request->isAjaxRequest && !$full) {
       $this->renderPartial('manage/list',array(
-          'models'=>$models,
-          'pages'=>$pages,
-          'sort'=>$sort,
-          'full'=>$full,
-          ),false,true);
+        'models'=>$models,
+        'pages'=>$pages,
+        'sort'=>$sort,
+        'full'=>$full,
+        ),false,true);
     }else if(Yii::app()->request->isAjaxRequest && $full) {
-        $this->renderPartial('manage/manage',array(
-            'models'=>$models,
-            'pages'=>$pages,
-            'sort'=>$sort,
-            'full'=>$full
-            ),false,true);
-      }
-      else {
-        $this->render('manage/manage',array(
-            'models'=>$models,
-            'pages'=>$pages,
-            'sort'=>$sort,
-            'full'=>$full,
-        ));
-      }
+      $this->renderPartial('manage/manage',array(
+        'models'=>$models,
+        'pages'=>$pages,
+        'sort'=>$sort,
+        'full'=>$full
+        ),false,true);
+    }
+    else {
+      $this->render('manage/manage',array(
+        'models'=>$models,
+        'pages'=>$pages,
+        'sort'=>$sort,
+        'full'=>$full,
+      ));
+    }
   }
 
   /**
@@ -632,13 +636,13 @@ class AuthitemController extends SBaseController {
    */
   public function actionShowAssignments() {
     $userid = isset($_GET["id"]) ? $_GET["id"] :
-        $_POST[Helper::findModule('srbac')->userclass][$this->module->userid];
+      $_POST[Helper::findModule('srbac')->userclass][$this->module->userid];
     $user = $this->module->getUserModel()->findByPk($userid);
     $username = $user->{$this->module->username};
     $r = array(0=>array(0=>array()));
     if ($userid > 0) {
       $auth = Yii::app()->authManager;
-        /* @var $auth CDbAuthManager */
+      /* @var $auth CDbAuthManager */
       $ass = $auth->getAuthItems(2,$userid);
       $r= array();
       foreach ($ass as $i=>$role) {
@@ -669,14 +673,14 @@ class AuthitemController extends SBaseController {
     $controller = Yii::app()->request->getParam('controller');
     $controllerInfo = $this->_getControllerInfo($controller);
     $this->renderPartial("manage/createItems",
-        array("actions"=>$controllerInfo[0],
-        "controller"=>$controller,
-        "delete"=>$controllerInfo[2],
-        "task"=>$controllerInfo[3],
-        "taskViewingExists"=>$controllerInfo[4],
-        "taskAdministratingExists"=>$controllerInfo[5],
-        "allowed"=>$controllerInfo[1]),
-        false, true);
+      array("actions"=>$controllerInfo[0],
+      "controller"=>$controller,
+      "delete"=>$controllerInfo[2],
+      "task"=>$controllerInfo[3],
+      "taskViewingExists"=>$controllerInfo[4],
+      "taskAdministratingExists"=>$controllerInfo[5],
+      "allowed"=>$controllerInfo[1]),
+      false, true);
   }
 
   /**
@@ -721,7 +725,7 @@ class AuthitemController extends SBaseController {
         $replacements[0] = '';
         $action = preg_replace($patterns, $replacements, trim($action));
         $itemId = $module.str_replace("Controller","",$controller).
-            str_replace("action", "", $action);
+          str_replace("action", "", $action);
         if($action !="actions" ) {
           if($getAll) {
             $actions[$module.$action] = $itemId;
@@ -737,10 +741,10 @@ class AuthitemController extends SBaseController {
                   $actions[$module.$action] = $itemId;
                 }
               } else if($auth->getAuthItem($itemId)!==null && $delete) {
-                  if(!in_array($itemId, $this->allowedAccess())) {
-                    $actions[$module.$action] = $itemId;
-                  }
+                if(!in_array($itemId, $this->allowedAccess())) {
+                  $actions[$module.$action] = $itemId;
                 }
+              }
             }
           }
         }
@@ -773,8 +777,8 @@ class AuthitemController extends SBaseController {
         $message .= "<div>".$action." ".Helper::translate('srbac','deleted')."</div>";
       } else {
         $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
-            'Error while deleting')
-            .' '.$action."</div>";
+          'Error while deleting')
+          .' '.$action."</div>";
       }
     }
 
@@ -787,8 +791,8 @@ class AuthitemController extends SBaseController {
           $message .= "<div>".$taskname." ".Helper::translate('srbac','deleted')."</div>";
         } else {
           $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
-              'Error while deleting')
-              .' '.$taskname."</div>";
+            'Error while deleting')
+            .' '.$taskname."</div>";
         }
 
       }
@@ -816,18 +820,18 @@ class AuthitemController extends SBaseController {
         try {
           if($auth->save()) {
             $message .=  "'".$auth->name."' ".
-                Helper::translate('srbac','created successfully')."<br />";
+              Helper::translate('srbac','created successfully')."<br />";
           } else {
             $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
-                'Error while creating')
-                .' '.$auth->name.'<br />'.
-                Helper::translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
-          }
-        } catch (Exception $e) {
-          $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
               'Error while creating')
               .' '.$auth->name.'<br />'.
               Helper::translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
+          }
+        } catch (Exception $e) {
+          $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
+            'Error while creating')
+            .' '.$auth->name.'<br />'.
+            Helper::translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
         }
       }
     }
@@ -841,7 +845,7 @@ class AuthitemController extends SBaseController {
       try {
         if($auth->save()) {
           $message .=  "'".$auth->name."' ".
-              Helper::translate('srbac','created successfully')."<br />";
+            Helper::translate('srbac','created successfully')."<br />";
           if($createTasks == "1") {
             if($this->_isUserOperation($auth->name)) {
               $this->_assignChild($tasks["user"], array($auth->name));
@@ -851,15 +855,15 @@ class AuthitemController extends SBaseController {
           }
         } else {
           $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
-              'Error while creating')
-              .' '.$auth->name.'<br />'.
-              Helper::translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
-        }
-      } catch (Exception $e) {
-        $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
             'Error while creating')
             .' '.$auth->name.'<br />'.
             Helper::translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
+        }
+      } catch (Exception $e) {
+        $message .= "<div style='color:red;font-weight:bold'>".Helper::translate('srbac',
+          'Error while creating')
+          .' '.$auth->name.'<br />'.
+          Helper::translate('srbac','Possible there\'s already an item with the same name')."</div><br />";
       }
     }
     echo $message;
@@ -872,7 +876,7 @@ class AuthitemController extends SBaseController {
   public function actionAuto() {
     $controllers = $this->_getControllers();
     $this->renderPartial("manage/wizard", array(
-        'controllers'=>$controllers),false,true);
+      'controllers'=>$controllers),false,true);
   }
 
   /**
@@ -890,13 +894,13 @@ class AuthitemController extends SBaseController {
     foreach ($modules as $mod_id=>$mod) {
       $moduleControllersPath = Yii::app()->getModule($mod_id)->controllerPath;
       $modControllers = $this->_scanDir($moduleControllersPath,$mod_id,"",$modControllers);
-    //      $handle = opendir($moduleControllersPath);
-    //      while (($file = readdir($handle)) !== false) {
-    //        if (is_file($moduleControllersPath.DIRECTORY_SEPARATOR.$file)
-    //            && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
-    //          $controllers[] = $mod_id."_".str_replace(".php","",$file);
-    //        }
-    //      }
+      //      $handle = opendir($moduleControllersPath);
+      //      while (($file = readdir($handle)) !== false) {
+      //        if (is_file($moduleControllersPath.DIRECTORY_SEPARATOR.$file)
+      //            && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
+      //          $controllers[] = $mod_id."_".str_replace(".php","",$file);
+      //        }
+      //      }
     }
     return  array_merge($controllers, $modControllers);
   }
@@ -909,13 +913,13 @@ class AuthitemController extends SBaseController {
         if(preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
 
           $controllers[] = (($module) ? $module."_" : "").
-              (($subdir) ? $subdir."." : "").
-              str_replace(".php","",$file);
+            (($subdir) ? $subdir."." : "").
+            str_replace(".php","",$file);
 
         }
       } else if(is_dir($filePath) && $file != "." && $file != "..") {
-          $controllers = $this->_scanDir($filePath,$module, $file,$controllers);
-        }
+        $controllers = $this->_scanDir($filePath,$module, $file,$controllers);
+      }
     }
     return $controllers;
   }
@@ -976,10 +980,10 @@ class AuthitemController extends SBaseController {
 
   public function actionSaveAllowed() {
     if(!Helper::isAlwaysAllowedFileWritable()) {
-        echo Helper::translate("srbac", "The always allowed file is not writable by the server")."<br />";
-        echo "File : ".$this->module->getAlwaysAllowedFile();
-        return;
-      }
+      echo Helper::translate("srbac", "The always allowed file is not writable by the server")."<br />";
+      echo "File : ".$this->module->getAlwaysAllowedFile();
+      return;
+    }
     $allowed = array();
     foreach ($_POST as $controller) {
       foreach ($controller as $action) {

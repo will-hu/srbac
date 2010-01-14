@@ -14,6 +14,10 @@
  * @since 1.0.0
  */
 ?>
+<?php $this->breadcrumbs = array(
+    'Srbac Assign'
+)
+?>
 <?php if($this->module->getShowHeader()) {
   $this->renderPartial($this->module->header);
 }
