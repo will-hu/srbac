@@ -16,7 +16,10 @@
  * @since 1.0.1
  */
 ?>
-
+<?php $this->breadcrumbs = array(
+    'Srbac Assignments'
+)
+?>
 
 <?php if(!$id) {
   if($this->module->getShowHeader()) {
