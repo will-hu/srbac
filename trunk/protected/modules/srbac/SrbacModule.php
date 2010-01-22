@@ -53,9 +53,6 @@ class SrbacModule extends CWebModule {
   /* @var $useAlwaysAllowedGui boolean */
   public $useAlwaysAllowedGui = true;
   
-
-
-
   /* @var $userid String The primary column of the users table*/
   public $userid = "userid";
   /* @var $username String The username column of the users table*/
@@ -68,8 +65,6 @@ class SrbacModule extends CWebModule {
   public $css = "srbac.css";
   /* @var $notAuthorizedView String The view to render when unathorized access*/
   public $notAuthorizedView = "srbac.views.authitem.unauthorized";
-  /* @var $layout string the layout to use */
-  public $layout = "";
   /* @var $imagesPath string The path to srbac images*/
   public $imagesPath = "srbac.images";
   /* @var $imagesPack String The images theme to use*/
@@ -114,6 +109,7 @@ class SrbacModule extends CWebModule {
   }
 
   // SETTERS & GETTERS
+
   public function setCssUrl($cssUrl){
     $this->_cssUrl = $cssUrl;
   }
