@@ -21,7 +21,7 @@ class AuthitemController extends SBaseController {
    */
   public $defaultAction='frontpage';
   /**
-   *  @var $breadcrumbs  
+   *  @var $breadcrumbs
    */
   public $breadcrumbs;
 
@@ -32,8 +32,6 @@ class AuthitemController extends SBaseController {
 
   public function init() {
     parent::init();
-
-    $this->layout = $this->module->layout;
   }
 
   /**
