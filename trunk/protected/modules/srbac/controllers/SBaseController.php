@@ -29,7 +29,7 @@ class SBaseController extends CController {
   protected function beforeAction($action) {
 
     //srbac access
-    $mod = $this->module !== null ? $this->module->id."_" : "";
+    $mod = $this->module !== null ? $this->module->id."/" : "";
     $contrArr = explode("/", $this->id);
     $contrArr[sizeof($contrArr)-1] = ucfirst($contrArr[sizeof($contrArr)-1]);
     $controller = implode(".", $contrArr);
