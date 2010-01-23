@@ -691,10 +691,10 @@ class AuthitemController extends SBaseController {
     $auth = Yii::app()->authManager;
 
     //Check if it's a module controller
-    if(substr_count($controller, "_")) {
-      $c = explode("_", $controller);
+    if(substr_count($controller, "/")) {
+      $c = explode("/", $controller);
       $controller = $c[1];
-      $module = $c[0]."_";
+      $module = $c[0]."/";
       $contPath = Yii::app()->getModule($c[0])->getControllerPath();
       $control = $contPath.DIRECTORY_SEPARATOR.str_replace(".", DIRECTORY_SEPARATOR, $controller).".php";
     } else {
@@ -758,7 +758,7 @@ class AuthitemController extends SBaseController {
     $cont = str_replace("Controller","",$_POST["controller"]);
 
     //Check for module controller
-    $controllerArr = explode("_",$cont);
+    $controllerArr = explode("/",$cont);
     $controller = $controllerArr[sizeof($controllerArr)-1];
 
 
@@ -896,7 +896,7 @@ class AuthitemController extends SBaseController {
       //      while (($file = readdir($handle)) !== false) {
       //        if (is_file($moduleControllersPath.DIRECTORY_SEPARATOR.$file)
       //            && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
-      //          $controllers[] = $mod_id."_".str_replace(".php","",$file);
+      //          $controllers[] = $mod_id."///".str_replace(".php","",$file);
       //        }
       //      }
     }
@@ -910,7 +910,7 @@ class AuthitemController extends SBaseController {
       if (is_file($filePath)) {
         if(preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
 
-          $controllers[] = (($module) ? $module."_" : "").
+          $controllers[] = (($module) ? $module."/" : "").
             (($subdir) ? $subdir."." : "").
             str_replace(".php","",$file);
 
