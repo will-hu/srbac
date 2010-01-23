@@ -892,13 +892,6 @@ class AuthitemController extends SBaseController {
     foreach ($modules as $mod_id=>$mod) {
       $moduleControllersPath = Yii::app()->getModule($mod_id)->controllerPath;
       $modControllers = $this->_scanDir($moduleControllersPath,$mod_id,"",$modControllers);
-      //      $handle = opendir($moduleControllersPath);
-      //      while (($file = readdir($handle)) !== false) {
-      //        if (is_file($moduleControllersPath.DIRECTORY_SEPARATOR.$file)
-      //            && preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
-      //          $controllers[] = $mod_id."///".str_replace(".php","",$file);
-      //        }
-      //      }
     }
     return  array_merge($controllers, $modControllers);
   }
@@ -909,11 +902,11 @@ class AuthitemController extends SBaseController {
       $filePath = $contPath.DIRECTORY_SEPARATOR.$file;
       if (is_file($filePath)) {
         if(preg_match( "/^(.+)Controller.php$/", basename( $file )) ) {
-
-          $controllers[] = (($module) ? $module."/" : "").
-            (($subdir) ? $subdir."." : "").
-            str_replace(".php","",$file);
-
+          if($this->_extendsSBaseController($filePath)) {
+            $controllers[] = (($module) ? $module."/" : "").
+              (($subdir) ? $subdir."." : "").
+              str_replace(".php","",$file);
+          }
         }
       } else if(is_dir($filePath) && $file != "." && $file != "..") {
         $controllers = $this->_scanDir($filePath,$module, $file,$controllers);
@@ -922,6 +915,20 @@ class AuthitemController extends SBaseController {
     return $controllers;
   }
 
+
+  private function _extendsSBaseController($controller) {
+    $c = basename(str_replace(".php", "", $controller));
+    if(!class_exists($c,false)) {
+      include_once $controller;
+    } else {
+    }
+    $cont = new $c($c);
+    
+    if($cont instanceof SBaseController) {
+      return true;
+    }
+    return false;
+  }
 
   public function actionGetCleverOpers() {
     $cleverAssigning = Yii::app()->getRequest()->getParam("checked") == "true" ? 1 : 0;
