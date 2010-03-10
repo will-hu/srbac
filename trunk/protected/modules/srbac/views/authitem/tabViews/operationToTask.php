@@ -87,7 +87,7 @@ $script = "jQuery('#clever').click(function(){
    },
   success: function(data){
      $('#operations').html(data);
-   },
+   }
  });
 
 });";
