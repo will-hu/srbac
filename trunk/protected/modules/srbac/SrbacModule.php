@@ -89,6 +89,10 @@ class SrbacModule extends CWebModule {
         'srbac.components.Helper',
         'srbac.controllers.SBaseController'
     ));
+    //Set layout to main
+    if($this->layout =="") {
+      $this->layout = "application.views.layouts.main";
+    }
     //Publish css
     $this->_cssPublished = Helper::publishCss($this->css);
 
