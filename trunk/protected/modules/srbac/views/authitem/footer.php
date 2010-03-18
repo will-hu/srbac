@@ -13,6 +13,7 @@
  * @package srbac.views.authitem.header
  * @since 1.1.0
  */
+
  ?>
 <p align="right">
 Yii Version <?php echo Yii::getVersion(); ?>,&nbsp;

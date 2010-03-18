@@ -47,7 +47,10 @@ class SBaseController extends CController {
     if(!Yii::app()->getModule('srbac')->isInstalled()) {
       return true;
     }
-
+    //Allow access when srbac is in debug mode
+    if(Yii::app()->getModule('srbac')->debug){
+      return true;
+    }
     // Check for srbac access
     if(!Yii::app()->user->checkAccess($access) || Yii::app()->user->isGuest) {
       $this->onUnauthorizedAccess();
