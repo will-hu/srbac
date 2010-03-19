@@ -19,7 +19,7 @@
 <div id="wizardMain" style="margin:10px">
   <table width="100%">
     <tr valign="top">
-      <td width="40%">
+      <td width="40%" style="vertical-align: top">
         <table class="srbacDataGrid" width="40%" align="left">
           <tr>
             <th width="80%"><?php echo Helper::translate('srbac','Controller')?></th>
@@ -86,7 +86,7 @@
           <?php } ?>
         </table>
       </td>
-      <td width="60%">
+      <td width="60%"  style="vertical-align: top">
         <table class="srbacDataGrid" width="50%" style="float:left">
           <tr>
             <th width="70%"><?php echo Helper::translate('srbac','Auth items')?></th>
