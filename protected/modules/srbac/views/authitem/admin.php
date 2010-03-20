@@ -19,8 +19,8 @@
 <h2><?php echo Helper::translate('srbac','Managing AuthItem')?></h2>
 
 <div class="actionBar">
-[<?php echo CHtml::link(Helper::translate('srbac','AuthItem List'),array('list')); ?>]
-[<?php echo CHtml::link(Helper::translate('srbac','New AuthItem'),array('create')); ?>]
+[<?php echo SHtml::link(Helper::translate('srbac','AuthItem List'),array('list')); ?>]
+[<?php echo SHtml::link(Helper::translate('srbac','New AuthItem'),array('create')); ?>]
 </div>
 
 <table class="srbacDataGrid">
@@ -31,12 +31,12 @@
   </tr>
 <?php foreach($models as $n=>$model): ?>
   <tr class="<?php echo $n%2?'even':'odd';?>">
-    <td><?php echo CHtml::link($model->name,array('show','id'=>$model->name)); ?></td>
-    <td><?php echo CHtml::encode(AuthItem::$TYPES[$model->type]); ?></td>
+    <td><?php echo SHtml::link($model->name,array('show','id'=>$model->name)); ?></td>
+    <td><?php echo SHtml::encode(AuthItem::$TYPES[$model->type]); ?></td>
     <td>
-      <?php echo CHtml::link(Helper::translate('srbac','Update'),array('update','id'=>$model->name)); ?>
+      <?php echo SHtml::link(Helper::translate('srbac','Update'),array('update','id'=>$model->name)); ?>
       <?php if ($model->name !=  Yii::app()->getModule('srbac')->superUser) { ?>
-      <?php echo CHtml::linkButton(Helper::translate('srbac','Delete'),array(
+      <?php echo SHtml::linkButton(Helper::translate('srbac','Delete'),array(
           'submit'=>'',
       	  'params'=>array('command'=>'delete','id'=>$model->name),
       	  'confirm'=>"Are you sure to delete #{$model->name}?")); ?>

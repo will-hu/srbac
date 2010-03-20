@@ -19,7 +19,7 @@
     <?php echo Helper::translate('srbac','Srbac installed successfuly'); ?>
  </div>
 <div>
-    <?php echo CHtml::link(Helper::translate('srbac','Srbac frontpage'),
+    <?php echo SHtml::link(Helper::translate('srbac','Srbac frontpage'),
         array('frontpage')); ?>
  </div>
 

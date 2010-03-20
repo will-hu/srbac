@@ -27,7 +27,7 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
 <div class="srbac">
   <div id="help_handle" class="iconBox" style="float:right">
     <?php echo
-    CHtml::image($this->module->getIconsPath().'/help.png',
+    SHtml::image($this->module->getIconsPath().'/help.png',
         Helper::translate('srbac', 'Help'),
         array('class'=>'icon',
         'title'=>Helper::translate('srbac','Help'),
@@ -39,7 +39,7 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
     ?>
   </div>
   <br />
-  <?php echo CHtml::beginForm(); ?>
+  <?php echo SHtml::beginForm(); ?>
   <div id="help" style="display:none">
     <?php $this->renderPartial(Yii::app()->findLocalizedFile('install/installText'))?>
   </div>
@@ -138,12 +138,12 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
         <?php $disabled = array('disabled'=>true)?>
     </div>
     <?php } ?>
-    <?php echo CHtml::hiddenField("action", "Install"); ?>
-    <?php echo CHtml::checkBox("demo", true, $disabled);
+    <?php echo SHtml::hiddenField("action", "Install"); ?>
+    <?php echo SHtml::checkBox("demo", true, $disabled);
     echo Helper::translate('srbac','Create demo authItems?')
     ?><br />
-    <?php echo CHtml::submitButton(Helper::translate('srbac','Install'),$disabled); ?>
+    <?php echo SHtml::submitButton(Helper::translate('srbac','Install'),$disabled); ?>
   </div>
 
-  <?php echo CHtml::endForm(); ?>
+  <?php echo SHtml::endForm(); ?>
 </div>

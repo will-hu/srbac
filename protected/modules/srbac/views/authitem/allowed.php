@@ -27,16 +27,16 @@ foreach ($controllers as $n=>$controller) {
     $select = $controller["allowed"];
     // It seems that this tabview conflicts with assign tabview so I raise the tab number by 3
     //$cont[$n+3]["title"] = str_replace("Controller", "", $title);
-    //$cont[$n+3]["content"] = CHtml::checkBoxList($title, $select, $data);
+    //$cont[$n+3]["content"] = SHtml::checkBoxList($title, $select, $data);
 
 
     $cont["tab_".$n] = array(
               "title"=>str_replace("Controller", "", $title),
-              "content"=>CHtml::checkBoxList($title, $select, $data));
+              "content"=>SHtml::checkBoxList($title, $select, $data));
   }
 }
 ?>
-<?php echo CHtml::form();?>
+<?php echo SHtml::form();?>
 <div class="vertTab">
   <?php
    Helper::publishCss($this->module->css);
@@ -48,7 +48,7 @@ foreach ($controllers as $n=>$controller) {
   ?>
 </div>
 <div class="action">
-  <?php echo CHtml::ajaxSubmitButton(Helper::translate("srbac", "Save"),
+  <?php echo SHtml::ajaxSubmitButton(Helper::translate("srbac", "Save"),
   array('saveAllowed'),
   array(
   'type'=>'POST',
@@ -66,7 +66,7 @@ foreach ($controllers as $n=>$controller) {
   )
   ?>
 </div>
-<?php echo CHtml::endForm();?>
+<?php echo SHtml::endForm();?>
 <!--Adjust tabview height--->
 <script type="text/javascript">
   $(".view").height($(".tabs").height()-16);

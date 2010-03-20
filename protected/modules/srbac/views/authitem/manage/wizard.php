@@ -15,7 +15,7 @@
  * @package srbac.views.authitem.manage
  * @since 1.0.2
  */
- ?>
+?>
 <div id="wizardMain" style="margin:10px">
   <table width="100%">
     <tr valign="top">
@@ -29,25 +29,25 @@
           <?php foreach ($controllers as $n=>$controller) { ?>
             <?php if(substr_count($controller, "/")) { ?>
               <?php $module = explode("/", $controller); ?>
-              <?php if($module[0] != $prevModule) { ?>        
-                      <tr>
-                        <th colspan="3">
-                            <?php echo Helper::translate('srbac','Module').": ".  $module[0]?></th>
-                      </tr>
+              <?php if($module[0] != $prevModule) { ?>
+          <tr>
+            <th colspan="3">
+                    <?php echo Helper::translate('srbac','Module').": ".  $module[0]?></th>
+          </tr>
                 <?php $prevModule = $module[0]; ?>
-              <?php }?>
-            <?php } ?>
+                <?php }?>
+              <?php } ?>
 
           <tr>
             <td width="80%"><?php echo $controller ?></td>
             <td>
                 <?php
-                echo CHtml::ajaxLink(
-                CHtml::image($this->module->getIconsPath().'/wizard.png',
+                echo SHtml::ajaxLink(
+                SHtml::image($this->module->getIconsPath().'/wizard.png',
                 "Autocreate Auth Items for controller ".$controller,
                 array('border'=>0,'title'=>
                 Helper::translate('srbac',
-                    'Scanning for Auth Items for controller').' '.$controller))  ,
+                  'Scanning for Auth Items for controller').' '.$controller))  ,
                 array('scan','controller'=>$controller),
                 array(
                 'type'=>'POST',
@@ -63,12 +63,12 @@
             </td>
             <td>
                 <?php
-                echo CHtml::ajaxLink(
-                CHtml::image($this->module->getIconsPath().'/delete.png',
+                echo SHtml::ajaxLink(
+                SHtml::image($this->module->getIconsPath().'/delete.png',
                 "Delete All Auth Items of controller ".$controller,
                 array('border'=>0,'title'=>
                 Helper::translate('srbac',
-                    'Delete All Auth Items of controller').' '.$controller))  ,
+                  'Delete All Auth Items of controller').' '.$controller))  ,
                 array('scan','controller'=>$controller,'delete'=>true),
                 array(
                 'type'=>'POST',
@@ -83,7 +83,7 @@
                 ?>
             </td>
           </tr>
-          <?php } ?>
+            <?php } ?>
         </table>
       </td>
       <td width="60%"  style="vertical-align: top">

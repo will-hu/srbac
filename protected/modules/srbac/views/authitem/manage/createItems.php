@@ -23,13 +23,13 @@ $('#adminTask').toggle('fast');
 Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
 ?>
 <div class="srbacForm">
-  <?php echo CHtml::form() ?>
+  <?php echo SHtml::form() ?>
   <div class="action">
     <?php echo "<b>".$controller."</b>" ?>
   </div>
   <?php if (count($actions)>0) { ?>
   <div>
-      <?php echo Chtml::checkBoxList("actions", "", $actions,
+      <?php echo SHtml::checkBoxList("actions", "", $actions,
       array("checkAll"=>"<b>".Helper::translate('srbac','Check All')."</b>")); ?>
   </div>
   <?php } ?>
@@ -52,24 +52,24 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
     <?php $button_action = $delete ? "autoDeleteItems" : "autoCreateItems"; ?>
     <?php if(!$taskViewingExists || !$taskAdministratingExists || $delete) { ?>
       <?php echo Helper::translate('srbac',$cb_title) ?>
-      <?php echo CHtml::checkBox("createTasks", true, array("id"=>"cb_createTasks")); ?>
+      <?php echo SHtml::checkBox("createTasks", true, array("id"=>"cb_createTasks")); ?>
     <?php } ?>
   </div>
   <?php if(($taskViewingExists && $delete) || (!$taskViewingExists && !$delete)) { ?>
   <div class="simple">
-      <?php echo CHtml::textField("tasks[user]", $task."Viewing",array("id"=>"userTask","readonly"=>true)); ?>
+      <?php echo SHtml::textField("tasks[user]", $task."Viewing",array("id"=>"userTask","readonly"=>true)); ?>
   </div>
   <?php } ?>
   <?php if(($taskAdministratingExists && $delete)|| (!$taskAdministratingExists && !$delete)) {?>
   <div class="simple">
-      <?php echo CHtml::textField("tasks[admin]", $task."Administrating",array("id"=>"adminTask","readonly"=>true)); ?>
+      <?php echo SHtml::textField("tasks[admin]", $task."Administrating",array("id"=>"adminTask","readonly"=>true)); ?>
   </div>
   <?php } ?>
   <div class="simple">
-    <?php echo CHtml::hiddenField("controller", $controller) ?>
+    <?php echo SHtml::hiddenField("controller", $controller) ?>
   </div>
   <div class="action">
-    <?php echo CHtml::ajaxButton(Helper::translate('srbac',$button_title),
+    <?php echo SHtml::ajaxButton(Helper::translate('srbac',$button_title),
     array($button_action),
     array(
     'type'=>'POST',
@@ -82,5 +82,5 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
                   }',
     )); ?>
   </div>
-  <?php echo Chtml::endForm()?>
+  <?php echo SHtml::endForm()?>
 </div>

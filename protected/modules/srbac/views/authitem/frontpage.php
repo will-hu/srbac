@@ -17,8 +17,8 @@
 <div class="marginBottom">
   <div class="iconSet">
     <div class="iconBox">
-    <?php echo CHtml::link(
-            CHtml::image($this->module->getIconsPath().'/manageAuth.png',
+    <?php echo SHtml::link(
+            SHtml::image($this->module->getIconsPath().'/manageAuth.png',
                     Helper::translate('srbac','Managing auth items'),
                     array('class'=>'icon',
                       'title'=>Helper::translate('srbac','Managing auth items'),
@@ -32,8 +32,8 @@
     ?>
     </div>
     <div class="iconBox">
-    <?php echo CHtml::link(
-            CHtml::image($this->module->getIconsPath().'/usersAssign.png',
+    <?php echo SHtml::link(
+            SHtml::image($this->module->getIconsPath().'/usersAssign.png',
                     Helper::translate('srbac','Assign to users'),
                     array('class'=>'icon',
                       'title'=>Helper::translate('srbac','Assign to users'),
@@ -46,8 +46,8 @@
             array('authitem/assign'));?>
     </div>
     <div class="iconBox">
-    <?php echo CHtml::link(
-            CHtml::image($this->module->getIconsPath().'/users.png',
+    <?php echo SHtml::link(
+            SHtml::image($this->module->getIconsPath().'/users.png',
                     Helper::translate('srbac','User\'s assignments'),
                     array('class'=>'icon',
                       'title'=>Helper::translate('srbac','User\'s assignments'),

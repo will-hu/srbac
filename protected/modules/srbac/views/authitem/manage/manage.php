@@ -25,8 +25,8 @@
     $this->renderPartial("frontpage");
 ?>
 <div id="wizardButton" style="text-align:left" class="controlPanel marginBottom">
-  <?php echo CHtml::ajaxLink(
-                CHtml::image($this->module->getIconsPath().'/admin.png',
+  <?php echo SHtml::ajaxLink(
+                SHtml::image($this->module->getIconsPath().'/admin.png',
                     Helper::translate('srbac','Manage AuthItem'),
                     array('class'=>'icon',
                       'title'=>Helper::translate('srbac','Manage AuthItem'),
@@ -53,8 +53,8 @@
                 )
             );
   ?>
-<?php echo CHtml::ajaxLink(
-                CHtml::image($this->module->getIconsPath().'/wizard.png',
+<?php echo SHtml::ajaxLink(
+                SHtml::image($this->module->getIconsPath().'/wizard.png',
                 Helper::translate('srbac','Autocreate Auth Items'),
                 array('class'=>'icon',
                   'title'=>Helper::translate('srbac','Autocreate Auth Items'),
@@ -81,8 +81,8 @@
                 )
             );
   ?>
-  <?php echo CHtml::ajaxLink(
-                CHtml::image($this->module->getIconsPath().'/allow.png',
+  <?php echo SHtml::ajaxLink(
+                SHtml::image($this->module->getIconsPath().'/allow.png',
                 Helper::translate('srbac','Edit always allowed list'),
                 array('class'=>'icon',
                   'title'=>Helper::translate('srbac','Edit always allowed list'),
