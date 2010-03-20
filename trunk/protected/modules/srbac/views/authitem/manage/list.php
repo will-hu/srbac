@@ -29,10 +29,10 @@
           ?>
 </div>
  <?php endif; ?>
- <?php echo CHtml::beginForm();?>
+ <?php echo SHtml::beginForm();?>
 <div class="controlPanel">
-    <?php echo CHtml::ajaxLink(
-                CHtml::image($this->module->getIconsPath().'/create.png',
+    <?php echo SHtml::ajaxLink(
+                SHtml::image($this->module->getIconsPath().'/create.png',
                 Helper::translate('srbac','Create'),
                 array('border'=>0,
                   'class'=>'icon','title'=>Helper::translate('srbac','Create'),
@@ -64,7 +64,7 @@
             )
     ); ?>
     <?php
-    echo CHtml::imageButton($this->module->getIconsPath().'/preview.png',
+    echo SHtml::imageButton($this->module->getIconsPath().'/preview.png',
                 array(
                     'border'=>0,
                     'title'=>Helper::translate('srbac','Search'),
@@ -87,7 +87,7 @@
     <th><?php echo Helper::translate('srbac','Name');   ?></th>
     <th>
        <?php
-       echo CHtml::dropDownList('selectedType',Yii::app()->user->getState("selectedType"),
+       echo SHtml::dropDownList('selectedType',Yii::app()->user->getState("selectedType"),
        AuthItem::$TYPES,
        array(
        'prompt'=>Helper::translate('srbac','All'),
@@ -110,7 +110,7 @@
   </tr>
    <?php foreach($models as $n=>$model): ?>
   <tr class="<?php echo $n%2?'even':'odd';?>">
-    <td><?php echo CHtml::ajaxLink($model->name,
+    <td><?php echo SHtml::ajaxLink($model->name,
     array('show','id'=>$model->name),
          array('type'=>'POST','update'=>'#preview',
          'beforeSend' => 'function(){
@@ -121,10 +121,10 @@
                   }',
          ), array("title"=>$model->description ? $model->description : $model->name)
          ); ?></td>
-    <td><?php echo CHtml::encode(AuthItem::$TYPES[$model->type]); ?></td>
+    <td><?php echo SHtml::encode(AuthItem::$TYPES[$model->type]); ?></td>
     <td>
-         <?php echo CHtml::ajaxLink(
-         CHtml::image($this->module->getIconsPath().'/update.png',
+         <?php echo SHtml::ajaxLink(
+         SHtml::image($this->module->getIconsPath().'/update.png',
          Helper::translate('srbac','Update'),
          array('border'=>0,'title'=>Helper::translate('srbac','Update'))),
          array('update','id'=>$model->name),
@@ -140,8 +140,8 @@
     </td>
     <td>
          <?php if ($model->name !=  Helper::findModule('srbac')->superUser) { ?>
-           <?php echo CHtml::ajaxLink(
-           CHtml::image($this->module->getIconsPath().'/delete.png'
+           <?php echo SHtml::ajaxLink(
+           SHtml::image($this->module->getIconsPath().'/delete.png'
              ,Helper::translate('srbac','Delete'),
            array('border'=>0,'title'=>Helper::translate('srbac','Delete'))),
            array('confirm','id'=>$model->name),
@@ -160,7 +160,7 @@
   </tr>
    <?php endforeach; ?>
 </table>
- <?php echo CHtml::endForm();?>
+ <?php echo SHtml::endForm();?>
 <br />
 <div class="simple">
    <?php $this->widget('CLinkPager',array(

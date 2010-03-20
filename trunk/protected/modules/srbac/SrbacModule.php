@@ -87,6 +87,7 @@ class SrbacModule extends CWebModule {
     $this->setImport(array(
         'srbac.models.*',
         'srbac.components.Helper',
+        'srbac.components.SHtml',
         'srbac.controllers.SBaseController'
     ));
     //Set layout to main

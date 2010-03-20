@@ -20,25 +20,25 @@
     <?php echo Helper::translate('srbac','Fields with')?> <span class="required">*</span>
     <?php echo Helper::translate('srbac','are required')?>.
   </p>
-  <?php echo CHtml::beginForm(); ?>
+  <?php echo SHtml::beginForm(); ?>
 
-  <?php echo CHtml::errorSummary($model); ?>
+  <?php echo SHtml::errorSummary($model); ?>
 
   <div class="simple">
-    <?php echo CHtml::activeLabelEx($model,'name'); ?>
-    <?php echo CHtml::activeTextField($model,'name',
+    <?php echo SHtml::activeLabelEx($model,'name'); ?>
+    <?php echo SHtml::activeTextField($model,'name',
     $model->name == Helper::findModule('srbac')->superUser ?
     array('size'=>20,'disabled'=>"disabled"): array('size'=>20)); ?>
   </div>
   <div class="simple">
-    <?php echo CHtml::activeLabelEx($model,'type'); ?>
-    <?php echo CHtml::activeDropDownList($model,'type',AuthItem::$TYPES,
+    <?php echo SHtml::activeLabelEx($model,'type'); ?>
+    <?php echo SHtml::activeDropDownList($model,'type',AuthItem::$TYPES,
     $model->name == Helper::findModule('srbac')->superUser || $update
     ? array('disabled'=>"disabled"): array()); ?>
   </div>
   <div class="simple">
-    <?php echo CHtml::activeLabelEx($model,'description'); ?>
-    <?php echo CHtml::activeTextArea($model,'description',array('rows'=>3, 'cols'=>20)); ?>
+    <?php echo SHtml::activeLabelEx($model,'description'); ?>
+    <?php echo SHtml::activeTextArea($model,'description',array('rows'=>3, 'cols'=>20)); ?>
   </div>
   <?php if(Yii::app()->user->hasFlash('updateSuccess')): ?>
   <div id="message"
@@ -70,21 +70,21 @@
   </div>
   <?php endif; ?>
   <div class="simple">
-    <?php echo CHtml::activeLabelEx($model,'bizrule'); ?>
-    <?php echo CHtml::activeTextArea($model,'bizrule',
+    <?php echo SHtml::activeLabelEx($model,'bizrule'); ?>
+    <?php echo SHtml::activeTextArea($model,'bizrule',
     $model->name == Helper::findModule('srbac')->superUser ?
     array('rows'=>3, 'cols'=>20, 'disabled'=>'disabled'):array('rows'=>3, 'cols'=>20)); ?>
   </div>
   <div class="simple">
-    <?php echo CHtml::activeLabelEx($model,'data'); ?>
-    <?php echo CHtml::activeTextField($model,'data',
+    <?php echo SHtml::activeLabelEx($model,'data'); ?>
+    <?php echo SHtml::activeTextField($model,'data',
     $model->name == Helper::findModule('srbac')->superUser ?
     array('disabled'=>'disabled','size'=>30) : array('size'=>30)); ?>
   </div>
-  <?php echo CHtml::hiddenField("oldName",$model->name); ?>
+  <?php echo SHtml::hiddenField("oldName",$model->name); ?>
   <div class="action">
     <?php
-    echo CHtml::ajaxSubmitButton(
+    echo SHtml::ajaxSubmitButton(
     $update ? Helper::translate('srbac','Save') :
     Helper::translate('srbac','Create'),
     $update ? array('update','id'=>$model->name) : array('create') ,
@@ -97,11 +97,11 @@
   <div id="mess" class="message" style="visibility:hidden">
     $message
   </div>
-  <?php echo CHtml::endForm(); ?>
+  <?php echo SHtml::endForm(); ?>
 
 </div><!-- srbacForm -->
 <script language="javascript">
-<?php echo CHtml::ajax(array(
+<?php echo SHtml::ajax(array(
 'type'=>'POST',
 'url'=>array('manage'),
 'update'=>'#list',

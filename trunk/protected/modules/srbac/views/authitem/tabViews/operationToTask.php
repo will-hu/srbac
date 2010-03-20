@@ -21,13 +21,13 @@ $criteria->order = "name";
 ?>
 <!-- TASKS -> OPERATIONS -->
 <div class="srbac">
-  <?php echo CHtml::beginForm(); ?>
-  <?php echo CHtml::errorSummary($model); ?>
+  <?php echo SHtml::beginForm(); ?>
+  <?php echo SHtml::errorSummary($model); ?>
   <table width="100%">
     <tr><th colspan="2"><?php echo Helper::translate('srbac','Assign Operations to Tasks') ?></th></tr>
     <tr>
       <th width="50%">
-      <?php echo CHtml::label(Helper::translate('srbac',"Task"),'task'); ?></th>
+      <?php echo SHtml::label(Helper::translate('srbac',"Task"),'task'); ?></th>
       <td width="50%" rowspan="2">
         <div id="operations">
           <?php
@@ -38,8 +38,8 @@ $criteria->order = "name";
       </td>
     </tr>
     <tr valign="top">
-      <td><?php echo CHtml::activeDropDownList(Assignments::model(),'itemname',
-        Chtml::listData(AuthItem::model()->findAll($criteria), 'name', 'name'),
+      <td><?php echo SHtml::activeDropDownList(Assignments::model(),'itemname',
+        SHtml::listData(AuthItem::model()->findAll($criteria), 'name', 'name'),
         array('size'=>$this->module->listBoxNumberOfLines,'class'=>'dropdown','ajax' => array(
         'type'=>'POST',
         'url'=>array('getOpers'),
@@ -54,7 +54,7 @@ $criteria->order = "name";
         )); ?>
         <div>
           <?php echo Helper::translate("srbac","Clever Assigning"); ?>:
-          <?php echo CHtml::checkBox("clever",  Yii::app()->getGlobalState("cleverAssigning")); ?>
+          <?php echo SHtml::checkBox("clever",  Yii::app()->getGlobalState("cleverAssigning")); ?>
         </div>
       </td>
     </tr>
@@ -64,7 +64,7 @@ $criteria->order = "name";
   <div class="message" id="loadMessTask">
     <?php echo $message ?>
   </div>
-  <?php echo CHtml::endForm(); ?>
+  <?php echo SHtml::endForm(); ?>
 </div>
 <?php
 $urlManager = Yii::app()->getUrlManager();

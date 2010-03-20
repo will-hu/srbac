@@ -17,7 +17,7 @@
  ?>
 <?php if($deleted) :?>
 <script language="javascript">
-  <?php echo CHtml::ajax(array(
+  <?php echo SHtml::ajax(array(
   'type'=>'POST',
   'url'=>array('manage'),
   'update'=>'#list',
@@ -28,26 +28,26 @@
 
 <table class="srbacDataGrid">
   <tr>
-    <th class="label"><?php echo CHtml::encode($model->getAttributeLabel('type')); ?></th>
-    <td><?php echo CHtml::encode(AuthItem::$TYPES[$model->type]); ?></td>
+    <th class="label"><?php echo SHtml::encode($model->getAttributeLabel('type')); ?></th>
+    <td><?php echo SHtml::encode(AuthItem::$TYPES[$model->type]); ?></td>
   </tr>
   <tr>
-    <th class="label"><?php echo CHtml::encode($model->getAttributeLabel('description')); ?></th>
-    <td><?php echo CHtml::encode($model->description); ?></td>
+    <th class="label"><?php echo SHtml::encode($model->getAttributeLabel('description')); ?></th>
+    <td><?php echo SHtml::encode($model->description); ?></td>
   </tr>
   <tr>
-    <th class="label"><?php echo CHtml::encode($model->getAttributeLabel('bizrule')); ?></th>
-    <td><?php echo CHtml::encode($model->bizrule); ?></td>
+    <th class="label"><?php echo SHtml::encode($model->getAttributeLabel('bizrule')); ?></th>
+    <td><?php echo SHtml::encode($model->bizrule); ?></td>
   </tr>
   <tr>
-    <th class="label"><?php echo CHtml::encode($model->getAttributeLabel('data')); ?></th>
-    <td><?php echo CHtml::encode($model->data); ?></td>
+    <th class="label"><?php echo SHtml::encode($model->getAttributeLabel('data')); ?></th>
+    <td><?php echo SHtml::encode($model->data); ?></td>
   </tr>
 </table>
 <div class="simple">
     <?php if($delete) :?>
     <?php echo Helper::translate('srbac','Really delete')?> <?php echo $model->name; ?> ?
-      <?php echo CHtml::ajaxButton(Helper::translate('srbac','Yes'),
+      <?php echo SHtml::ajaxButton(Helper::translate('srbac','Yes'),
       array('delete','id'=>$model->name),
       array(
       'type'=>'POST',

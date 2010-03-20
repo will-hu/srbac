@@ -29,9 +29,9 @@
     <?php
     $this->renderPartial("frontpage");
     ?>
-    <?php echo CHtml::beginForm(); ?>
-    <?php echo CHtml::activeDropDownList($this->module->getUserModel(),$this->module->userid,
-    Chtml::listData($this->module->getUserModel()->findAll(), $this->module->userid, $this->module->username),
+    <?php echo SHtml::beginForm(); ?>
+    <?php echo SHtml::activeDropDownList($this->module->getUserModel(),$this->module->userid,
+    SHtml::listData($this->module->getUserModel()->findAll(), $this->module->userid, $this->module->username),
     array('size'=>1,'class'=>'dropdown','ajax' => array(
     'type'=>'POST',
     'url'=>array('showAssignments'),
@@ -45,7 +45,7 @@
     ),
     'prompt'=>'select user'
     )); ?>
-    <?php echo CHTml::endForm(); ?>
+    <?php echo SHtml::endForm(); ?>
 </div>
 <?php } else { ?>
   <?php $url = Yii::app()->urlManager->createUrl("srbac/authitem/showAssignments",array("id"=>$id));?>

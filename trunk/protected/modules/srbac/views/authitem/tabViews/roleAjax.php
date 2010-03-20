@@ -21,8 +21,8 @@
     <th><?php echo Helper::translate('srbac','Not Assigned Tasks')?></th>
   </tr>
   <tr><td width="45%">
-      <?php echo CHtml::activeDropDownList($model,'name[revoke]',
-      Chtml::listData(
+      <?php echo SHtml::activeDropDownList($model,'name[revoke]',
+      SHtml::listData(
       $data["roleAssignedTasks"], 'name', 'name'),
       array('size'=>$this->module->listBoxNumberOfLines,'multiple'=>'multiple','class'=>'dropdown')) ?>
     </td>
@@ -38,7 +38,7 @@
         'complete' => 'function(){
                       $("#loadMessRole").removeClass("srbacLoading");
                   }',);
-      echo  CHtml::ajaxSubmitButton('<<',array('assign','assignTasks'=>1),$ajax,$data['assign']); ?>
+      echo  SHtml::ajaxSubmitButton('<<',array('assign','assignTasks'=>1),$ajax,$data['assign']); ?>
       <?php
       $ajax =
           array(
@@ -50,11 +50,11 @@
         'complete' => 'function(){
                       $("#loadMessRole").removeClass("srbacLoading");
                   }',);
-      echo  CHtml::ajaxSubmitButton('>>',array('assign','revokeTasks'=>1),$ajax,$data['revoke']); ?>
+      echo  SHtml::ajaxSubmitButton('>>',array('assign','revokeTasks'=>1),$ajax,$data['revoke']); ?>
     </td>
     <td width="45%">
-      <?php echo CHtml::activeDropDownList($model,'name[assign]',
-      Chtml::listData(
+      <?php echo SHtml::activeDropDownList($model,'name[assign]',
+      SHtml::listData(
       $data["roleNotAssignedTasks"], 'name', 'name'),
       array('size'=>$this->module->listBoxNumberOfLines,'multiple'=>'multiple','class'=>'dropdown')); ?>
     </td></tr>
