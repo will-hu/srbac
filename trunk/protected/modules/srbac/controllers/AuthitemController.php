@@ -668,7 +668,11 @@ class AuthitemController extends SBaseController {
    * authItems
    */
   public function actionScan() {
-    $controller = Yii::app()->request->getParam('controller');
+    if(Yii::app()->request->getParam('module')!=''){
+        $controller = Yii::app()->request->getParam('module').'/'.Yii::app()->request->getParam('controller');
+    } else {
+        $controller = Yii::app()->request->getParam('controller');
+    }
     $controllerInfo = $this->_getControllerInfo($controller);
     $this->renderPartial("manage/createItems",
       array("actions"=>$controllerInfo[0],
