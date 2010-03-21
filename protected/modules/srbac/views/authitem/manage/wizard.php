@@ -16,6 +16,7 @@
  * @since 1.0.2
  */
 ?>
+<?php $module = ""; ?>
 <div id="wizardMain" style="margin:10px">
   <table width="100%">
     <tr valign="top">
@@ -28,13 +29,13 @@
           <?php $prevModule = ""; ?>
           <?php foreach ($controllers as $n=>$controller) { ?>
             <?php if(substr_count($controller, "/")) { ?>
-              <?php $module = explode("/", $controller); ?>
-              <?php if($module[0] != $prevModule) { ?>
-          <tr>
-            <th colspan="3">
-                    <?php echo Helper::translate('srbac','Module').": ".  $module[0]?></th>
-          </tr>
-                <?php $prevModule = $module[0]; ?>
+              <?php list($module,$controller) = explode("/", $controller); ?>
+              <?php if($module != $prevModule) { ?>
+                <tr>
+                <th colspan="3">
+                <?php echo Helper::translate('srbac','Module').": ".  $module?></th>
+                </tr>
+                <?php $prevModule = $module; ?>
                 <?php }?>
               <?php } ?>
 
@@ -43,43 +44,51 @@
             <td>
                 <?php
                 echo SHtml::ajaxLink(
-                SHtml::image($this->module->getIconsPath().'/wizard.png',
-                "Autocreate Auth Items for controller ".$controller,
-                array('border'=>0,'title'=>
-                Helper::translate('srbac',
-                  'Scanning for Auth Items for controller').' '.$controller))  ,
-                array('scan','controller'=>$controller),
-                array(
-                'type'=>'POST',
-                'update'=>'#controllerActions',
-                'beforeSend' => 'function(){
-                      $("#controllerActions").addClass("srbacLoading");
-                  }',
-                'complete' => 'function(){
-                      $("#controllerActions").removeClass("srbacLoading");
-                  }',
-                ),array('name'=>'buttonScan_'.$n))
+					SHtml::image($this->module->getIconsPath().'/wizard.png',
+						"Autocreate Auth Items for controller ".$controller,
+						array(
+							'border'=>0,
+							'title'=>
+								Helper::translate('srbac',
+									'Scanning for Auth Items for controller').' '.$controller)
+					),
+					array('scan','module'=>$module,'controller'=>$controller),
+					array(
+						'type'=>'POST',
+						'update'=>'#controllerActions',
+						'beforeSend' => 'function(){
+								$("#controllerActions").addClass("srbacLoading");
+							}',
+						'complete' => 'function(){
+								$("#controllerActions").removeClass("srbacLoading");
+							}',
+					),
+					array('name'=>'buttonScan_'.$n)
+				);
                 ?>
             </td>
             <td>
                 <?php
                 echo SHtml::ajaxLink(
-                SHtml::image($this->module->getIconsPath().'/delete.png',
-                "Delete All Auth Items of controller ".$controller,
-                array('border'=>0,'title'=>
-                Helper::translate('srbac',
-                  'Delete All Auth Items of controller').' '.$controller))  ,
-                array('scan','controller'=>$controller,'delete'=>true),
-                array(
-                'type'=>'POST',
-                'update'=>'#controllerActions',
-                'beforeSend' => 'function(){
-                      $("#controllerActions").addClass("srbacLoading");
-                  }',
-                'complete' => 'function(){
-                      $("#controllerActions").removeClass("srbacLoading");
-                  }',
-                ),array('name'=>'buttonDelete_'.$n))
+					SHtml::image($this->module->getIconsPath().'/delete.png',
+						"Delete All Auth Items of controller ".$controller,
+						array('border'=>0,'title'=>
+						Helper::translate('srbac',
+							'Delete All Auth Items of controller').' '.$controller)
+					),
+					array('scan','module'=>$module,'controller'=>$controller,'delete'=>true),
+					array(
+						'type'=>'POST',
+						'update'=>'#controllerActions',
+						'beforeSend' => 'function(){
+								$("#controllerActions").addClass("srbacLoading");
+							}',
+						'complete' => 'function(){
+								$("#controllerActions").removeClass("srbacLoading");
+							}',
+					),
+					array('name'=>'buttonDelete_'.$n)
+				);
                 ?>
             </td>
           </tr>
