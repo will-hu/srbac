@@ -20,7 +20,7 @@ class SrbacModule extends CWebModule {
   const PRIVATE_ATTRIBUTES = "_icons,_cssPublished,_imagesPublished,defaultController,controllerMap,preload,behaviors";
 
   //Private attributes
- /* @var $_icons String The path to the icons */
+  /* @var $_icons String The path to the icons */
   private $_icons;
   /* @var $_yiiSupportedVersion String The yii version tha srbac supports */
   private $_yiiSupportedVersion = "1.1.0";
@@ -32,15 +32,15 @@ class SrbacModule extends CWebModule {
   private $_imagesPublished = false;
 
   // Srbac Attributes
- /* @var $debug If srbac is in debug mode */
+  /* @var $debug If srbac is in debug mode */
   private $_debug = false;
- /* @var $pagesize int The number of items displayed in each page*/
+  /* @var $pagesize int The number of items displayed in each page*/
   private $_pageSize = 15;
   /* @var $alwaysAllowed mixed The actions that are always allowed*/
-  private $_alwaysAllowed = "gui";
+  private $_alwaysAllowed;
   /* @var $userActions mixed Operations assigned to users by default*/
   private $_userActions = array();
-   /* @var $listBoxNumberOfLines integer The number of lines in the assign tabview listboxes  */
+  /* @var $listBoxNumberOfLines integer The number of lines in the assign tabview listboxes  */
   private $_listBoxNumberOfLines = 10;
   /* @var $iconText boolean Display text next to the icons */
   private $_iconText = false;
@@ -50,9 +50,9 @@ class SrbacModule extends CWebModule {
   private $_showFooter = false;
   /* @var $_cssUrl The url of the css file to register */
   private $_cssUrl;
-  /* @var $useAlwaysAllowedGui boolean */
+  /* @deprecated $useAlwaysAllowedGui boolean */
   public $useAlwaysAllowedGui = true;
-  
+
   /* @var $userid String The primary column of the users table*/
   public $userid = "userid";
   /* @var $username String The username column of the users table*/
@@ -83,12 +83,12 @@ class SrbacModule extends CWebModule {
    */
   public function init() {
 
-  // import the module-level models and components
+    // import the module-level models and components
     $this->setImport(array(
-        'srbac.models.*',
-        'srbac.components.Helper',
-        'srbac.components.SHtml',
-        'srbac.controllers.SBaseController'
+      'srbac.models.*',
+      'srbac.components.Helper',
+      'srbac.components.SHtml',
+      'srbac.controllers.SBaseController'
     ));
     //Set layout to main
     if($this->layout =="") {
@@ -103,22 +103,22 @@ class SrbacModule extends CWebModule {
 
     //Create the translation component
     $this->setComponents(
-        array(
-        'tr'=>array(
+      array(
+      'tr'=>array(
         'class'=>'CPhpMessageSource',
         'basePath'=> dirname(__FILE__).DIRECTORY_SEPARATOR.'messages',
         'onMissingTranslation'=>"Helper::markWords"
-        ),
-        )
+      ),
+      )
     );
   }
 
   // SETTERS & GETTERS
 
-  public function setCssUrl($cssUrl){
+  public function setCssUrl($cssUrl) {
     $this->_cssUrl = $cssUrl;
   }
-  public function getCssUrl(){
+  public function getCssUrl() {
     return $this->_cssUrl;
 
   }
@@ -145,39 +145,24 @@ class SrbacModule extends CWebModule {
     return $this->_pageSize;
   }
   public function setAlwaysAllowed($alwaysAllowed) {
-    if($alwaysAllowed == 'gui') {
-      $this->useAlwaysAllowedGui = true;
-    } else {
-      $this->useAlwaysAllowedGui = false;
-    }
     $this->_alwaysAllowed = $alwaysAllowed;
-
   }
   public function getAlwaysAllowed() {
-  //If created by the GUI
-    if($this->_alwaysAllowed == "gui") {
-      if(!is_file($this->getAlwaysAllowedFile())) {
-        fopen($this->getAlwaysAllowedFile(), "wb");
-      }
-      $this->_alwaysAllowed = include($this->getAlwaysAllowedFile());
-      if(!is_array($this->_alwaysAllowed)) {
-        $this->_alwaysAllowed = array();
-      }
-    } else {
-    // If array given
-      if(is_array($this->_alwaysAllowed)) {
-        $this->_alwaysAllowed = $this->_alwaysAllowed;
-      } else {
-      // If file given
-        if(is_file(Yii::getPathOfAlias($this->_alwaysAllowed).".php")) {
-          $this->_alwaysAllowed = include(Yii::getPathOfAlias($this->_alwaysAllowed).".php");
-        } else {
-        // If comma delimited string
-          $this->_alwaysAllowed = explode(",",$this->_alwaysAllowed);
-        }
-      }
+    $paramAllowed = array();
+    if(!is_file($this->getAlwaysAllowedFile())) {
+      fopen($this->getAlwaysAllowedFile(), "wb");
     }
-    return $this->_alwaysAllowed;
+    $guiAllowed = include($this->getAlwaysAllowedFile());
+
+    if(is_array($this->_alwaysAllowed)) {
+      $paramAllowed = $this->_alwaysAllowed;
+    }else if(is_file(Yii::getPathOfAlias($this->_alwaysAllowed).".php")) {
+      $paramAllowed = include(Yii::getPathOfAlias($this->_alwaysAllowed).".php");
+    } else if(is_string($this->_alwaysAllowed)) {
+      $paramAllowed = split(",", $this->_alwaysAllowed);
+    }
+
+    return array_merge($guiAllowed, $paramAllowed);
   }
 
   public function getAlwaysAllowedFile() {
@@ -258,7 +243,7 @@ class SrbacModule extends CWebModule {
       }
 
       return false;
-    } catch (CDbException  $ex )  {
+    } catch (CDbException  $ex ) {
       return false;
     }
   }
