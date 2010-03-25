@@ -49,7 +49,7 @@ $criteria->order = "name";
                   }',
         'complete' => 'function(){
                       $("#loadMessRole").removeClass("srbacLoading");
-                  }',
+                  }'
         ),
         )); ?>
       </td>

@@ -49,7 +49,7 @@
                   }',
         'complete' => 'function(){
                       $("#loadMess").removeClass("srbacLoading");
-                  }',
+                  }'
         ),
         )); ?>
       </td>
