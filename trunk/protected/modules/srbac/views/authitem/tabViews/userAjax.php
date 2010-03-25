@@ -37,7 +37,7 @@
                   }',
           'complete' => 'function(){
                       $("#loadMess").removeClass("srbacLoading");
-                  }',);
+                  }');
       echo  SHtml::ajaxSubmitButton('<<',array('assign','assignRoles'=>1),$ajax,$data['assign']); ?>
       <?php
       $ajax =
@@ -49,7 +49,7 @@
                   }',
           'complete' => 'function(){
                       $("#loadMess").removeClass("srbacLoading");
-                  }',);
+                  }');
       echo  SHtml::ajaxSubmitButton('>>',array('assign','revokeRoles'=>1),$ajax,$data['revoke']); ?>
     </td>
     <td width="45%">
