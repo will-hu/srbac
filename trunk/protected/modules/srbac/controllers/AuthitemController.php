@@ -668,10 +668,10 @@ class AuthitemController extends SBaseController {
    * authItems
    */
   public function actionScan() {
-    if(Yii::app()->request->getParam('module')!=''){
-        $controller = Yii::app()->request->getParam('module').'/'.Yii::app()->request->getParam('controller');
+    if(Yii::app()->request->getParam('module')!='') {
+      $controller = Yii::app()->request->getParam('module').'/'.Yii::app()->request->getParam('controller');
     } else {
-        $controller = Yii::app()->request->getParam('controller');
+      $controller = Yii::app()->request->getParam('controller');
     }
     $controllerInfo = $this->_getControllerInfo($controller);
     $this->renderPartial("manage/createItems",
@@ -927,7 +927,7 @@ class AuthitemController extends SBaseController {
     } else {
     }
     $cont = new $c($c);
-    
+
     if($cont instanceof SBaseController) {
       return true;
     }
@@ -967,24 +967,19 @@ class AuthitemController extends SBaseController {
    * Displays the editor for the alwaysAllowed items
    */
   public function actionEditAllowed() {
-    if(!$this->module->useAlwaysAllowedGui) {
-      echo Helper::translate("srbac", "srbac is not configuered to use the alwaysAllowed GUI editor.")."<br />";
-      echo Helper::translate("srbac", "Remove alwaysAllowed attribute from srbac configuration or set it to 'gui'.")."<br />";
-    } else {
-      if(!Helper::isAlwaysAllowedFileWritable()) {
-        echo Helper::translate("srbac", "The always allowed file is not writeable by the server")."<br />";
-        echo "File : ".$this->module->getAlwaysAllowedFile();
-        return;
-      }
-      $controllers = $this->_getControllers();
-      foreach ($controllers as $n=>$controller) {
-        $info = $this->_getControllerInfo($controller,true);
-        $c[$n]["title"] = $controller;
-        $c[$n]["actions"] = $info[0];
-        $c[$n]["allowed"] = $info[1];
-      }
-      $this->renderPartial('allowed',array('controllers'=>$c),false,true);
+    if(!Helper::isAlwaysAllowedFileWritable()) {
+      echo Helper::translate("srbac", "The always allowed file is not writeable by the server")."<br />";
+      echo "File : ".$this->module->getAlwaysAllowedFile();
+      return;
     }
+    $controllers = $this->_getControllers();
+    foreach ($controllers as $n=>$controller) {
+      $info = $this->_getControllerInfo($controller,true);
+      $c[$n]["title"] = $controller;
+      $c[$n]["actions"] = $info[0];
+      $c[$n]["allowed"] = $info[1];
+    }
+    $this->renderPartial('allowed',array('controllers'=>$c),false,true);
   }
 
   public function actionSaveAllowed() {
