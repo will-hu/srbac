@@ -457,7 +457,7 @@ class AuthitemController extends SBaseController {
 
     }
     $criteria=new CDbCriteria;
-    $criteria->condition = "1";
+    $criteria->condition = "1=1";
     if($selectedName != "") {
       $criteria->condition .= " AND name LIKE '%".$selectedName."%'";
     }
