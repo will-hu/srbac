@@ -101,7 +101,7 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
         <?php foreach ($this->module->getAttributes() as $key=>$value) { ?>
           <?php $check = Helper::checkInstall($key,$value); ?>
           <?php echo $check[0]; ?>
-          <?php if($check[1] == 1)$error = true;?>
+          <?php if($check[1] == Helper::ERROR)$error = true;?>
         <?php } ?>
       <?php  } catch(CException $e ) { ?>
       <tr>
