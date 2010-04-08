@@ -659,6 +659,8 @@ class AuthitemController extends SBaseController {
           }
         }
       }
+      // Add always allowed opers
+      $r["AlwaysAllowed"][""] = $this->module->getAlwaysAllowed();
       $this->renderPartial('userAssignments', array('data'=>$r,'username'=>$username));
     }
   }
