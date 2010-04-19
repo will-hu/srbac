@@ -150,7 +150,9 @@ class SrbacModule extends CWebModule {
   public function getAlwaysAllowed() {
     $paramAllowed = array();
     if(!is_file($this->getAlwaysAllowedFile())) {
-      fopen($this->getAlwaysAllowedFile(), "wb");
+      $handle = fopen($this->getAlwaysAllowedFile(), "wb");
+      fwrite($handle, "<?php\n return array();\n?>");
+      fclose($handle);
     }
     $guiAllowed = include($this->getAlwaysAllowedFile());
 
@@ -161,12 +163,11 @@ class SrbacModule extends CWebModule {
     } else if(is_string($this->_alwaysAllowed)) {
       $paramAllowed = split(",", $this->_alwaysAllowed);
     }
-
     return array_merge($guiAllowed, $paramAllowed);
   }
 
   public function getAlwaysAllowedFile() {
-    return Yii::getPathOfAlias($this->alwaysAllowedPath).DIRECTORY_SEPARATOR."allowed.php";
+     return Yii::getPathOfAlias($this->alwaysAllowedPath).DIRECTORY_SEPARATOR."allowed.php";
   }
 
   public function setUserActions($userActions) {
