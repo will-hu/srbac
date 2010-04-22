@@ -134,5 +134,10 @@ return array (
   "Remove alwaysAllowed attribute from srbac configuration or set it to 'gui'."=>
   "Αφαιρέστε από τις ρυθμίσεις την παράμετρο alwaysAllowed ή δώστε της την τιμή 'gui'.",
   "The always allowed file is not writable by the server"=>"Δεν υπάρχουν δικαιωματα εγγραφής στο αρχείο των πάντα προσβάσιμων σελίδων",
+  // Version 1.1.1
+  "Srbac is installed but the CDBAuthManger table names in the database are different from those
+    in the CDBAuthManager configuration.<br />A common mistake is that names in database are in lowercase.<br />Srbac may not work correctly!!!"=>
+  "Το Srbac έχει εγκατασταθεί αλλά τα ονόματα των πινάκων του CDBAuthManger στην βάση είναι διαφορετικά από αυτά
+    στις ρυθμίσεις του CDBAuthManager.<br />Ένα συχνό λάθος είναι ότι τα ονόματα στη βάση είναι σε μικρά ενώ στις ρυθμίσεις περιλαμβάνουν κεφαλαία.<br />Το Srbac μπορεί να μην δουλέψει σωστά!!!"
 );
 ?>

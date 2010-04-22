@@ -435,3 +435,10 @@ div.installError {
   background-position: right;
 }
 
+#srbacError{
+  color:red;
+  font-weight: bold;
+  font-size: 110%;
+  padding-top: 10px;
+}
+
