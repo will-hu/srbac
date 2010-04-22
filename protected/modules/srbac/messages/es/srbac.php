@@ -133,5 +133,10 @@ return array (
   "Remove alwaysAllowed attribute from srbac configuration or set it to 'gui'."=>
   "Eliminar la configuración del atributo de páginas Siempre Accesibles o dar el valor de 'gui'.",
   "The always allowed file is not writable by the server"=>"El archivo de Siempre Accesibles no tiene permisos de esritura",
+  // Version 1.1.1
+  "Srbac is installed but the CDBAuthManger table names in the database are different from those
+    in the CDBAuthManager configuration.<br />A common mistake is that names in database are in lowercase.<br />Srbac may not work correctly!!!"=>
+  "Srbac está instalado pero los nombres de las tablas de CDBAuthManager en la base de datos difieren de los
+    que están en la configuración de CDBAuthManager.<br />Un error común es que los nombres en la base de datos estén en minúsculas.<br />¡¡¡Srbac puede que no trabaje correctamente!!!"
 );
 ?>
