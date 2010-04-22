@@ -31,19 +31,19 @@ foreach ($controllers as $n=>$controller) {
 
 
     $cont["tab_".$n] = array(
-              "title"=>str_replace("Controller", "", $title),
-              "content"=>SHtml::checkBoxList($title, $select, $data));
+      "title"=>str_replace("Controller", "", $title),
+      "content"=>SHtml::checkBoxList($title, $select, $data));
   }
 }
 ?>
 <?php echo SHtml::form();?>
 <div class="vertTab">
   <?php
-   Helper::publishCss($this->module->css);
+  Helper::publishCss($this->module->css);
   $this->widget('system.web.widgets.CTabView',
-      array(
-      'tabs'=>$cont,
-      'cssFile'=>$this->module->getCssUrl(),
+    array(
+    'tabs'=>$cont,
+    'cssFile'=>$this->module->getCssUrl(),
   ));
   ?>
 </div>
@@ -69,5 +69,12 @@ foreach ($controllers as $n=>$controller) {
 <?php echo SHtml::endForm();?>
 <!--Adjust tabview height--->
 <script type="text/javascript">
-  $(".view").height($(".tabs").height()-16);
+  var tabsHeight = $(".tabs").height();
+  if(tabsHeight > 260){
+    $(".view").height(tabsHeight-16);
+  } else {
+    $(".view").height(260);
+    $(".tabs").attr("style","border-bottom:none");
+    
+  }
 </script>
