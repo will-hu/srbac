@@ -20,7 +20,11 @@
     'Srbac Assignments'
 )
 ?>
-
+<?php if($this->module->getMessage() != ""){ ?>
+<div id="srbacError">
+  <?php echo $this->module->getMessage();?>
+</div>
+<?php } ?>
 <?php if(!$id) {
   if($this->module->getShowHeader()) {
     $this->renderPartial($this->module->header);  }

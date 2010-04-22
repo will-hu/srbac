@@ -18,6 +18,8 @@ class SrbacModule extends CWebModule {
 //Constants
   const ICON_PACKS = "noia,tango";
   const PRIVATE_ATTRIBUTES = "_icons,_cssPublished,_imagesPublished,defaultController,controllerMap,preload,behaviors";
+  const TABLE_NAMES_ERROR = "Srbac is installed but the CDBAuthManger table names in the database are different from those
+    in the CDBAuthManager configuration.<br />A common mistake is that names in database are in lowercase.<br />Srbac may not work correctly!!!";
 
   //Private attributes
   /* @var $_icons String The path to the icons */
@@ -52,6 +54,8 @@ class SrbacModule extends CWebModule {
   private $_cssUrl;
   /* @deprecated $useAlwaysAllowedGui boolean */
   public $useAlwaysAllowedGui = true;
+  /* @var $_message A warning/error message displayed in the top of each page */
+  private $_message ="";
 
   /* @var $userid String The primary column of the users table*/
   public $userid = "userid";
@@ -167,7 +171,7 @@ class SrbacModule extends CWebModule {
   }
 
   public function getAlwaysAllowedFile() {
-     return Yii::getPathOfAlias($this->alwaysAllowedPath).DIRECTORY_SEPARATOR."allowed.php";
+    return Yii::getPathOfAlias($this->alwaysAllowedPath).DIRECTORY_SEPARATOR."allowed.php";
   }
 
   public function setUserActions($userActions) {
@@ -234,15 +238,28 @@ class SrbacModule extends CWebModule {
   public function isInstalled() {
     try {
       $tables = Yii::app()->authManager->db->schema->tableNames;
-      $tableName = AuthItem::model()->tableName();
+      $itemTableName = Yii::app()->authManager->itemTable;
+      $itemChildTableName = Yii::app()->authManager->itemChildTable ;
+      $assignmentTableName  = Yii::app()->authManager->assignmentTable ;
       $tablePrefix = AuthItem::model()->getDbConnection()->tablePrefix;
       if(!is_null($tablePrefix)) {
-        $tableName = preg_replace('/{{(.*?)}}/',$tablePrefix.'\1',$tableName);
+        $itemTableName = preg_replace('/{{(.*?)}}/',$tablePrefix.'\1',$itemTableName);
+        $itemChildTableName = preg_replace('/{{(.*?)}}/',$tablePrefix.'\1',$itemChildTableName);
+        $assignmentTableName = preg_replace('/{{(.*?)}}/',$tablePrefix.'\1',$assignmentTableName);
       }
-      if(in_array($tableName, $tables)) {
+      if(in_array($itemTableName, $tables) &&
+        in_array($itemChildTableName, $tables) &&
+        in_array($assignmentTableName, $tables)) {
         return true;
+      }else {
+        $tables = array_map('strtolower', $tables);
+        if(in_array(strtolower($itemTableName), $tables) &&
+          in_array(strtolower($itemChildTableName), $tables) &&
+          in_array(strtolower($assignmentTableName), $tables)) {
+          $this->_message = self::TABLE_NAMES_ERROR;
+          return true;
+        }
       }
-
       return false;
     } catch (CDbException  $ex ) {
       return false;
@@ -300,5 +317,13 @@ class SrbacModule extends CWebModule {
 
   public function getAttributes() {
     return get_object_vars($this);
+  }
+
+  public function getMessage() {
+    if($this->_message != ""){
+    return Helper::translate("srbac",$this->_message);
+    } else {
+      return "";
+    }
   }
 }
