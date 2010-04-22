@@ -22,20 +22,21 @@ $('#help').toggle('1000');
 
 Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
 ?>
-<?php $error = false; $disabled = array(); ?>
+<?php $error = false;
+$disabled = array(); ?>
 <h3><?php echo Helper::translate('srbac','Install Srbac')?></h3>
 <div class="srbac">
   <div id="help_handle" class="iconBox" style="float:right">
     <?php echo
     SHtml::image($this->module->getIconsPath().'/help.png',
-        Helper::translate('srbac', 'Help'),
-        array('class'=>'icon',
-        'title'=>Helper::translate('srbac','Help'),
-        'border'=>0
-        ))." " .
-        ($this->module->iconText ?
-        Helper::translate('srbac','Help') :
-        "");
+      Helper::translate('srbac', 'Help'),
+      array('class'=>'icon',
+      'title'=>Helper::translate('srbac','Help'),
+      'border'=>0
+      ))." " .
+      ($this->module->iconText ?
+      Helper::translate('srbac','Help') :
+      "");
     ?>
   </div>
   <br />
@@ -59,16 +60,15 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
         <td><?php echo Helper::translate('srbac','Connection');?></td>
         <td><?php echo Yii::app()->authManager->db->connectionString?></td>
       </tr>
-        <?php  } catch(CException $e) { ?>
+          <?php  } catch(CException $e) { ?>
       <tr><td colspan="2">
           <div class="error">
                 <?php echo Helper::translate('srbac','Database is not Configured');?>
+                <?php echo "<pre>" . $e->getMessage() . "</pre>"; ?>
           </div>
         </td></tr>
           <?php $error =true; ?>
-        <?php  }?>
-
-
+          <?php  }?>
         <?php try { ?>
       <tr>
         <th colspan="2"><?php echo Helper::translate('srbac','AuthManager');?></th>
@@ -84,16 +84,17 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
         <td><?php echo Helper::translate('srbac','Item child table');?></td>
         <td><?php echo Yii::app()->authManager->itemChildTable?></td>
       </tr>
-        <?php  } catch(CException $e) { ?>
+          <?php  } catch(CException $e) { ?>
       <tr>
         <td colspan="2">
           <div class="error">
                 <?php echo Helper::translate('srbac','AuthManager is not Configured');?>
+                <?php echo "<pre>" . $e->getMessage() . "</pre>"; ?>
           </div>
         </td></tr>
           <?php $error =true; ?>
+          <?php  }?>
         <?php  }?>
-      <?php  }?>
       <?php try { ?>
       <tr>
         <th colspan="2"><?php echo Helper::translate('srbac','srbac');?></th>
@@ -102,16 +103,17 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
           <?php $check = Helper::checkInstall($key,$value); ?>
           <?php echo $check[0]; ?>
           <?php if($check[1] == Helper::ERROR)$error = true;?>
-        <?php } ?>
-      <?php  } catch(CException $e ) { ?>
+          <?php } ?>
+        <?php  } catch(CException $e ) { ?>
       <tr>
         <td colspan="2">
           <div class="error">
               <?php echo Helper::translate('srbac','srbac is not Configured');?>
+              <?php echo "<pre>" . $e->getMessage() . "</pre>"; ?>
           </div>
         </td></tr>
         <?php $error =true;?>
-      <?php  }?>
+        <?php  }?>
       <tr>
         <th colspan="2">Yii</th>
       </tr>
@@ -121,13 +123,13 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
         </td>
         <?php if(Helper::checkYiiVersion(Helper::findModule("srbac")->getSupportedYiiVersion())) {?>
         <td><?php echo Yii::getVersion()?></td>
-        <?php } else {?>
+          <?php } else {?>
         <td style="color:red;font-weight:bold"><?php echo Yii::getVersion().
-                "  <br /> ".
-                Helper::translate("srbac","Wrong Yii version, lower required version is")." ".Helper::findModule("srbac")->getSupportedYiiVersion(); ?></td>
-            <?php
-            $error =true;
-          } ?>
+              "  <br /> ".
+              Helper::translate("srbac","Wrong Yii version, lower required version is")." ".Helper::findModule("srbac")->getSupportedYiiVersion(); ?></td>
+          <?php
+          $error =true;
+        } ?>
       </tr>
     </table>
   </div>
@@ -137,7 +139,7 @@ Yii::app()->clientScript->registerScript("cb",$script,CClientScript::POS_READY);
         <?php echo Helper::translate('srbac','There is an error in your configuration') ?>
         <?php $disabled = array('disabled'=>true)?>
     </div>
-    <?php } ?>
+      <?php } ?>
     <?php echo SHtml::hiddenField("action", "Install"); ?>
     <?php echo SHtml::checkBox("demo", true, $disabled);
     echo Helper::translate('srbac','Create demo authItems?')
