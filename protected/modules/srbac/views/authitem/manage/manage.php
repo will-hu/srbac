@@ -137,7 +137,7 @@
                                   }',
                 ),
                 array(
-                    'name'=>'buttonAllowed',
+                    'name'=>'buttonClear',
                     'onclick'=>"$(this).css('font-weight', 'bold');$(this).siblings().css('font-weight', 'normal');",
                 )
             );

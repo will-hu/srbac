@@ -138,6 +138,7 @@ return array (
   "Srbac is installed but the CDBAuthManger table names in the database are different from those
     in the CDBAuthManager configuration.<br />A common mistake is that names in database are in lowercase.<br />Srbac may not work correctly!!!"=>
   "Το Srbac έχει εγκατασταθεί αλλά τα ονόματα των πινάκων του CDBAuthManger στην βάση είναι διαφορετικά από αυτά
-    στις ρυθμίσεις του CDBAuthManager.<br />Ένα συχνό λάθος είναι ότι τα ονόματα στη βάση είναι σε μικρά ενώ στις ρυθμίσεις περιλαμβάνουν κεφαλαία.<br />Το Srbac μπορεί να μην δουλέψει σωστά!!!"
+    στις ρυθμίσεις του CDBAuthManager.<br />Ένα συχνό λάθος είναι ότι τα ονόματα στη βάση είναι σε μικρά ενώ στις ρυθμίσεις περιλαμβάνουν κεφαλαία.<br />Το Srbac μπορεί να μην δουλέψει σωστά!!!",
+"Clear obsolete authItems"=>"Καθαρισμός παλαιών αδειών",
 );
 ?>

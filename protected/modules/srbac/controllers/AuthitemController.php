@@ -1003,4 +1003,27 @@ class AuthitemController extends SBaseController {
     $this->renderPartial("saveAllowed", array("allowed"=>$allowed));
   }
 
+  public function actionClearObsolete(){
+    $controllers = $this->_getControllers();
+    $controllers = array_map(array($this,"replace"), $controllers);
+    /* @var $auth CDbAuthManager */
+    $auth = Yii::app()->authManager;
+    $items = array_merge($auth->tasks,$auth->operations);
+    foreach ($controllers as $contId=>$cont) {
+      foreach($items as $item=>$val){
+        $length = strlen($cont);
+        $contItem = substr($item, 0,$length);
+        if($cont == $contItem) {
+        unset($items[$item]);
+        }
+      }
+    }
+    $this->renderPartial("manage/clearObsolete",array("items"=>$items));
+    }
+
+
+    private function replace($value){
+    return str_replace("Controller", "", $value);
+  }
+
 }
