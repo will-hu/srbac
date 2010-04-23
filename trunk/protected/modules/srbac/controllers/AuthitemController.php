@@ -1003,27 +1003,47 @@ class AuthitemController extends SBaseController {
     $this->renderPartial("saveAllowed", array("allowed"=>$allowed));
   }
 
-  public function actionClearObsolete(){
+  public function actionClearObsolete() {
+    $obsolete = array();
     $controllers = $this->_getControllers();
     $controllers = array_map(array($this,"replace"), $controllers);
     /* @var $auth CDbAuthManager */
     $auth = Yii::app()->authManager;
     $items = array_merge($auth->tasks,$auth->operations);
     foreach ($controllers as $contId=>$cont) {
-      foreach($items as $item=>$val){
+      foreach($items as $item=>$val) {
         $length = strlen($cont);
         $contItem = substr($item, 0,$length);
         if($cont == $contItem) {
-        unset($items[$item]);
+          unset($items[$item]);
         }
       }
     }
-    $this->renderPartial("manage/clearObsolete",array("items"=>$items));
+    foreach ($items as $key => $value) {
+      $obsolete[$key]= $key;
     }
+    $this->renderPartial("manage/clearObsolete",array("items"=>$obsolete),false,true);
+  }
 
 
-    private function replace($value){
+  private function replace($value) {
     return str_replace("Controller", "", $value);
+  }
+
+  public function actionDeleteObsolete() {
+    $removed = array();
+    $notRemoved= array();
+    if(isset($_POST["items"])) {
+      $auth = Yii::app()->authManager;
+      foreach($_POST["items"] as $item) {
+      if($auth->removeAuthItem($item)){
+        $removed[] = $item;
+      } else {
+        $notRemoved[] = $item;
+      }
+      }
+    }
+    $this->renderPartial("manage/obsoleteRemoved",array("removed"=>$removed,"notRemoved"=>$notRemoved));
   }
 
 }
