@@ -114,6 +114,34 @@
                 )
             );
   ?>
+  <?php echo SHtml::ajaxLink(
+                SHtml::image($this->module->getIconsPath().'/eraser.png',
+                Helper::translate('srbac','Clear obsolete authItems'),
+                array('class'=>'icon',
+                  'title'=>Helper::translate('srbac','Clear obsolete authItems'),
+                  'border'=>0
+                  )
+                )." " .
+                ($this->module->iconText ?
+                Helper::translate('srbac','Clear obsolete authItems') :
+                ""),
+                array('clearObsolete'),
+                array(
+                    'type'=>'POST',
+                    'update'=>'#wizard',
+                    'beforeSend' => 'function(){
+                                      $("#wizard").addClass("srbacLoading");
+                                  }',
+                    'complete' => 'function(){
+                                      $("#wizard").removeClass("srbacLoading");
+                                  }',
+                ),
+                array(
+                    'name'=>'buttonAllowed',
+                    'onclick'=>"$(this).css('font-weight', 'bold');$(this).siblings().css('font-weight', 'normal');",
+                )
+            );
+  ?>
 </div>
 <br />
 <?php } ?>
