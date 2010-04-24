@@ -42,7 +42,6 @@ class AuthitemController extends SBaseController {
   protected function beforeAction($action) {
     if(!$this->module->isInstalled() && $action->id != "install") {
       $this->redirect(array("install"));
-      $this->actionInstall();
       return false;
     }
 
@@ -750,6 +749,19 @@ class AuthitemController extends SBaseController {
                 }
               }
             }
+          }
+        }else {
+          //load controller
+          if(!class_exists($controller,false)){
+            require($control);
+          }
+          $tmp = array();
+          $controller_obj = new $controller($controller, $module);
+          //Get actions
+          $controller_actions = $controller_obj->actions();
+          foreach ($controller_actions as $cAction => $value) {
+             $itemId = $module.str_replace("Controller","",$controller).ucfirst($cAction);
+             $actions[$cAction] = $itemId;
           }
         }
       }

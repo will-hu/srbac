@@ -142,6 +142,7 @@ return array (
   "Clear obsolete authItems"=>"Καθαρισμός παλαιών αδειών",
   "The following items doesn't seem to belong to a controller"=>"Τα παρακάτω αντικείμενα δεν φαίνεται να ανήκουν σε κάποιον ελεγκτή",
   "authItems removed"=>"Άδειες που διεγράφησαν",
-  "authItems not removed"=>"Άδειες που δεν διεγράφησαν"
+  "authItems not removed"=>"Άδειες που δεν διεγράφησαν",
+  "No authItems that don't belong to a controller were found"=>"Δεν βρέθηκαν άδειες που να μην ανήκουν σε κάποιον ελεγκτή"
 );
 ?>
