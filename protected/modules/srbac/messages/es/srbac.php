@@ -139,5 +139,9 @@ return array (
   "Srbac está instalado pero los nombres de las tablas de CDBAuthManager en la base de datos difieren de los
     que están en la configuración de CDBAuthManager.<br />Un error común es que los nombres en la base de datos estén en minúsculas.<br />¡¡¡Srbac puede que no trabaje correctamente!!!",
   "Clear obsolete authItems"=>"Limpiar permisos obsoletos",
+  "The following items doesn't seem to belong to a controller"=>"Los siguientes ítems no parecen pertenecer a un controlador",
+  "authItems removed"=>"Permisos eliminados",
+  "authItems not removed"=>"Permisos no eliminados",
+  "No authItems that don't belong to a controller were found"=>"No se encontraron permisos que pertenezcan a un controlador",
 );
 ?>
