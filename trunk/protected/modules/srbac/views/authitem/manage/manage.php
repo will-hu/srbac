@@ -152,7 +152,7 @@
       <th><?php echo Helper::translate('srbac','Actions')?></th>
     </tr>
     <tr>
-      <td valign="top" align="center">
+      <td style="vertical-align: top;text-align: center">
         <div id="list">
             <?php echo $this->renderPartial('manage/list', array(
                     'models'=>$models,
@@ -161,7 +161,7 @@
                     )); ?>
         </div>
       </td>
-      <td valign="top">
+      <td style="vertical-align: top;text-align: center">
         <div id="preview">
 
         </div>
