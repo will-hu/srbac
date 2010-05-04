@@ -141,7 +141,7 @@ $disabled = array(); ?>
     </div>
       <?php } ?>
     <?php echo SHtml::hiddenField("action", "Install"); ?>
-    <?php echo SHtml::checkBox("demo", true, $disabled);
+    <?php echo SHtml::checkBox("demo", false, $disabled);
     echo Helper::translate('srbac','Create demo authItems?')
     ?><br />
     <?php echo SHtml::submitButton(Helper::translate('srbac','Install'),$disabled); ?>
