@@ -31,6 +31,7 @@
  <?php endif; ?>
  <?php echo SHtml::beginForm();?>
 <div class="controlPanel">
+  <div class="iconBox">
     <?php echo SHtml::ajaxLink(
                 SHtml::image($this->module->getIconsPath().'/create.png',
                 Helper::translate('srbac','Create'),
@@ -38,7 +39,7 @@
                   'class'=>'icon','title'=>Helper::translate('srbac','Create'),
                   'border'=>0
                   )
-                ),
+                ).Helper::translate('srbac','Create'),
                 array('create'),
                 array(
                     'type'=>'POST',
@@ -50,9 +51,10 @@
                                   $("#preview").removeClass("srbacLoading");
                               }',
                 )
-    );
-
-    echo Helper::translate('srbac','Search').': &nbsp; ';
+    ); ?>
+    </div>
+  <div style="margin: 0px">
+    <?php echo Helper::translate('srbac','Search').': &nbsp; ';
     $this->widget('CAutoComplete',
             array(
                 'name'=>'name',
@@ -80,6 +82,7 @@
                 )
     );
     ?>
+    </div>
 </div>
 <br />
 <table class="srbacDataGrid">

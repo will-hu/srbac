@@ -183,6 +183,10 @@ div.iconBox{
   cursor:pointer;
 }
 
+.controlPanel .iconBox {
+  margin: 0px;
+}
+
 div.srbac
 {
   border: 2px solid #B7DDF2;
