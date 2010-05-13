@@ -110,7 +110,7 @@ return array (
   //Version 1.0.3
   "Module"=>"Modulis",
   "Pages that access is always allowed"=>"Įeinantis puslapis visuomet leidžiamas",
-  "srbac must in debug mode" =>"srback turi būti nustatyta 'debug' režime",
+  "srbac must be in debug mode" =>"srback turi būti nustatyta 'debug' režime",
   "Yii version"=>"Yii versija",
   "Wrong Yii version, lower required version is"=>"Netinkama Yii versija, turi būti bent: ",
   "There is an error in your configuration"=>"Jūsų nustatymuose yra klaidų",

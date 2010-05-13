@@ -117,7 +117,7 @@ return array (
   //Version 1.0.3
   "Module"=>"Módulo",
   "Pages that access is always allowed"=>"Páginas cujo acesso é sempre autorizado",
-  "srbac must in debug mode" =>"Srbac deve estar em modo de depuração",
+  "srbac must be in debug mode" =>"Srbac deve estar em modo de depuração",
   "Yii version"=>"Versão do Yii",
   "Wrong Yii version, lower required version is"=>"Versão do Yii incorreta, a versão mínima necessária é",
   "There is an error in your configuration"=>"Há um erro em sua configuração",
