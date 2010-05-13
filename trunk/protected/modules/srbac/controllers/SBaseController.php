@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SBaseController class file.
  *
@@ -29,30 +30,30 @@ class SBaseController extends CController {
   protected function beforeAction($action) {
 
     //srbac access
-    $mod = $this->module !== null ? $this->module->id."/" : "";
+    $mod = $this->module !== null ? $this->module->id . "/" : "";
     $contrArr = explode("/", $this->id);
-    $contrArr[sizeof($contrArr)-1] = ucfirst($contrArr[sizeof($contrArr)-1]);
+    $contrArr[sizeof($contrArr) - 1] = ucfirst($contrArr[sizeof($contrArr) - 1]);
     $controller = implode(".", $contrArr);
 
     $contr = str_replace("/", ".", $this->id);
 
-    $access =  $mod.$controller.ucfirst($this->action->id);
+    $access = $mod . $controller . ucfirst($this->action->id);
 
     //Always allow access if $access is in the allowedAccess array
-    if(in_array($access, $this->allowedAccess())) {
+    if (in_array($access, $this->allowedAccess())) {
       return true;
     }
 
     //Allow access if srbac is not installed yet
-    if(!Yii::app()->getModule('srbac')->isInstalled()) {
+    if (!Yii::app()->getModule('srbac')->isInstalled()) {
       return true;
     }
     //Allow access when srbac is in debug mode
-    if(Yii::app()->getModule('srbac')->debug){
+    if (Yii::app()->getModule('srbac')->debug) {
       return true;
     }
     // Check for srbac access
-    if(!Yii::app()->user->checkAccess($access) || Yii::app()->user->isGuest) {
+    if (!Yii::app()->user->checkAccess($access) || Yii::app()->user->isGuest) {
       $this->onUnauthorizedAccess();
     } else {
       return true;
@@ -71,16 +72,18 @@ class SBaseController extends CController {
 
   protected function onUnauthorizedAccess() {
     $mod = $this->module !== null ? $this->module->id : "";
-    $access =  $mod.ucfirst($this->id).ucfirst($this->action->id);
+    $access = $mod . ucfirst($this->id) . ucfirst($this->action->id);
     $error["code"] = "403";
-    $error["title"] = "You are not authorized for this action";
-    $error["message"] = "Error while trying to access " .$mod."/".$this->id."/".$this->action->id."." ;
+    $error["title"] = Helper::translate('srbac', 'You are not authorized for this action');
+    $error["message"] = Helper::translate('srbac', 'Error while trying to access') . ' ' . $mod . "/" . $this->id . "/" . $this->action->id . ".";
     //You may change the view for unauthorized access
-    if(Yii::app()->request->isAjaxRequest) {
-      $this->renderPartial(Yii::app()->getModule('srbac')->notAuthorizedView,array("error"=>$error));
+    if (Yii::app()->request->isAjaxRequest) {
+      $this->renderPartial(Yii::app()->getModule('srbac')->notAuthorizedView, array("error" => $error));
     } else {
-      $this->render(Yii::app()->getModule('srbac')->notAuthorizedView,array("error"=>$error));
+      $this->render(Yii::app()->getModule('srbac')->notAuthorizedView, array("error" => $error));
     }
     return false;
   }
+
 }
+

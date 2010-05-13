@@ -143,6 +143,9 @@ return array (
   "The following items doesn't seem to belong to a controller"=>"Τα παρακάτω αντικείμενα δεν φαίνεται να ανήκουν σε κάποιον ελεγκτή",
   "authItems removed"=>"Άδειες που διεγράφησαν",
   "authItems not removed"=>"Άδειες που δεν διεγράφησαν",
-  "No authItems that don't belong to a controller were found"=>"Δεν βρέθηκαν άδειες που να μην ανήκουν σε κάποιον ελεγκτή"
+  "No authItems that don't belong to a controller were found"=>"Δεν βρέθηκαν άδειες που να μην ανήκουν σε κάποιον ελεγκτή",
+    "select user"=>"Επιλογή χρήστη",
+    "You are not authorized for this action"=>"Δεν έχετε δικαίωμα πρόσβασης σε αυτή τη σελίδα",
+    "Error while trying to access"=>"Σφάλμα στην προσπάθεια πρόσβασης στη σελίδα",
 );
 ?>

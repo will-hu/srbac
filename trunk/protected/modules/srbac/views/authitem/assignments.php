@@ -47,7 +47,7 @@
                       $("#assignments").removeClass("srbacLoading");
                   }'
     ),
-    'prompt'=>'select user'
+    'prompt'=>Helper::translate('srbac','select user')
     )); ?>
     <?php echo SHtml::endForm(); ?>
 </div>
