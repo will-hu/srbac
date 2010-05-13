@@ -99,6 +99,27 @@ return array (
   "Managing auth items"=>"Управление правилами доступа",
   "Assign to users"=>"Назначение прав пользователям",
   "User's assignments"=>"Права пользователей",
-  "Srbac frontpage"=>"Начальная страница srbac"
+  "Srbac frontpage"=>"Начальная страница srbac",
+
+    //Version 1.0.3
+    "Module" => "Модуль",
+    "Pages that access is always allowed" => "Страницы доступ к которым всегда разрешон",
+    "srbac must be in debug mode" => "srbac должен быть в debug режиме",
+    "Yii version" => "Версия Yii",
+    "Wrong Yii version, lower required version is" => "Неправильная версия Yii, минимальная требуемая версия",
+    "There is an error in your configuration" => "Ошибка вкралась в вашу конфигурацию",
+
+    //Version 1.1
+    "Clever Assigning" => "Умное назначение",
+    "Help" => "Помощь",
+    "Edit always allowed list" => "Редактирование списка всегда разрешонных",
+    "The following authItems are saved in the always allowed file" => 
+    "Следующие authItems сохранены в файл всегда разрешонных",
+    "srbac is not configuered to use the alwaysAllowed GUI editor." => 
+    "srbac не сконфигурирован для использования графического(GUI) редактора alwaysAllowed.",
+
+    "Remove alwaysAllowed attribute from srbac configuration or set it to 'gui'." => 
+    "Удалите атрибут alwaysAllowed из конфигурации srbac или установите для него значение 'gui'.",
+    "The always allowed file is not writable by the server" => "Файл всегда разрешонніх запрещон для записи сервером",
 );
 ?>

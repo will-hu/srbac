@@ -111,7 +111,7 @@ return array (
   //Version 1.0.3
   "Module"=>"Modul",
   "Pages that access is always allowed"=>"Mindig engedélyezett oldalak",
-  "srbac must in debug mode" =>"az srbac-nak 'debug mode'-ban kell lennie",
+  "srbac must be in debug mode" =>"az srbac-nak 'debug mode'-ban kell lennie",
   "Yii version"=>"Yii verzió",
   "Wrong Yii version, lower required version is"=>"Rossz Yii verziószám, minimális verzószám: ",
   "There is an error in your configuration"=>"Hiba van a beállításban",

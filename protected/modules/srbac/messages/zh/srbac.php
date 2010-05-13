@@ -118,7 +118,7 @@ return array (
   //Version 1.0.3
   "Module"=>"模块",
   "Pages that access is always allowed"=>"永远允许访问的页面",
-  "srbac must in debug mode" =>"Srbac 必须处于debug调试模式",
+  "srbac must be in debug mode" =>"Srbac 必须处于debug调试模式",
   "Yii version"=>"Yii版本",
   "Wrong Yii version, lower required version is"=>"Yii版本错误, 最低版本要求",
   "There is an error in your configuration"=>"你的配置当中有错误",
