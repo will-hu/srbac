@@ -143,5 +143,8 @@ return array (
   "authItems removed"=>"Permisos eliminados",
   "authItems not removed"=>"Permisos no eliminados",
   "No authItems that don't belong to a controller were found"=>"No se encontraron permisos que pertenezcan a un controlador",
+  "select user"=>"seleccionar usuario",
+  "You are not authorized for this action"=>"No está autorizado para realizar esta acción",
+  "Error while trying to access"=>"Error al tratar de acceder",
 );
 ?>
