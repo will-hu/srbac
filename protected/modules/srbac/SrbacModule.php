@@ -159,7 +159,9 @@ class SrbacModule extends CWebModule {
       fclose($handle);
     }
     $guiAllowed = include($this->getAlwaysAllowedFile());
-
+    if(!is_array($guiAllowed)){
+      $guiAllowed = array();
+    }
     if(is_array($this->_alwaysAllowed)) {
       $paramAllowed = $this->_alwaysAllowed;
     }else if(is_file(Yii::getPathOfAlias($this->_alwaysAllowed).".php")) {
