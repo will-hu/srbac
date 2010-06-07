@@ -39,7 +39,7 @@ class SrbacModule extends CWebModule {
   /* @var $pagesize int The number of items displayed in each page*/
   private $_pageSize = 15;
   /* @var $alwaysAllowed mixed The actions that are always allowed*/
-  private $_alwaysAllowed;
+  private $_alwaysAllowed = array();
   /* @var $userActions mixed Operations assigned to users by default*/
   private $_userActions = array();
   /* @var $listBoxNumberOfLines integer The number of lines in the assign tabview listboxes  */
@@ -53,7 +53,7 @@ class SrbacModule extends CWebModule {
   /* @var $_cssUrl The url of the css file to register */
   private $_cssUrl;
   /* @deprecated $useAlwaysAllowedGui boolean */
-  public $useAlwaysAllowedGui = true;
+  public $useAlwaysAllowedGui;
   /* @var $_message A warning/error message displayed in the top of each page */
   private $_message ="";
 
