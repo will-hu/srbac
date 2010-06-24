@@ -574,7 +574,7 @@ class AuthitemController extends SBaseController {
    */
   public function loadAuthItem($id=null) {
     if ($this->_model===null) {
-      $r_id = Yii::app()->getRequest()->getParam("id", "");
+      $r_id = urldecode(Yii::app()->getRequest()->getParam("id", ""));
       if ($id!==null || $r_id != "")
         $this->_model = AuthItem::model()->findbyPk($id!==null ? $id : $r_id);
       if ($this->_model===null)
