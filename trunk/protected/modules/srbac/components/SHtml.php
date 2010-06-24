@@ -1,8 +1,9 @@
 <?php
-/* 
+
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
-*/
+ */
 
 /**
  * Description of SHtml
@@ -10,8 +11,7 @@
  * @author lordovol
  */
 class SHtml extends CHtml {
-  
-  
+
   /**
    * Generates a button.
    * @param string the button label
@@ -20,18 +20,17 @@ class SHtml extends CHtml {
    * @return string the generated button tag
    * @see clientChange
    */
-  public static function button($label='button',$htmlOptions=array()) {
-    if(!isset($htmlOptions['name']))
-      $htmlOptions['name']=self::ID_PREFIX.self::$count++;
-    if(!isset($htmlOptions['type']))
-      $htmlOptions['type']='button';
-    if(!isset($htmlOptions['value']))
-      $htmlOptions['value']=$label;
-    self::clientChange('click',$htmlOptions ,false);
-    return self::tag('input',$htmlOptions);
+  public static function button($label='button', $htmlOptions=array()) {
+    if (!isset($htmlOptions['name']))
+      $htmlOptions['name'] = self::ID_PREFIX . self::$count++;
+    if (!isset($htmlOptions['type']))
+      $htmlOptions['type'] = 'button';
+    if (!isset($htmlOptions['value']))
+      $htmlOptions['value'] = $label;
+    self::clientChange('click', $htmlOptions, false);
+    return self::tag('input', $htmlOptions);
   }
 
- 
   /**
    * Generates a link that can initiate AJAX requests.
    * @param string the link body (it will NOT be HTML-encoded.)
@@ -43,13 +42,16 @@ class SHtml extends CHtml {
    * @see normalizeUrl
    * @see ajax
    */
-  public static function ajaxLink($text,$url,$ajaxOptions=array(),$htmlOptions=array()) {
-    if(!isset($htmlOptions['href']))
-      $htmlOptions['href']='#';
-    $ajaxOptions['url']=$url;
-    $htmlOptions['ajax']=$ajaxOptions;
-    self::clientChange('click',$htmlOptions,false);
-    return self::tag('a',$htmlOptions,$text);
+  public static function ajaxLink($text, $url, $ajaxOptions=array(), $htmlOptions=array()) {
+    if (isset($url['id'])) {
+      $url['id'] = urlencode($url['id']);
+    }
+    if (!isset($htmlOptions['href']))
+      $htmlOptions['href'] = '#';
+    $ajaxOptions['url'] = $url;
+    $htmlOptions['ajax'] = $ajaxOptions;
+    self::clientChange('click', $htmlOptions, false);
+    return self::tag('a', $htmlOptions, $text);
   }
 
   /**
@@ -61,10 +63,10 @@ class SHtml extends CHtml {
    * attributes are also recognized (see {@link clientChange} and {@link tag} for more details.)
    * @return string the generated button
    */
-  public static function ajaxButton($label,$url,$ajaxOptions=array(),$htmlOptions=array()) {
-    $ajaxOptions['url']=$url;
-    $htmlOptions['ajax']=$ajaxOptions;
-    return self::button($label,$htmlOptions,false);
+  public static function ajaxButton($label, $url, $ajaxOptions=array(), $htmlOptions=array()) {
+    $ajaxOptions['url'] = $url;
+    $htmlOptions['ajax'] = $ajaxOptions;
+    return self::button($label, $htmlOptions, false);
   }
 
 }
