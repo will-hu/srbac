@@ -136,7 +136,7 @@ class Helper {
         $r[1] = "";
         $cleverName = preg_replace($p, $r, $name);
         $len = strlen($cleverName);
-        $tasks->addCondition("LEFT(child," . $len . ") = '" . $cleverName . "'");
+        $tasks->addCondition("SUBSTR(child,0," . $len . ") = '" . $cleverName . "'");
       }
     } else {
       $tasks->condition = "type=". CAuthItem::TYPE_OPERATION;
@@ -165,7 +165,7 @@ class Helper {
       $r[1] = "";
       $cleverName = preg_replace($p, $r, $name);
       $len = strlen($cleverName);
-      $tasks->addCondition("LEFT(name," . $len . ") = '" . $cleverName . "'");
+      $tasks->addCondition("SUBSTR(name,0," . $len . ") = '" . $cleverName . "'");
     }
     $final = array();
     if ($name) {
