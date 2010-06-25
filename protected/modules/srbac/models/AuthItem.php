@@ -98,6 +98,15 @@ class AuthItem extends CActiveRecord {
 //  }
 
 
+  protected function beforeSave() {
+    $this->data = serialize($this->data);
+    return parent::beforeSave();
+  }
+
+  protected function afterFind() {
+    parent::afterFind();
+    $this->data = unserialize($this->data);
+  }
 
   protected function afterSave() {
     parent::afterSave();
