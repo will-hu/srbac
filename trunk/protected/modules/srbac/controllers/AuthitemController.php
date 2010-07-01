@@ -396,27 +396,27 @@ class AuthitemController extends SBaseController {
     if (Yii::app()->request->isAjaxRequest) {
 
       $this->loadAuthItem()->delete();
-      $this->processAdminCommand();
+      //$this->processAdminCommand();
 
-      $criteria = new CDbCriteria;
+      //$criteria = new CDbCriteria;
 
-      $pages = new CPagination(AuthItem::model()->count($criteria));
-      $pages->pageSize = $this->module->pageSize;
-      $pages->applyLimit($criteria);
+      //$pages = new CPagination(AuthItem::model()->count($criteria));
+      //$pages->pageSize = $this->module->pageSize;
+      //$pages->applyLimit($criteria);
 
-      $sort = new CSort('AuthItem');
-      $sort->applyOrder($criteria);
+      //$sort = new CSort('AuthItem');
+      //$sort->applyOrder($criteria);
 
-      $models = AuthItem::model()->findAll($criteria);
+      //$models = AuthItem::model()->findAll($criteria);
 
       Yii::app()->user->setFlash('updateName',
         Helper::translate('srbac', 'Updating list'));
       $this->renderPartial('manage/show', array(
-          'models' => $models,
-          'pages' => $pages,
-          'sort' => $sort,
-          'deleted' => true,
-        ), false, true);
+          //'models' => $models,
+          //'pages' => $pages,
+          //'sort' => $sort,
+          'updateList' => true,
+        ), false, false);
     } else {
       throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
@@ -427,7 +427,7 @@ class AuthitemController extends SBaseController {
    */
   public function actionConfirm() {
     $this->renderPartial('manage/show',
-      array('model' => $this->loadAuthItem(), 'delete' => true, 'deleted' => false),
+      array('model' => $this->loadAuthItem(), 'updateList'=>false,'delete'=>true),
       false, true);
   }
 
@@ -588,9 +588,9 @@ class AuthitemController extends SBaseController {
    */
   protected function processAdminCommand() {
     if (isset($_POST['command'], $_POST['id']) && $_POST['command']==='delete') {
-      $this->loadAuthItem($_POST['id'])->delete();
+     // $this->loadAuthItem($_POST['id'])->delete();
       // reload the current page to avoid duplicated delete actions
-      $this->refresh();
+      //$this->refresh();
     }
   }
 

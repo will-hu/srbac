@@ -15,7 +15,7 @@
  * @since 1.0.0
  */
  ?>
-<?php if($deleted) :?>
+<?php if($updateList) :?>
 <script language="javascript">
   <?php echo SHtml::ajax(array(
   'type'=>'POST',
