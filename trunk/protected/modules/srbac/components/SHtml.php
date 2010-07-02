@@ -32,6 +32,21 @@ class SHtml extends CHtml {
   }
 
   /**
+	 * Generates a push button that can submit the current form in POST method.
+	 * @param string the button label
+	 * @param mixed the URL for the AJAX request. If empty, it is assumed to be the current URL. See {@link normalizeUrl} for more details.
+	 * @param array AJAX options (see {@link ajax})
+	 * @param array additional HTML attributes. Besides normal HTML attributes, a few special
+	 * attributes are also recognized (see {@link clientChange} and {@link tag} for more details.)
+	 * @return string the generated button
+	 */
+	public static function ajaxSubmitButton($label,$url,$ajaxOptions=array(),$htmlOptions=array())
+	{
+		$ajaxOptions['type']='POST';
+		return self::ajaxButton($label,$url,$ajaxOptions,$htmlOptions);
+	}
+
+  /**
    * Generates a link that can initiate AJAX requests.
    * @param string the link body (it will NOT be HTML-encoded.)
    * @param mixed the URL for the AJAX request. If empty, it is assumed to be the current URL. See {@link normalizeUrl} for more details.

@@ -49,7 +49,7 @@ class AuthitemController extends SBaseController {
     }
 
     if (Yii::app()->user->checkAccess(Helper::findModule('srbac')->superUser) ||
-      ! Helper::isAuthorizer()) {
+      !Helper::isAuthorizer()) {
       return true;
     } else {
       parent::beforeAction($action);
@@ -86,7 +86,7 @@ class AuthitemController extends SBaseController {
       foreach ($roles as $role) {
         if ($role == $this->module->superUser) {
           $count = Assignments::model()->count("itemname='" . $role . "'");
-          if ($count==1) {
+          if ($count == 1) {
             return false;
           }
         }
@@ -338,6 +338,7 @@ class AuthitemController extends SBaseController {
     $delete = Yii::app()->request->getParam('delete', false);
     $this->renderPartial('manage/show', array('model' => $this->loadAuthItem(),
         'deleted' => $deleted,
+        'updateList' => false,
         'delete' => $delete));
   }
 
@@ -350,11 +351,16 @@ class AuthitemController extends SBaseController {
     if (isset($_POST['AuthItem'])) {
       $model->attributes = $_POST['AuthItem'];
       try {
-        $model->save();
-        Yii::app()->user->setFlash('updateSuccess',
-          "'" . $model->name . "' " .
-          Helper::translate('srbac', 'created successfully'));
-        $this->renderPartial('manage/update', array('model' => $model));
+        if ($model->save()) {
+
+          Yii::app()->user->setFlash('updateSuccess',
+            "'" . $model->name . "' " .
+            Helper::translate('srbac', 'created successfully'));
+          $model->data = unserialize($model->data);
+          $this->renderPartial('manage/update', array('model' => $model));
+        } else {
+          $this->renderPartial('manage/create', array('model' => $model));
+        }
       } catch (CDbException $exc) {
         Yii::app()->user->setFlash('updateError',
           Helper::translate('srbac', 'Error while creating')
@@ -397,16 +403,12 @@ class AuthitemController extends SBaseController {
 
       $this->loadAuthItem()->delete();
       //$this->processAdminCommand();
-
       //$criteria = new CDbCriteria;
-
       //$pages = new CPagination(AuthItem::model()->count($criteria));
       //$pages->pageSize = $this->module->pageSize;
       //$pages->applyLimit($criteria);
-
       //$sort = new CSort('AuthItem');
       //$sort->applyOrder($criteria);
-
       //$models = AuthItem::model()->findAll($criteria);
 
       Yii::app()->user->setFlash('updateName',
@@ -427,7 +429,7 @@ class AuthitemController extends SBaseController {
    */
   public function actionConfirm() {
     $this->renderPartial('manage/show',
-      array('model' => $this->loadAuthItem(), 'updateList'=>false,'delete'=>true),
+      array('model' => $this->loadAuthItem(), 'updateList' => false, 'delete' => true),
       false, true);
   }
 
@@ -529,7 +531,7 @@ class AuthitemController extends SBaseController {
 
     $models = AuthItem::model()->findAll($criteria);
     $full = Yii::app()->request->getParam("full");
-    if (Yii::app()->request->isAjaxRequest && ! $full) {
+    if (Yii::app()->request->isAjaxRequest && !$full) {
       $this->renderPartial('manage/list', array(
           'models' => $models,
           'pages' => $pages,
@@ -573,11 +575,11 @@ class AuthitemController extends SBaseController {
    * @param integer the primary key value. Defaults to null, meaning using the 'id' GET variable
    */
   public function loadAuthItem($id=null) {
-    if ($this->_model===null) {
+    if ($this->_model === null) {
       $r_id = urldecode(Yii::app()->getRequest()->getParam("id", ""));
-      if ($id!==null || $r_id != "")
-        $this->_model = AuthItem::model()->findbyPk($id!==null ? $id : $r_id);
-      if ($this->_model===null)
+      if ($id !== null || $r_id != "")
+        $this->_model = AuthItem::model()->findbyPk($id !== null ? $id : $r_id);
+      if ($this->_model === null)
         throw new CHttpException(404, 'The requested page does not exist.');
     }
     return $this->_model;
@@ -587,8 +589,8 @@ class AuthitemController extends SBaseController {
    * Executes any command triggered on the admin page.
    */
   protected function processAdminCommand() {
-    if (isset($_POST['command'], $_POST['id']) && $_POST['command']==='delete') {
-     // $this->loadAuthItem($_POST['id'])->delete();
+    if (isset($_POST['command'], $_POST['id']) && $_POST['command'] === 'delete') {
+      // $this->loadAuthItem($_POST['id'])->delete();
       // reload the current page to avoid duplicated delete actions
       //$this->refresh();
     }
@@ -660,7 +662,7 @@ class AuthitemController extends SBaseController {
    * authItems
    */
   public function actionScan() {
-    if (Yii::app()->request->getParam('module')!='') {
+    if (Yii::app()->request->getParam('module') != '') {
       $controller = Yii::app()->request->getParam('module') . '/' . Yii::app()->request->getParam('controller');
     } else {
       $controller = Yii::app()->request->getParam('controller');
@@ -701,8 +703,8 @@ class AuthitemController extends SBaseController {
 
     $task = $module . str_replace("Controller", "", $controller);
 
-    $taskViewingExists = $auth->getAuthItem($task . "Viewing")!==null ? true : false;
-    $taskAdministratingExists = $auth->getAuthItem($task . "Administrating")!==null ? true : false;
+    $taskViewingExists = $auth->getAuthItem($task . "Viewing") !== null ? true : false;
+    $taskAdministratingExists = $auth->getAuthItem($task . "Administrating") !== null ? true : false;
     $delete = Yii::app()->request->getParam('delete');
 
     $h = file($control);
@@ -720,7 +722,7 @@ class AuthitemController extends SBaseController {
         $action = preg_replace($patterns, $replacements, trim($action));
         $itemId = $module . str_replace("Controller", "", $controller) .
           str_replace("action", "", $action);
-        if ($action !="actions") {
+        if ($action != "actions") {
           if ($getAll) {
             $actions[$module . $action] = $itemId;
             if (in_array($itemId, $this->allowedAccess())) {
@@ -730,11 +732,11 @@ class AuthitemController extends SBaseController {
             if (in_array($itemId, $this->allowedAccess())) {
               $allowed[] = $itemId;
             } else {
-              if ($auth->getAuthItem($itemId) === null && ! $delete) {
+              if ($auth->getAuthItem($itemId) === null && !$delete) {
                 if (!in_array($itemId, $this->allowedAccess())) {
                   $actions[$module . $action] = $itemId;
                 }
-              } else if ($auth->getAuthItem($itemId)!==null && $delete) {
+              } else if ($auth->getAuthItem($itemId) !== null && $delete) {
                 if (!in_array($itemId, $this->allowedAccess())) {
                   $actions[$module . $action] = $itemId;
                 }
@@ -762,11 +764,11 @@ class AuthitemController extends SBaseController {
               if (in_array($itemId, $this->allowedAccess())) {
                 $allowed[] = $itemId;
               } else {
-                if ($auth->getAuthItem($itemId) === null && ! $delete) {
+                if ($auth->getAuthItem($itemId) === null && !$delete) {
                   if (!in_array($itemId, $this->allowedAccess())) {
                     $actions[$cAction] = $itemId;
                   }
-                } else if ($auth->getAuthItem($itemId)!==null && $delete) {
+                } else if ($auth->getAuthItem($itemId) !== null && $delete) {
                   if (!in_array($itemId, $this->allowedAccess())) {
                     $actions[$cAction] = $itemId;
                   }
@@ -804,7 +806,7 @@ class AuthitemController extends SBaseController {
         $action = $controller . ucfirst($action);
       }
       $auth = AuthItem::model()->findByPk($action);
-      if ($auth!==null) {
+      if ($auth !== null) {
         $auth->delete();
         $message .= "<div>" . $action . " " . Helper::translate('srbac', 'deleted') . "</div>";
       } else {
@@ -818,7 +820,7 @@ class AuthitemController extends SBaseController {
       $message .= "<div style='font-weight:bold'>" . Helper::translate('srbac', 'Delete tasks') . "</div>";
       foreach ($tasks as $key => $taskname) {
         $auth = AuthItem::model()->findByPk($taskname);
-        if ($auth!==null) {
+        if ($auth !== null) {
           $auth->delete();
           $message .= "<div>" . $taskname . " " . Helper::translate('srbac', 'deleted') . "</div>";
         } else {
@@ -1020,7 +1022,7 @@ class AuthitemController extends SBaseController {
       foreach ($controller as $action) {
         //Delete items
         $auth = AuthItem::model()->findByPk($action);
-        if ($auth!==null) {
+        if ($auth !== null) {
           $auth->delete();
         }
         $allowed[] = $action;
