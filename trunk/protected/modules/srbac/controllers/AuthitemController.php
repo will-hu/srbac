@@ -336,7 +336,8 @@ class AuthitemController extends SBaseController {
   public function actionShow() {
     $deleted = Yii::app()->request->getParam('deleted', false);
     $delete = Yii::app()->request->getParam('delete', false);
-    $this->renderPartial('manage/show', array('model' => $this->loadAuthItem(),
+    $model = $this->loadAuthItem();
+    $this->renderPartial('manage/show', array('model' => $model,
         'deleted' => $deleted,
         'updateList' => false,
         'delete' => $delete));
@@ -383,6 +384,7 @@ class AuthitemController extends SBaseController {
     if (isset($_POST['AuthItem'])) {
       $model->oldName = isset($_POST["oldName"]) ? $_POST["oldName"] : $_POST["name"];
       $model->attributes = $_POST['AuthItem'];
+      
       if ($model->save()) {
         Yii::app()->user->setFlash('updateSuccess',
           "'" . $model->name . "' " .

@@ -110,6 +110,7 @@ class AuthItem extends CActiveRecord {
 
   protected function afterSave() {
     parent::afterSave();
+    $this->data = unserialize($this->data);
     if($this->oldName != $this->name) {
       $this->model()->updateByPk($this->oldName, array("name"=>$this->name));
       $criteria = new CDbCriteria();
