@@ -22,7 +22,7 @@ class SDbAuthManager extends CDbAuthManager {
    * @return boolean whether the operations can be performed by the user.
    */
   public function checkAccess($itemName, $userId, $params=array()) {
-    if (!empty($this->defaultRoles) && $this->checkDefaultRoles($itemName, $params)) {
+    if (!empty($this->defaultRoles) && in_array($itemName,$this->defaultRoles)) {
       return true;
     }
     $sql = "SELECT name, type, description, t1.bizrule, t1.data, t2.bizrule AS bizrule2, t2.data AS data2 FROM {$this->itemTable} t1, {$this->assignmentTable} t2 WHERE name=itemname AND userid=:userid";
