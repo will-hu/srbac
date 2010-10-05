@@ -384,7 +384,7 @@ class AuthitemController extends SBaseController {
     if (isset($_POST['AuthItem'])) {
       $model->oldName = isset($_POST["oldName"]) ? $_POST["oldName"] : $_POST["name"];
       $model->attributes = $_POST['AuthItem'];
-      
+
       if ($model->save()) {
         Yii::app()->user->setFlash('updateSuccess',
           "'" . $model->name . "' " .
@@ -713,11 +713,10 @@ class AuthitemController extends SBaseController {
     for ($i = 0; $i < count($h); $i++) {
       $line = trim($h[$i]);
       if (preg_match("/^(.+)function( +)action*/", $line)) {
-        $action = trim(substr($line, strpos($line, "action")));
+        $action = trim(substr($line, strpos($line, "action"), strpos($line, "(")));
         $patterns[0] = '/\s*/m';
-        $patterns[1] = '/\(/m';
-        $patterns[2] = '/\)/m';
-        $patterns[3] = '/\{/m';
+        $patterns[1] = '#\((.*)\)#';
+        $patterns[2] = '/\{/m';
         $replacements[2] = '';
         $replacements[1] = '';
         $replacements[0] = '';
