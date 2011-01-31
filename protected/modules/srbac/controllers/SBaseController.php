@@ -20,6 +20,7 @@
  * @package srbac.controllers
  * @since 1.0.2
  */
+Yii::import("srbac.components.Helper");
 class SBaseController extends CController {
 
   /**
@@ -38,7 +39,7 @@ class SBaseController extends CController {
     $contr = str_replace($del, ".", $this->id);
 
     $access = $mod . $controller . ucfirst($this->action->id);
-    
+
     //Always allow access if $access is in the allowedAccess array
     if (in_array($access, $this->allowedAccess())) {
       return true;
@@ -71,18 +72,27 @@ class SBaseController extends CController {
   }
 
   protected function onUnauthorizedAccess() {
-    $mod = $this->module !== null ? $this->module->id : "";
-    $access = $mod . ucfirst($this->id) . ucfirst($this->action->id);
-    $error["code"] = "403";
-    $error["title"] = Helper::translate('srbac', 'You are not authorized for this action');
-    $error["message"] = Helper::translate('srbac', 'Error while trying to access') . ' ' . $mod . "/" . $this->id . "/" . $this->action->id . ".";
-    //You may change the view for unauthorized access
-    if (Yii::app()->request->isAjaxRequest) {
-      $this->renderPartial(Yii::app()->getModule('srbac')->notAuthorizedView, array("error" => $error));
+    /**
+     *  Check if the unautorizedacces is a result of the user no longer being logged in.
+     *  If so, redirect the user to the login page and after login return the user to the page they tried to open.
+     *  If not, show the unautorizedacces message.
+     */
+    if (Yii::app()->user->isGuest) {
+      Yii::app()->user->loginRequired();
     } else {
-      $this->render(Yii::app()->getModule('srbac')->notAuthorizedView, array("error" => $error));
+      $mod = $this->module !== null ? $this->module->id : "";
+      $access = $mod . ucfirst($this->id) . ucfirst($this->action->id);
+      $error["code"] = "403";
+      $error["title"] = Helper::translate('srbac', 'You are not authorized for this action');
+      $error["message"] = Helper::translate('srbac', 'Error while trying to access') . ' ' . $mod . "/" . $this->id . "/" . $this->action->id . ".";
+      //You may change the view for unauthorized access
+      if (Yii::app()->request->isAjaxRequest) {
+        $this->renderPartial(Yii::app()->getModule('srbac')->notAuthorizedView, array("error" => $error));
+      } else {
+        $this->render(Yii::app()->getModule('srbac')->notAuthorizedView, array("error" => $error));
+      }
+      return false;
     }
-    return false;
   }
 
 }
