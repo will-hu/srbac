@@ -84,5 +84,29 @@ class SHtml extends CHtml {
     return self::button($label, $htmlOptions, false);
   }
 
+  /**
+	 * Generates the JavaScript with the specified client changes.
+	 * @param string event name (without 'on')
+	 * @param array HTML attributes which may contain the following special attributes
+	 * specifying the client change behaviors:
+	 * <ul>
+	 * <li>submit: string, specifies the URL that the button should submit to. If empty, the current requested URL will be used.</li>
+	 * <li>params: array, name-value pairs that should be submitted together with the form. This is only used when 'submit' option is specified.</li>
+	 * <li>csrf: boolean, whether a CSRF token should be submitted when {@link CHttpRequest::enableCsrfValidation} is true. Defaults to false.
+	 * This option has been available since version 1.0.7. You may want to set this to be true if there is no enclosing
+	 * form around this element. This option is meaningful only when 'submit' option is set.</li>
+	 * <li>return: boolean, the return value of the javascript. Defaults to false, meaning that the execution of
+	 * javascript would not cause the default behavior of the event. This option has been available since version 1.0.2.</li>
+	 * <li>confirm: string, specifies the message that should show in a pop-up confirmation dialog.</li>
+	 * <li>ajax: array, specifies the AJAX options (see {@link ajax}).</li>
+	 * </ul>
+	 * @param boolean whether the event should be "live" (a jquery event concept). Defaults to true.
+	 * This parameter has been available since version 1.1.1.
+	 */
+	protected static function clientChange($event,&$htmlOptions){
+    $htmlOptions['live']=false;
+    parent::clientChange($event, $htmlOptions);
+  }
+
 }
 ?>
