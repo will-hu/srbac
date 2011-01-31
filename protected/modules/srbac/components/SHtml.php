@@ -27,7 +27,8 @@ class SHtml extends CHtml {
       $htmlOptions['type'] = 'button';
     if (!isset($htmlOptions['value']))
       $htmlOptions['value'] = $label;
-    self::clientChange('click', $htmlOptions, false);
+    $htmlOptions['live']=false;
+    self::clientChange('click', $htmlOptions);
     return self::tag('input', $htmlOptions);
   }
 
@@ -43,6 +44,7 @@ class SHtml extends CHtml {
 	public static function ajaxSubmitButton($label,$url,$ajaxOptions=array(),$htmlOptions=array())
 	{
 		$ajaxOptions['type']='POST';
+    $htmlOptions['live']=false;
 		return self::ajaxButton($label,$url,$ajaxOptions,$htmlOptions);
 	}
 
@@ -65,7 +67,8 @@ class SHtml extends CHtml {
       $htmlOptions['href'] = '#';
     $ajaxOptions['url'] = $url;
     $htmlOptions['ajax'] = $ajaxOptions;
-    self::clientChange('click', $htmlOptions, false);
+    $htmlOptions['live']=false;
+    self::clientChange('click', $htmlOptions);
     return self::tag('a', $htmlOptions, $text);
   }
 
@@ -81,7 +84,8 @@ class SHtml extends CHtml {
   public static function ajaxButton($label, $url, $ajaxOptions=array(), $htmlOptions=array()) {
     $ajaxOptions['url'] = $url;
     $htmlOptions['ajax'] = $ajaxOptions;
-    return self::button($label, $htmlOptions, false);
+    $htmlOptions['live']=false;
+    return self::button($label, $htmlOptions);
   }
 
   /**
