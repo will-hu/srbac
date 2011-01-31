@@ -713,7 +713,9 @@ class AuthitemController extends SBaseController {
     for ($i = 0; $i < count($h); $i++) {
       $line = trim($h[$i]);
       if (preg_match("/^(.+)function( +)action*/", $line)) {
-        $action = trim(substr($line, strpos($line, "action"), strpos($line, "(")));
+        $posAct = strpos(trim($line), "action");
+        $posPar = strpos(trim($line), "(");
+        $action = trim(substr(trim($line),$posAct, $posPar-$posAct));
         $patterns[0] = '/\s*/m';
         $patterns[1] = '#\((.*)\)#';
         $patterns[2] = '/\{/m';
