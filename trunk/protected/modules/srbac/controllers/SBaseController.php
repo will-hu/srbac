@@ -28,17 +28,17 @@ class SBaseController extends CController {
    * @return boolean true if access is granted else false
    */
   protected function beforeAction($action) {
-
+    $del = Helper::findModule('srbac')->delimeter;
     //srbac access
-    $mod = $this->module !== null ? $this->module->id . "/" : "";
-    $contrArr = explode("/", $this->id);
+    $mod = $this->module !== null ? $this->module->id . $del : "";
+    $contrArr = explode($del, $this->id);
     $contrArr[sizeof($contrArr) - 1] = ucfirst($contrArr[sizeof($contrArr) - 1]);
     $controller = implode(".", $contrArr);
 
-    $contr = str_replace("/", ".", $this->id);
+    $contr = str_replace($del, ".", $this->id);
 
     $access = $mod . $controller . ucfirst($this->action->id);
-
+    
     //Always allow access if $access is in the allowedAccess array
     if (in_array($access, $this->allowedAccess())) {
       return true;

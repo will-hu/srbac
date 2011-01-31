@@ -28,8 +28,8 @@
           </tr>
           <?php $prevModule = ""; ?>
           <?php foreach ($controllers as $n=>$controller) { ?>
-            <?php if(substr_count($controller, "/")) { ?>
-              <?php list($module,$controller) = explode("/", $controller); ?>
+            <?php if(substr_count($controller, Helper::findModule('srbac')->delimeter)) { ?>
+            <?php list($module,$controller) = explode(Helper::findModule('srbac')->delimeter, $controller); ?>
               <?php if($module != $prevModule) { ?>
                 <tr>
                 <th colspan="3">
