@@ -79,6 +79,8 @@ class SrbacModule extends CWebModule {
   public $footer = "srbac.views.authitem.footer";
   /* @var $alwaysAllowedPath String */
   public $alwaysAllowedPath = "srbac.components";
+  /* @var $delimeter The delimeter used in modules between moduleId and itemId */
+  public $delimeter = "-";
 
 
   /**

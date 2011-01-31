@@ -665,7 +665,9 @@ class AuthitemController extends SBaseController {
    */
   public function actionScan() {
     if (Yii::app()->request->getParam('module') != '') {
-      $controller = Yii::app()->request->getParam('module') . '/' . Yii::app()->request->getParam('controller');
+      $controller = Yii::app()->request->getParam('module') .
+        Helper::findModule('srbac')->delimeter
+        . Yii::app()->request->getParam('controller');
     } else {
       $controller = Yii::app()->request->getParam('controller');
     }
@@ -686,15 +688,16 @@ class AuthitemController extends SBaseController {
    * return array
    * */
   private function _getControllerInfo($controller, $getAll = false) {
+    $del = Helper::findModule('srbac')->delimeter;
     $actions = array();
     $allowed = array();
     $auth = Yii::app()->authManager;
 
     //Check if it's a module controller
-    if (substr_count($controller, "/")) {
-      $c = explode("/", $controller);
+    if (substr_count($controller,$del )) {
+      $c = explode($del, $controller);
       $controller = $c[1];
-      $module = $c[0] . "/";
+      $module = $c[0] .$del;
       $contPath = Yii::app()->getModule($c[0])->getControllerPath();
       $control = $contPath . DIRECTORY_SEPARATOR . str_replace(".", DIRECTORY_SEPARATOR, $controller) . ".php";
     } else {
@@ -789,10 +792,11 @@ class AuthitemController extends SBaseController {
    * Deletes autocreated authItems
    */
   public function actionAutoDeleteItems() {
+    $del = Helper::findModule('srbac')->delimeter;
     $cont = str_replace("Controller", "", $_POST["controller"]);
 
     //Check for module controller
-    $controllerArr = explode("/", $cont);
+    $controllerArr = explode($del, $cont);
     $controller = $controllerArr[sizeof($controllerArr) - 1];
 
 
@@ -934,12 +938,13 @@ class AuthitemController extends SBaseController {
 
   private function _scanDir($contPath, $module="", $subdir="", $controllers = array()) {
     $handle = opendir($contPath);
+    $del = Helper::findModule('srbac')->delimeter;
     while (($file = readdir($handle)) !== false) {
       $filePath = $contPath . DIRECTORY_SEPARATOR . $file;
       if (is_file($filePath)) {
         if (preg_match("/^(.+)Controller.php$/", basename($file))) {
           if ($this->_extendsSBaseController($filePath)) {
-            $controllers[] = (($module) ? $module . "/" : "") .
+            $controllers[] = (($module) ? $module . $del : "") .
               (($subdir) ? $subdir . "." : "") .
               str_replace(".php", "", $file);
           }
