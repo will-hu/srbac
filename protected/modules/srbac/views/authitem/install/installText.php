@@ -19,6 +19,7 @@
   You must have a database, authManager component and the srbac module
   configured in your application's configuration.<br />
   The module configuration must be like this:
+  (For more detailed information check the srbac guide)
   <?php $this->beginWidget('CTextHighlighter',array('language'=>'php')) ?>
   'modules'=>array('srbac'=>
   array(
@@ -33,6 +34,9 @@
       //if you use internationalization untranslated words/phrases
       //will be marked with a red star
       "debug"=>true,
+      //The delimeter between modulename and auth item name for authitems in modules
+      // (default "-")
+      "delimeter"=>"@",
       // The number of items shown in each page (default:15)
       "pageSize"=>8,
       // The name of the super user
