@@ -727,7 +727,7 @@ class AuthitemController extends SBaseController {
         $replacements[0] = '';
         $action = preg_replace($patterns, $replacements, trim($action));
         $itemId = $module . str_replace("Controller", "", $controller) .
-          str_replace("action", "", $action);
+        preg_replace("/action/", "", $action,1);
         if ($action != "actions") {
           if ($getAll) {
             $actions[$module . $action] = $itemId;
@@ -807,9 +807,9 @@ class AuthitemController extends SBaseController {
     foreach ($actions as $key => $action) {
       if (substr_count($action, "action") > 0) {
         //controller action
-        $action = trim(str_replace("action", $controller, $action));
+        $action = trim(preg_replace("/action/", $controller, $action,1));
       } else {
-        // actions action
+        // actions actionstr_replace
         $action = $controller . ucfirst($action);
       }
       $auth = AuthItem::model()->findByPk($action);
@@ -876,7 +876,7 @@ class AuthitemController extends SBaseController {
     }
     $message .= "<div style='font-weight:bold'>" . Helper::translate('srbac', 'Creating operations') . "</div>";
     foreach ($actions as $action) {
-      $act = explode("action", $action);
+      $act = explode("action", $action,2);
       $a = trim($controller . (count($act) > 1 ? $act[1] : ucfirst($act[0])));
       $auth = new AuthItem();
       $auth->name = $a;
