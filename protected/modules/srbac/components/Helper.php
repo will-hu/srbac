@@ -130,13 +130,14 @@ class Helper {
       $tasks->condition = "type=". CAuthItem::TYPE_OPERATION." AND parent ='" . $name . "'";
       $tasks->join = 'left join ' . Yii::app()->authManager->itemChildTable . ' on name = child';
       if ($clever) {
-        $p[0] = "/Viewing/";
-        $p[1] = "/Administrating/";
-        $r[0] = "";
-        $r[1] = "";
-        $cleverName = preg_replace($p, $r, $name);
-        $len = strlen($cleverName);
-        $tasks->addCondition("SUBSTR(child,0," . $len . ") = '" . $cleverName . "'");
+//        $p[0] = "/Viewing/";
+//        $p[1] = "/Administrating/";
+//        $r[0] = "";
+//        $r[1] = "";
+//        $cleverName = preg_replace($p, $r, $name);
+//        $len = strlen($cleverName);
+        //$tasks->addCondition("SUBSTR(child,0," . $len . ") = '" . $cleverName . "'");
+        $tasks->addCondition("SUBSTR(child,0,3) = SUBSTR('" . $name . "',0,3)");
       }
     } else {
       $tasks->condition = "type=". CAuthItem::TYPE_OPERATION;
@@ -159,13 +160,14 @@ class Helper {
     $tasks = new CDbCriteria();
     $tasks->condition = "type=". CAuthItem::TYPE_OPERATION;
     if ($clever) {
-      $p[0] = "/Viewing/";
-      $p[1] = "/Administrating/";
-      $r[0] = "";
-      $r[1] = "";
-      $cleverName = preg_replace($p, $r, $name);
-      $len = strlen($cleverName);
-      $tasks->addCondition("SUBSTR(name,0," . $len . ") = '" . $cleverName . "'");
+//      $p[0] = "/Viewing/";
+//      $p[1] = "/Administrating/";
+//      $r[0] = "";
+//      $r[1] = "";
+//      $cleverName = preg_replace($p, $r, $name);
+//      $len = strlen($cleverName);
+      //$tasks->addCondition("SUBSTR(name,0," . $len . ") = '" . $cleverName . "'");
+      $tasks->addCondition("SUBSTR(name,0,3) = SUBSTR('" . $name . "',0,3)");
     }
     $final = array();
     if ($name) {
