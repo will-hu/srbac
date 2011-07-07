@@ -136,7 +136,7 @@ class Helper {
 //        $r[1] = "";
 //        $cleverName = preg_replace($p, $r, $name);
 //        $len = strlen($cleverName);
-        //$tasks->addCondition("SUBSTR(child,0," . $len . ") = '" . $cleverName . "'");
+       //  $tasks->addCondition("SUBSTR(child,0," . $len . ") = '" . $cleverName . "'");
         $tasks->addCondition("SUBSTR(child,0,3) = SUBSTR('" . $name . "',0,3)");
       }
     } else {
