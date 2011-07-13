@@ -522,4 +522,22 @@ class Helper {
     fclose($f);
     return true;
   }
+  
+  /**
+   * Gets all users array for autocomplete textbox
+   */
+  public static function getAllusers($term){
+    $mod = Helper::findModule("srbac");
+    $cr = new CDbCriteria();
+    $cr->compare($mod->username,$term,true);
+    $users = Helper::findModule('srbac')->getUserModel()->findAll($cr);
+    foreach ($users as $key => $user) {
+      $list[] = array(
+          "label"=>$user->{$mod->username},
+          "value"=>$user->{$mod->username},
+          "id"=>$user->{$mod->userid},
+          );
+    }
+    return $list;
+  }
 }
