@@ -55,6 +55,11 @@ class AuthitemController extends SBaseController {
       parent::beforeAction($action);
     }
   }
+  
+  public function actionGetUsers($term){
+    $list = Helper::getAllusers($term);
+    echo CJSON::encode($list);
+  }
 
   /**
    * Assigns roles to a user
