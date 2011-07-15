@@ -48,8 +48,7 @@ class AuthitemController extends SBaseController {
     if ($this->module->debug) {
       return true;
     }
-    if (Yii::app()->user->checkAccess(Helper::findModule('srbac')->superUser) ||
-      !Helper::isAuthorizer()) {
+    if (Yii::app()->user->checkAccess(Helper::findModule('srbac')->superUser) ) {
       return true;
     } else {
       parent::beforeAction($action);
