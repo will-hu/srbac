@@ -37,7 +37,7 @@ if (!$id) {
     ?>
     <?php echo SHtml::beginForm(); ?>
     <?php
-    echo Helper::translate('srbac', 'User') . ": " . SHtml::activeDropDownList($this->module->getUserModel(), $this->module->userid, SHtml::listData($this->module->getUserModel()->findAll(), $this->module->userid, $this->module->username), array('size' => 1, 'class' => 'dropdown', 'ajax' => array(
+    echo Helper::translate('srbac', 'User') . ": " . SHtml::activeDropDownList($this->module->getUserModel(), $this->module->userid, SHtml::listData($this->module->getUserModel()->findAll(), $this->module->userid, $this->module->username), array('disabled'=>'disabled', 'size' => 1, 'class' => 'dropdown', 'ajax' => array(
             'type' => 'POST',
             'url' => array('showAssignments'),
             'update' => '#assignments',
